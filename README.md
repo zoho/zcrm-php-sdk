@@ -20,9 +20,9 @@ PHP SDK is installable through `composer`. Composer is a tool for dependency man
 Client library must be installed into client app though composer.
 The function ZCRMRestClient::initialize() must be called on startup of app.
 
->MySQL should run in the same machine serving at the default port 3306.
-The database name should be "zohooauth".
-There must be a table "oauthtokens" with the columns "useridentifier"(varchar(100)), "accesstoken"(varchar(100)), "refreshtoken"(varchar(100)), "expirytime"(bigint).
+>MySQL should run in the same machine serving at the default port 3306.  
+The database name should be "zohooauth".  
+There must be a table "oauthtokens" with the columns "useridentifier"(varchar(100)), "accesstoken"(varchar(100)), "refreshtoken"(varchar(100)), "expirytime"(bigint).  
 
 **If `token_persistence_path` provided in `oauth_configuration.properties` file, then persistence happens in file only. In this case, no need of MySQL**
 please create a empty file with name **zcrm_oauthtokens.txt** in the mentioned `token_persistence_path`
@@ -46,8 +46,8 @@ To install composer on windows machine:
 
 Install PHP SDK
 ---------------
-Here's how you install the SDK
-navigate to the workspace of your client app
+Here's how you install the SDK  
+Navigate to the workspace of your client app  
 Run the command below:
 
 >composer require zohocrm/php-sdk
@@ -56,23 +56,27 @@ Hence, the SDK would be installed and a package named `vendor` would be created 
 
 Configurations
 --------------
-Your OAuth Client details should be given to the SDK as a property file. In SDK, we have placed a configuration file (oauth_configuration.properties). Please place the respective values in that file. You can find that file under `vendor/zohocrm/php-sdk/src/resources`.
+Your OAuth Client details should be given to the SDK as a property file.  
+In SDK, we have placed a configuration file (oauth_configuration.properties).   
+Please place the respective values in that file.  
+You can find that file under `vendor/zohocrm/php-sdk/src/resources`.  
 
 Please fill only the following keys. Based on your domain(EU,CN) please change the value of `accounts_url`. Default value set as US domain
 
->client_id=
-client_secret=
-redirect_uri=
-accounts_url=https://accounts.zoho.com
-token_persistence_path=
+>client_id=  
+client_secret=  
+redirect_uri=  
+accounts_url=https://accounts.zoho.com  
+token_persistence_path=  
 
-Only the keys displayed above are to be filled.
-`client_id`, `client_secret` and `redirect_uri` are your OAuth client’s configurations that you get after registering your Zoho client.
-`token_persistence_path` is the path to store the OAuth related tokens in file. If this is set then, no need of `database` for persistence. Persistence happens through `file` only.
-`access_type` must be set to offline only because online OAuth client is not supported by the SDK as of now.
-`persistence_handler_class` is the implementation of the ZohoOAuthPersistenceInterface
+Only the keys displayed above are to be filled.  
+`client_id`, `client_secret` and `redirect_uri` are your OAuth client’s configurations that you get after registering your Zoho client.  
+`token_persistence_path` is the path to store the OAuth related tokens in file. If this is set then, no need of `database` for persistence. Persistence happens through `file` only.  
+`access_type` must be set to offline only because online OAuth client is not supported by the SDK as of now.  
+`persistence_handler_class` is the implementation of the ZohoOAuthPersistenceInterface  
 
-Create a file named `ZCRMClientLibrary.log` in your client app machine and mention the absolute path of the created file in `configuration.properties` for the key `applicationLogFilePath`. You can find that file under `vendor/zohocrm/php-sdk/src/resources`. This file is to log the exceptions occurred during the usage of SDK.
+Create a file named `ZCRMClientLibrary.log` in your client app machine and mention the absolute path of the created file in `configuration.properties` for the key `applicationLogFilePath`.   
+You can find that file under `vendor/zohocrm/php-sdk/src/resources`. This file is to log the exceptions occurred during the usage of SDK.  
 
 Please fill only the following key
 
@@ -117,11 +121,11 @@ Generating access token
 -----------------------
 The following code snippet should be executed from your main class to get access token. Please paste the copied refresh token in the string literal mentioned below. This is a one-time process.
 
->ZCRMRestClient::initialize();
-$oAuthClient = ZohoOAuth::getClientInstance();
-$refreshToken = “paste_the_refresh_token_here”;
-$userIdentifier = “provide_user_identifier_like_email_here”;
-$oAuthTokens = $oAuthClient->generateAccessTokenFromRefreshToken($refreshToken,$userIdentifier);
+>ZCRMRestClient::initialize();  
+$oAuthClient = ZohoOAuth::getClientInstance();  
+$refreshToken = “paste_the_refresh_token_here”;  
+$userIdentifier = “provide_user_identifier_like_email_here”;  
+$oAuthTokens = $oAuthClient->generateAccessTokenFromRefreshToken($refreshToken,$userIdentifier);  
 
 Upon successful execution of the above code snippet, the generated access token and given refresh token would have been persisted through our persistence handler class.
 
@@ -199,33 +203,34 @@ Please note that the getInstance() function would not have any of its properties
 
 Summing it up
 -------------
-ZCRMRestClient::getModule(“Contacts”) would return the actual Contacts module, that has all the properties of the Contacts module filled through an API call.
-ZCRMRestClient::getModuleInstance(“Contacts”) would return a dummy ZCRMModule object that would refer to the Contacts module, with no properties filled, since this doesn’t make an API call.
+ZCRMRestClient::getModule(“Contacts”) would return the actual Contacts module, that has all the properties of the Contacts module filled through an API call.  
+ZCRMRestClient::getModuleInstance(“Contacts”) would return a dummy ZCRMModule object that would refer to the Contacts module, with no properties filled, since this doesn’t make an API call.  
 Hence, to get records from a module, it is not necessary that you need to start from ZCRMRestClient. Instead, you could get a ZCRMModule instance with ZCRMModule::getInstance() and then invoke its non-static getRecords() function from the created instance. This would avoid the API call which would have been triggered to populate the ZCRMModule object.
 
 Accessing record properties
 ---------------------------
 Since record properties are dynamic across modules, only the fields like createdTime, createBy, owner etc, are given as ZCRMRecord’s default properties. All other record properties are available as a map in ZCRMRecord object.
 
-To access the individual field values of a record, use the getter and setter functions available. The keys of the record properties map are the API names of the module’s fields. All fields API names of all modules are available under Setup → Marketplace → APIs → CRM API → API Names.
+To access the individual field values of a record, use the getter and setter functions available. The keys of the record properties map are the API names of the module’s fields. All fields API names of all modules are available under Setup → Marketplace → APIs → CRM API → API Names.  
 
-To get a field value, use $record → getFieldValue($fieldAPIName);
-To set a field value, use $record → setFieldValue($fieldAPIName, $newValue);
+To get a field value, use $record → getFieldValue($fieldAPIName);  
+To set a field value, use $record → setFieldValue($fieldAPIName, $newValue);  
 While setting a field value, make sure that the set value is of the apt data type of the field to which you are going to set it.
 
 Response Handling
 -----------------
 `APIResponse` and `BulkAPIResponse` are wrapper objects for Zoho CRM APIs’ responses. All API calling functions would return one of these two objects.
 
-DownloadFile and downloadPhoto returns `FileAPIResponse` instead of APIResponse.
+DownloadFile and downloadPhoto returns `FileAPIResponse` instead of APIResponse.  
 A function which seeks a single entity would return an APIResponse, and a function which seeks a list of entities would return a BulkAPIResponse object.
 Use the `getData()` function to get the entity data alone from the response wrapper objects. 
 `APIResponse → getData()` would return a single Zoho CRM entity object, whereas `BulkAPIResponse → getData()`` would return a list of Zoho CRM entity objects.
 Other than data, these response wrapper objects have the following properties:
 
-`ResponseHeaders` - remaining API counts for the present day/window and time elapsed for the present window reset.
-`ResponseInfo` - any other information, if provided by the API, in addition to the actual data.
-`Array of EntityResponse(s)` - status of individual entities in a bulk API. For example: an insert records API may partially fail because of a few records. This array gives the individual records’ creation status.
+`ResponseHeaders` - remaining API counts for the present day/window and time elapsed for the present window reset.  
+`ResponseInfo` - any other information, if provided by the API, in addition to the actual data.  
+`Array of EntityResponse(s)` - status of individual entities in a bulk API.  
+For example: an insert records API may partially fail because of a few records. This array gives the individual records’ creation status.
 
 Exceptions
 ----------
@@ -235,47 +240,47 @@ Examples:
 ---------
 Sample Request for insert records:
 ---------------------------------
->$zcrmModuleIns = ZCRMModule::getInstance("Invoices");
-$bulkAPIResponse=$zcrmModuleIns->createRecords($recordsArray); // $recordsArray - array of ZCRMRecord instances filled with required data for creation.
-$entityResponses = $bulkAPIResponse->getEntityResponses();
-foreach($entityResponses as $entityResponse)
-{
-	if("success"==$entityResponse->getStatus())
-	{
-		echo "Status:".$entityResponse->getStatus();
-		echo "Message:".$entityResponse->getMessage();
-		echo "Code:".$entityResponse->getCode();
-		$createdRecordInstance=$entityResponse->getData();
-		echo "EntityID:".$createdRecordInstance->getEntityId();
-		echo "moduleAPIName:".$createdRecordInstance->getModuleAPIName();
+>$zcrmModuleIns = ZCRMModule::getInstance("Invoices");  
+$bulkAPIResponse=$zcrmModuleIns->createRecords($recordsArray); // $recordsArray - array of ZCRMRecord instances filled with required data for creation.  
+$entityResponses = $bulkAPIResponse->getEntityResponses();  
+foreach($entityResponses as $entityResponse)  
+{  
+	if("success"==$entityResponse->getStatus())  
+	{  
+		echo "Status:".$entityResponse->getStatus();  
+		echo "Message:".$entityResponse->getMessage();  
+		echo "Code:".$entityResponse->getCode();  
+		$createdRecordInstance=$entityResponse->getData();  
+		echo "EntityID:".$createdRecordInstance->getEntityId();  
+		echo "moduleAPIName:".$createdRecordInstance->getModuleAPIName();  
 		….
 	}
 }
 
 	Sample Invoice record instance with filled data
 	-----------------------------------------------
-$record=ZCRMRecord::getInstance("Invoices",null);
-$record->setFieldValue("Subject","Iphone sale to John");
-$record->setFieldValue("Account_Name","410405000001016021");
-$productInstance=ZCRMRecord::getInstance("Products",410405000001108011);
-$lineItem=ZCRMInventoryLineItem::getInstance($productInstance);
-$taxInstance1=ZCRMTax::getInstance("Sales Tax");
-$taxInstance1->setPercentage(2);
-$taxInstance1->setValue(10);
-$lineItem->addLineTax($taxInstance1);
-$taxInstance1=ZCRMTax::getInstance("Vat");
-$taxInstance1->setPercentage(12);
-$taxInstance1->setValue(60);
-$lineItem->addLineTax($taxInstance1);
-$lineItem->setQuantity(100);
-$lineItem->setDiscount(0.5);
-$record->addLineItem($lineItem);
+$record=ZCRMRecord::getInstance("Invoices",null);  
+$record->setFieldValue("Subject","Iphone sale to John");  
+$record->setFieldValue("Account_Name","410405000001016021");  
+$productInstance=ZCRMRecord::getInstance("Products",410405000001108011);  
+$lineItem=ZCRMInventoryLineItem::getInstance($productInstance);  
+$taxInstance1=ZCRMTax::getInstance("Sales Tax");  
+$taxInstance1->setPercentage(2);  
+$taxInstance1->setValue(10);  
+$lineItem->addLineTax($taxInstance1);  
+$taxInstance1=ZCRMTax::getInstance("Vat");  
+$taxInstance1->setPercentage(12);  
+$taxInstance1->setValue(60);  
+$lineItem->addLineTax($taxInstance1);  
+$lineItem->setQuantity(100);  
+$lineItem->setDiscount(0.5);  
+$record->addLineItem($lineItem);  
 
 
 Sample Request to fetch records:
 --------------------------------
->$zcrmModuleIns = ZCRMModule::getInstance("Contacts");
-$bulkAPIResponse=$zcrmModuleIns->getRecords();
-$recordsArray = $bulkAPIResponse->getData(); // $recordsArray - array of ZCRMRecord instances
+>$zcrmModuleIns = ZCRMModule::getInstance("Contacts");  
+$bulkAPIResponse=$zcrmModuleIns->getRecords();  
+$recordsArray = $bulkAPIResponse->getData(); // $recordsArray - array of ZCRMRecord instances  
 
 For more APIs, please refer [this link](https://www.zoho.com/crm/help/api/v2/#api-reference)
