@@ -322,9 +322,12 @@ class RelatedListAPIHandler extends APIHandler
 		$noteIns->setId(isset($noteDetails["id"])?$noteDetails["id"]:null);
 		$noteIns->setTitle(isset($noteDetails["Note_Title"])?$noteDetails["Note_Title"]:null);
 		$noteIns->setContent(isset($noteDetails["Note_Content"])?$noteDetails["Note_Content"]:null);
-		$ownerObj = $noteDetails["Owner"];
-		$ownerIns = ZCRMUser::getInstance($ownerObj["id"]+0, $ownerObj["name"]);
-		$noteIns->setOwner($ownerIns);
+		if(isset($noteDetails["Owner"]))
+		{
+			$ownerObj = $noteDetails["Owner"];
+			$ownerIns = ZCRMUser::getInstance($ownerObj["id"]+0, $ownerObj["name"]);
+			$noteIns->setOwner($ownerIns);
+		}
 		$createdByObj = $noteDetails["Created_By"];
 		$createdBy = ZCRMUser::getInstance($createdByObj["id"]+0, $createdByObj["name"]);
 		$noteIns->setCreatedBy($createdBy);
