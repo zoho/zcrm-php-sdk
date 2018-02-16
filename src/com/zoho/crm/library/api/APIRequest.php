@@ -46,7 +46,9 @@ class APIRequest
 	 */
 	public function constructAPIUrl()
 	{
-		$this->url=ZCRMConfigUtil::getAPIBaseUrl()."/crm/".ZCRMConfigUtil::getAPIVersion()."/";
+		$hitSandbox=ZCRMConfigUtil::getConfigValue('sandbox');
+		$baseUrl=strcasecmp($hitSandbox, "true")==0?str_replace('www','sandbox',ZCRMConfigUtil::getAPIBaseUrl()):ZCRMConfigUtil::getAPIBaseUrl();
+		$this->url=$baseUrl."/crm/".ZCRMConfigUtil::getAPIVersion()."/";
 		$this->url=str_replace(PHP_EOL, '', $this->url);
 	}
 	
