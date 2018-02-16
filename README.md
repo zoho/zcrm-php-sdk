@@ -82,6 +82,11 @@ Please fill only the following key
 
 >applicationLogFilePath=
 
+To make API calls to `sandbox account`, please change the value of following key to `true`. By default the value is `false`  
+
+>sandbox=true
+
+
 If your application needs only a single user authentication then you have to set the user EmailId in configurations.properties file as given below:
 
 >currentUserEmail=user@email.com
