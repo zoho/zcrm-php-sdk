@@ -125,6 +125,59 @@ class MassEntityAPIHandler extends APIHandler
 		}
 	}
 	
+	public function updateRecords($records)
+	{
+		if(sizeof($records) > 100)
+		{
+			throw new ZCRMException(APIConstants::API_MAX_RECORDS_MSG,APIConstants::RESPONSECODE_BAD_REQUEST);
+		}
+		try{
+			$this->urlPath=$this->module->getAPIName();
+			$this->requestMethod=APIConstants::REQUEST_METHOD_PUT;
+			$this->addHeader("Content-Type","application/json");
+			$requestBodyObj = array();
+			$dataArray = array();
+			foreach ($records as $record)
+			{
+				$recordJSON=EntityAPIHandler::getInstance($record)->getZCRMRecordAsJSON();
+				if($record->getEntityId()!=null)
+				{
+					$recordJSON['id']=$record->getEntityId();
+				}
+				array_push($dataArray,$recordJSON);
+			}
+			$requestBodyObj["data"]=$dataArray;
+			$this->requestBody = $requestBodyObj;
+	
+			//Fire Request
+			$bulkAPIResponse = APIRequest::getInstance($this)->getBulkAPIResponse();
+			$upsertRecords=array();
+			$responses=$bulkAPIResponse->getEntityResponses();
+			$size=sizeof($responses);
+			for($i=0;$i<$size;$i++)
+			{
+				$entityResIns=$responses[$i];
+				if(APIConstants::STATUS_SUCCESS===$entityResIns->getStatus())
+				{
+					$responseData = $entityResIns->getResponseJSON();
+					$recordDetails = $responseData["details"];
+					$newRecord = $records[$i];
+					EntityAPIHandler::getInstance($newRecord)->setRecordProperties($recordDetails);
+					array_push($upsertRecords,$newRecord);
+					$entityResIns->setData($newRecord);
+				}
+				else
+				{
+					$entityResIns->setData(null);
+				}
+			}
+			$bulkAPIResponse->setData($upsertRecords);
+			return $bulkAPIResponse;
+			}catch (ZCRMException $e){
+			throw $e;
+		}
+		}
+	
 	public function deleteRecords($entityIds)
 	{
 		if(sizeof($entityIds) > 100)
@@ -295,7 +348,7 @@ class MassEntityAPIHandler extends APIHandler
 		}
 	}
 	
-	public function updateRecords($idList,$apiName,$value)
+	public function massUpdateRecords($idList,$apiName,$value)
 	{
 		if(sizeof($idList)>100)
 		{
@@ -352,7 +405,7 @@ class MassEntityAPIHandler extends APIHandler
 			array_push($massUpdateArray,$updateJson);
 		}
 		
-		return json_encode(array("data"=>$massUpdateArray));
+		return array("data"=>$massUpdateArray);
 	}
 }
 ?>
