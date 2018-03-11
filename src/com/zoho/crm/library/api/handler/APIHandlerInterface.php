@@ -1,4 +1,5 @@
 <?php
+
 interface APIHandlerInterface
 {
 	public function getRequestMethod();
@@ -9,4 +10,3 @@ interface APIHandlerInterface
 	public function getRequestHeadersAsMap();
 	public function getRequestParamsAsMap();
 }
-?>
