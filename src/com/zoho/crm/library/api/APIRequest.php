@@ -1,11 +1,13 @@
 <?php
-require_once realpath(dirname(__FILE__)."/../common/ZCRMConfigUtil.php");
-require_once realpath(dirname(__FILE__)."/../common/ZohoHTTPConnector.php");
-require_once realpath(dirname(__FILE__)."/../common/APIConstants.php");
-require_once realpath(dirname(__FILE__)."/../exception/ZCRMException.php");
+
+require_once realpath(__DIR__."/../common/ZCRMConfigUtil.php");
+require_once realpath(__DIR__."/../common/ZohoHTTPConnector.php");
+require_once realpath(__DIR__."/../common/APIConstants.php");
+require_once realpath(__DIR__."/../exception/ZCRMException.php");
 require_once 'response/APIResponse.php';
 require_once 'response/BulkAPIResponse.php';
 require_once realpath(dirname(__FILE__)."/response/FileAPIResponse.php");
+
 /**
  * This class is to construct the API requests and initiate the request
  * @author sumanth-3058
@@ -13,14 +15,15 @@ require_once realpath(dirname(__FILE__)."/response/FileAPIResponse.php");
  */
 class APIRequest
 {
-	private $url=null;
-	private $requestParams=array();
-	private $requestHeaders=array();
+	private $url = null;
+	private $requestParams = array();
+	private $requestHeaders = array();
 	private $requestBody;
 	private $requestMethod;
-	private $apiKey=null;
-	private $response=null;
-	private $reponseInfo=null;
+	private $apiKey = null;
+	private $response = null;
+	private $reponseInfo = null;
+
 	private function __construct($apiHandler)
 	{
 		self::constructAPIUrl();
@@ -35,12 +38,13 @@ class APIRequest
 		self::setRequestMethod($apiHandler->getRequestMethod());
 		self::setApiKey($apiHandler->getApiKey());
 	}
-	
+
 	public static function getInstance($apiHandler)
 	{
 		$instance=new APIRequest($apiHandler);
 		return $instance;
 	}
+
 	/**
 	 * Method to construct the API Url
 	 */
@@ -51,8 +55,7 @@ class APIRequest
 		$this->url=$baseUrl."/crm/".ZCRMConfigUtil::getAPIVersion()."/";
 		$this->url=str_replace(PHP_EOL, '', $this->url);
 	}
-	
-	
+
 	private function authenticateRequest()
 	{
 		try{
@@ -63,6 +66,7 @@ class APIRequest
 			throw $ex;
 		}
 	}
+
 	/**
 	 * initiate the request and get the API response
 	 * @return Instance of APIResponse
@@ -88,7 +92,7 @@ class APIRequest
 			throw $e;
 		}
 	}
-	
+
 	/**
 	 * initiate the request and get the API response
 	 * @return instance of BulkAPIResponse
@@ -115,7 +119,7 @@ class APIRequest
 			throw $e;
 		}
 	}
-	
+
 	public function uploadFile($filePath)
 	{
 		try {
@@ -128,7 +132,7 @@ class APIRequest
 				$cFile = '@' . realpath($filePath);
 			}
 			$post = array('file'=> $cFile);
-				
+
 			$connector=ZohoHTTPConnector::getInstance();
 			$connector->setUrl($this->url);
 			self::authenticateRequest();
@@ -147,11 +151,12 @@ class APIRequest
 			throw $e;
 		}
 	}
+
 	public function uploadLinkAsAttachment($linkURL)
 	{
 		try {
 			$post = array('attachmentUrl'=> $linkURL);
-	
+
 			$connector=ZohoHTTPConnector::getInstance();
 			$connector->setUrl($this->url);
 			self::authenticateRequest();
@@ -169,7 +174,7 @@ class APIRequest
 			throw $e;
 		}
 	}
-	
+
 	public function downloadFile()
 	{
 		try {
@@ -282,6 +287,4 @@ class APIRequest
     public function setApiKey($apiKey){
         $this->apiKey = $apiKey;
     }
-
 }
-?>
