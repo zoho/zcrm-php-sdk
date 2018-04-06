@@ -2,10 +2,15 @@
 
 namespace ZCRM\common;
 
-require_once realpath(dirname(__FILE__) . "/../exception/Logger.php");
+use ZCRM\exception\Logger;
 
 class CommonUtil {
+    /**
+     * @param $fileHandler
+     * @return array
+     */
     public static function getFileContentAsMap($fileHandler) {
+        
         $reponseMap = array();
         try {
             while (!feof($fileHandler)) {
@@ -16,14 +21,17 @@ class CommonUtil {
                 }
             }
             fclose($fileHandler);
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             Logger::warn("Exception occured while converting file content as map (file::ZohoOAuthUtil.php)");
         }
         return $reponseMap;
     }
 
+    /**
+     * @return \ArrayObject
+     */
     public static function getEmptyJSONObject() {
-        return new ArrayObject();
+        return new \ArrayObject();
     }
 }
 

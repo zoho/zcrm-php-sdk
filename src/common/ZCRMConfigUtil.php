@@ -2,27 +2,33 @@
 
 namespace ZCRM\common;
 
-require_once 'CommonUtil.php';
-require_once realpath(dirname(__FILE__) . "/../../../oauth/client/ZohoOAuth.php");
+use ZCRM\oauth\client\ZohoOAuth;
 
 class ZCRMConfigUtil {
+
     private static $configProperties = array();
 
     public static function getInstance() {
         return new ZCRMConfigUtil();
     }
 
-    public static function initialize($initializeOAuth) {
-        $path = realpath(dirname(__FILE__) . "/../../../../../resources/configuration.properties");
-        $fileHandler = fopen($path, "r");
-        if (!$fileHandler) {
-            return;
-        }
-        self::$configProperties = CommonUtil::getFileContentAsMap($fileHandler);
+    /**
+     * @param $initializeOAuth
+     *
+     */
+    public static function initialize($config) {
 
-        if ($initializeOAuth) {
-            ZohoOAuth::initializeWithOutInputStream();
-        }
+        // $path = realpath(dirname(__FILE__) . "/../../../../../resources/configuration.properties");
+        // $fileHandler = fopen($path, "r");
+        //if (!$fileHandler) {
+        //    return;
+        //}
+        //self::$configProperties = CommonUtil::getFileContentAsMap($fileHandler);
+
+        self::$configProperties = $config;
+
+        ZohoOAuth::initializeWithOutInputStream();
+
     }
 
     public static function loadConfigProperties($fileHandler) {
