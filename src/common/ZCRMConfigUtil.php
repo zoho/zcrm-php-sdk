@@ -3,6 +3,7 @@
 namespace ZCRM\common;
 
 use ZCRM\oauth\client\ZohoOAuth;
+use ZCRM\exception\ZCRMException;
 
 class ZCRMConfigUtil {
 
@@ -54,6 +55,10 @@ class ZCRMConfigUtil {
         return self::getConfigValue("apiVersion");
     }
 
+    /**
+     * @return mixed
+     * @throws ZCRMException
+     */
     public static function getAccessToken() {
         $currentUserEmail = ZCRMRestClient::getCurrentUserEmailID();
 
