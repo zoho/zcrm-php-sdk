@@ -1,7 +1,8 @@
 <?php
 
-//all handler classes
 
+//all handler classes
+/*
 require_once 'com/zoho/crm/library/api/APIRequest.php';
 require_once 'com/zoho/crm/library/api/handler/APIHandler.php';
 require_once 'com/zoho/crm/library/api/handler/APIHandlerInterface.php';
@@ -44,8 +45,8 @@ require_once 'com/zoho/crm/library/crud/ZCRMProfileCategory.php';
 require_once 'com/zoho/crm/library/exception/ZCRMException.php';
 
 //setup related
-require_once 'com/zoho/crm/library/setup/metadata/ZCRMOrganization.php';
-require_once 'com/zoho/crm/library/setup/restclient/ZCRMRestClient.php';
+//require_once 'com/zoho/crm/library/setup/metadata/ZCRMOrganization.php';
+//require_once 'com/zoho/crm/library/setup/restclient/ZCRMRestClient.php';
 
 require_once 'com/zoho/crm/library/setup/users/ZCRMProfile.php';
 require_once 'com/zoho/crm/library/setup/users/ZCRMRole.php';
@@ -64,4 +65,6 @@ require_once 'com/zoho/crm/library/common/APIConstants.php';
 require_once 'com/zoho/crm/library/common/CommonUtil.php';
 require_once 'com/zoho/crm/library/common/ZCRMConfigUtil.php';
 require_once 'com/zoho/crm/library/common/ZohoHTTPConnector.php';
+
+*/
 ?>

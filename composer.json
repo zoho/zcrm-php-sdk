@@ -19,8 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "": "src"
-        },
-        "files": ["src/index.php"]
+            "ZCRM\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ZCRM\\Tests\\": "tests"
+        }
     }
 }
