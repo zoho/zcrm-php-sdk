@@ -1,5 +1,5 @@
 {
-    "name": "zohocrm/php-sdk",
+    "name": "zohocrm/sdk",
     "description": "Zoho CRM API SDK for PHP",
     "type": "SDK",
     "homepage": "https://github.com/zoho/zcrm-php-sdk",
@@ -19,12 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ZCRM\\": "src/"
+            "ZohoCRM\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ZCRM\\Tests\\": "tests"
+            "ZohoCRM\\Tests\\": "tests/"
         }
     }
 }
