@@ -19,12 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ZohoCRM\\": "src/"
+            "ZCRM\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ZohoCRM\\Tests\\": "tests/"
+            "ZCRM\\Tests\\": "tests/"
         }
     }
 }
