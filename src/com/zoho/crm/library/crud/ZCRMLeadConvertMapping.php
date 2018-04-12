@@ -9,7 +9,7 @@ class ZCRMLeadConvertMapping
 	private function __construct($name,$id)
 	{
 		$this->name=$name;
-		$this->id=$id+0;
+		$this->id=$id;
 	}
 	
 	public static function getInstance($name,$id)

@@ -126,7 +126,7 @@ class ZCRMField
 	}
 	public function setId($id)
 	{
-		$this->id=$id+0;
+		$this->id=$id;
 	}
 	public function getId()
 	{

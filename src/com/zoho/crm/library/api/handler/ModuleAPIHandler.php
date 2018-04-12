@@ -428,7 +428,7 @@ class ModuleAPIHandler extends APIHandler
 		$fieldInstance->setSequenceNumber($fieldDetails['sequence_number']+0);
 		$fieldInstance->setMandatory((boolean)$fieldDetails['required']);
 		$fieldInstance->setDefaultValue($fieldDetails['default_value']);
-		$fieldInstance->setId($fieldDetails['id']+0);
+		$fieldInstance->setId($fieldDetails['id']);
 		$pickListArray=$fieldDetails['pick_list_values'];
 		$pickListInstanceArray=array();
 		foreach ($pickListArray as $pickList)
@@ -448,7 +448,7 @@ class ModuleAPIHandler extends APIHandler
 	{
 		$fieldInstance=ZCRMField::getInstance($fieldDetails['api_name']);
 		$fieldInstance->setSequenceNumber(isset($fieldDetails['sequence_number'])?$fieldDetails['sequence_number']+0:0);
-		$fieldInstance->setId($fieldDetails['id']+0);
+		$fieldInstance->setId($fieldDetails['id']);
 		$fieldInstance->setMandatory(isset($fieldDetails['required'])?(boolean)$fieldDetails['required']:false);
 		$fieldInstance->setDefaultValue(isset($fieldDetails['default_value'])?$fieldDetails['default_value']:null);
 		if(array_key_exists("custom_field",$fieldDetails))
@@ -608,26 +608,26 @@ class ModuleAPIHandler extends APIHandler
 	 **/
 	public function getZCRMLayout($layoutDetails)
 	{
-		$layoutInstance=ZCRMLayout::getInstance($layoutDetails['id']+0);
+		$layoutInstance=ZCRMLayout::getInstance($layoutDetails['id']);
 		$layoutInstance->setCreatedTime($layoutDetails['created_time']);
 		$layoutInstance->setModifiedTime($layoutDetails['modified_time']);
 		$layoutInstance->setName($layoutDetails['name']);
 		$layoutInstance->setVisible((boolean)$layoutDetails['visible']);
 		if($layoutDetails['created_by']!=null)
 		{
-			$userInstance=ZCRMUser::getInstance((($layoutDetails['created_by']['id'])+0),$layoutDetails['created_by']['name']);
+			$userInstance=ZCRMUser::getInstance((($layoutDetails['created_by']['id'])),$layoutDetails['created_by']['name']);
 			$layoutInstance->setCreatedBy($userInstance);
 		}
 		if($layoutDetails['modified_by']!=null)
 		{
-			$userInstance=ZCRMUser::getInstance((($layoutDetails['modified_by']['id'])+0),$layoutDetails['modified_by']['name']);
+			$userInstance=ZCRMUser::getInstance((($layoutDetails['modified_by']['id'])),$layoutDetails['modified_by']['name']);
 			$layoutInstance->setModifiedBy($userInstance);
 		}
 		$accessibleProfileArray=$layoutDetails['profiles'];
 		$accessibleProfileInstances=array();
 		foreach ($accessibleProfileArray as $profile)
 		{
-			$profileInstance=ZCRMProfile::getInstance($profile['id']+0,$profile['name']);
+			$profileInstance=ZCRMProfile::getInstance($profile['id'],$profile['name']);
 			$profileInstance->setDefaultProfile((boolean)$profile['default']);
 			array_push($accessibleProfileInstances,$profileInstance);
 		}
@@ -651,7 +651,7 @@ class ModuleAPIHandler extends APIHandler
 						$fields=$contactsMap['fields'];
 						foreach ($fields as $field)
 						{
-							$convertMappingFieldIns=ZCRMLeadConvertMappingField::getInstance($field['api_name'], $field['id']+0);
+							$convertMappingFieldIns=ZCRMLeadConvertMappingField::getInstance($field['api_name'], $field['id']);
 							$convertMappingFieldIns->setFieldLabel($field['field_label']);
 							$convertMappingFieldIns->setRequired($field['required']);
 							$convertMapIns->addFields($convertMappingFieldIns);
@@ -720,11 +720,11 @@ class ModuleAPIHandler extends APIHandler
 		}
 		if($moduleInstance->getDefaultCustomViewId()!=null)
 		{
-			$moduleSettings['custom_view']=array("id"=>$moduleInstance->getDefaultCustomViewId()+0);
+			$moduleSettings['custom_view']=array("id"=>$moduleInstance->getDefaultCustomViewId());
 		}
 		if($moduleInstance->getDefaultTerritoryId()!=null)
 		{
-			$moduleSettings['territory']=array("id"=>$moduleInstance->getDefaultTerritoryId()+0);
+			$moduleSettings['territory']=array("id"=>$moduleInstance->getDefaultTerritoryId());
 		}
 		if($moduleInstance->getRelatedListProperties()!=null)
 		{

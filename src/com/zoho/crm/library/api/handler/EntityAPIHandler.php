@@ -57,7 +57,7 @@ class EntityAPIHandler extends APIHandler
 			$this->record->setEntityId($reponseDetails['id']);
 			$this->record->setCreatedTime($reponseDetails['Created_Time']);
 			$createdBy=$reponseDetails['Created_By'];
-			$this->record->setCreatedBy(ZCRMUser::getInstance($createdBy['id']+0,$createdBy['name']));
+			$this->record->setCreatedBy(ZCRMUser::getInstance($createdBy['id'],$createdBy['name']));
 			
 			$responseInstance->setData($this->record);
 			
@@ -86,9 +86,9 @@ class EntityAPIHandler extends APIHandler
 			$this->record->setCreatedTime($reponseDetails['Created_Time']);
 			$this->record->setModifiedTime($reponseDetails['Modified_Time']);
 			$createdBy=$reponseDetails['Created_By'];
-			$this->record->setCreatedBy(ZCRMUser::getInstance($createdBy['id']+0,$createdBy['name']));
+			$this->record->setCreatedBy(ZCRMUser::getInstance($createdBy['id'],$createdBy['name']));
 			$modifiedBy=$reponseDetails['Modified_By'];
-			$this->record->setModifiedBy(ZCRMUser::getInstance($modifiedBy['id']+0,$modifiedBy['name']));
+			$this->record->setModifiedBy(ZCRMUser::getInstance($modifiedBy['id'],$modifiedBy['name']));
 			
 			$responseInstance->setData($this->record);
 				
@@ -150,14 +150,14 @@ class EntityAPIHandler extends APIHandler
 			//Process Response JSON
 			$convertedIdsJSON = $responseJSON[APIConstants::DATA][0];
 			$convertedIds = array();
-			$convertedIds[APIConstants::CONTACTS]=isset($convertedIdsJSON[APIConstants::CONTACTS])?$convertedIdsJSON[APIConstants::CONTACTS]+0:null;
+			$convertedIds[APIConstants::CONTACTS]=isset($convertedIdsJSON[APIConstants::CONTACTS])?$convertedIdsJSON[APIConstants::CONTACTS]:null;
 			if(isset($convertedIdsJSON[APIConstants::ACCOUNTS]) && $convertedIdsJSON[APIConstants::ACCOUNTS]!=null)
 			{
-				$convertedIds[APIConstants::ACCOUNTS]=$convertedIdsJSON[APIConstants::ACCOUNTS]+0;
+				$convertedIds[APIConstants::ACCOUNTS]=$convertedIdsJSON[APIConstants::ACCOUNTS];
 			}
 			if(isset($convertedIdsJSON[APIConstants::DEALS]) && $convertedIdsJSON[APIConstants::DEALS]!=null)
 			{
-				$convertedIds[APIConstants::DEALS]=$convertedIdsJSON[APIConstants::DEALS]+0;
+				$convertedIds[APIConstants::DEALS]=$convertedIdsJSON[APIConstants::DEALS];
 			}
 			
 			return $convertedIds;
@@ -274,7 +274,7 @@ class EntityAPIHandler extends APIHandler
 		{
 			array_push($taxes,$taxIns->getTaxName());
 		}
-		return taxes;
+		return $taxes;
 	}
 	public function getPriceDetailsAsJSONArray()
 	{
@@ -385,7 +385,7 @@ class EntityAPIHandler extends APIHandler
 		{
 			if("id"==$key)
 			{
-				$this->record->setEntityId($value+0);
+				$this->record->setEntityId($value);
 			}
 			else if("Product_Details"==$key)
 			{
@@ -431,7 +431,7 @@ class EntityAPIHandler extends APIHandler
 				$layout = null;
 				if($value!=null)
 				{
-					$layout = ZCRMLayout::getInstance($value["id"]+0);
+					$layout = ZCRMLayout::getInstance($value["id"]);
 					$layout->setName($value["name"]);
 				}
 				$this->record->setLayout($layout);
@@ -457,7 +457,7 @@ class EntityAPIHandler extends APIHandler
 			{
 				if(isset($value["id"]))
 				{
-					$lookupRecord = ZCRMRecord::getInstance($key, isset($value["id"])?$value["id"]+0:0);
+					$lookupRecord = ZCRMRecord::getInstance($key, isset($value["id"])?$value["id"]:"0");
 					$lookupRecord->setLookupLabel(isset($value["name"])?$value["name"]:null);
 					$this->record->setFieldValue($key, $lookupRecord);
 				}
@@ -493,7 +493,7 @@ class EntityAPIHandler extends APIHandler
 	
 	public function getZCRMParticipant($participantDetail)
 	{
-		$participant = ZCRMEventParticipant::getInstance($participantDetail['type'],$participantDetail['participant']+0);
+		$participant = ZCRMEventParticipant::getInstance($participantDetail['type'],$participantDetail['participant']);
 		$participant->setName($participantDetail["name"]);
 		$participant->setEmail($participantDetail["Email"]);
 		$participant->setInvited((boolean)$participantDetail["invited"]);
@@ -504,7 +504,7 @@ class EntityAPIHandler extends APIHandler
 	
 	public function getZCRMPriceDetail($priceDetails)
 	{
-		$priceDetailIns = ZCRMPriceBookPricing::getInstance($priceDetails["id"]+0);
+		$priceDetailIns = ZCRMPriceBookPricing::getInstance($priceDetails["id"]);
 		$priceDetailIns->setDiscount((double)$priceDetails["discount"]);
 		$priceDetailIns->setToRange((double)$priceDetails["to_range"]);
 		$priceDetailIns->setFromRange((double)$priceDetails["from_range"]);
@@ -523,9 +523,9 @@ class EntityAPIHandler extends APIHandler
 	public function getZCRMLineItemInstance($lineItemDetails)
 	{
 		$productDetails = $lineItemDetails["product"];
-		$lineItemId = $lineItemDetails["id"]+0;
+		$lineItemId = $lineItemDetails["id"];
 		$lineItemInstance = ZCRMInventoryLineItem::getInstance($lineItemId);
-		$product = ZCRMRecord::getInstance("Products", $productDetails["id"]+0);
+		$product = ZCRMRecord::getInstance("Products", $productDetails["id"]);
 		$product->setLookupLabel($productDetails["name"]);
 		if(isset($productDetails['Product_Code']))
 		{

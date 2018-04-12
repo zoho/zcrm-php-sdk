@@ -157,7 +157,7 @@ class ZCRMModuleRelatedList
     {
     	$this->setModule($relatedListDetails['module']);
     	$this->setDisplaylabel($relatedListDetails['display_label']);
-    	$this->setId($relatedListDetails['id']+0);
+    	$this->setId($relatedListDetails['id']);
     	$this->setName($relatedListDetails['name']);
     	$this->setType($relatedListDetails['type']);
     	$this->setHref($relatedListDetails['href']);
