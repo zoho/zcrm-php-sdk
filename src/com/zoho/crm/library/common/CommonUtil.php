@@ -10,7 +10,7 @@ class CommonUtil
 			{
 				$line=fgets($fileHandler);
 				$lineAfterSplit=explode("=",$line);
-				if(strpos($lineAfterSplit[0],"#")===false)
+				if(strpos($line,"=")!==false&&strpos($lineAfterSplit[0],"#")===false)
 				{
 					$reponseMap[trim($lineAfterSplit[0])]=trim($lineAfterSplit[1]);
 				}
