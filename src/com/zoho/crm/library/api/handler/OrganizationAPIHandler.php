@@ -128,12 +128,12 @@ class OrganizationAPIHandler extends APIHandler
 	
 	public function getZCRMRole($roleDetails)
 	{
-		$crmRoleInstance=ZCRMRole::getInstance($roleDetails['id']+0,$roleDetails['name']);
+		$crmRoleInstance=ZCRMRole::getInstance($roleDetails['id'],$roleDetails['name']);
 		$crmRoleInstance->setDisplayLabel($roleDetails['display_label']);
 		$crmRoleInstance->setAdminRole((boolean)$roleDetails['admin_user']);
 		if(isset($roleDetails['reporting_to']))
 		{
-			$crmRoleInstance->setReportingTo(ZCRMUser::getInstance($roleDetails['reporting_to']['id']+0,$roleDetails['reporting_to']['name']));
+			$crmRoleInstance->setReportingTo(ZCRMUser::getInstance($roleDetails['reporting_to']['id'],$roleDetails['reporting_to']['name']));
 		}
 		return $crmRoleInstance;
 	}
@@ -199,12 +199,12 @@ class OrganizationAPIHandler extends APIHandler
 			$userRole=$user->getRole();
 			if($userRole!=null)
 			{
-				$userInfoJson['role_id']=$userRole->getId();
+				$userInfoJson['role']=$userRole->getId();
 			}
 			$userProfile=$user->getProfile();
 			if($userProfile!=null)
 			{
-				$userInfoJson['profile_id']=$userProfile->getId();
+				$userInfoJson['profile']=$userProfile->getId();
 			}
 			if($user->getCountry()!=null)
 			{
@@ -367,25 +367,25 @@ class OrganizationAPIHandler extends APIHandler
 	
 	public function getZCRMProfile($profileDetails)
 	{
-		$profileInstance=ZCRMProfile::getInstance($profileDetails['id']+0,$profileDetails['name']);
+		$profileInstance=ZCRMProfile::getInstance($profileDetails['id'],$profileDetails['name']);
 		$profileInstance->setCreatedTime($profileDetails['created_time']);
 		$profileInstance->setModifiedTime($profileDetails['modified_time']);
 		$profileInstance->setDescription($profileDetails['description']);
 		$profileInstance->setCategory($profileDetails['category']);
 		if($profileDetails['modified_by']!=null)
 		{
-			$profileInstance->setModifiedBy(ZCRMUser::getInstance($profileDetails['modified_by']['id']+0,$profileDetails['modified_by']['name']));
+			$profileInstance->setModifiedBy(ZCRMUser::getInstance($profileDetails['modified_by']['id'],$profileDetails['modified_by']['name']));
 		}
 		if($profileDetails['created_by']!=null)
 		{
-			$profileInstance->setCreatedBy(ZCRMUser::getInstance($profileDetails['created_by']['id']+0,$profileDetails['created_by']['name']));
+			$profileInstance->setCreatedBy(ZCRMUser::getInstance($profileDetails['created_by']['id'],$profileDetails['created_by']['name']));
 		}
 		if(isset($profileDetails['permissions_details']))
 		{
 			$permissions=$profileDetails['permissions_details'];
 			foreach ($permissions as $permission)
 			{
-				$perIns=ZCRMPermission::getInstance($permission['name'], $permission['id']+0);
+				$perIns=ZCRMPermission::getInstance($permission['name'], $permission['id']);
 				$perIns->setDisplayLabel($permission['display_label']);
 				$perIns->setModule($permission['module']);
 				$perIns->setEnabled(boolval($permission['enabled']));
@@ -507,9 +507,9 @@ class OrganizationAPIHandler extends APIHandler
 	
 	public function getZCRMUser($userDetails)
 	{
-		$userInstance=ZCRMUser::getInstance($userDetails['id']+0,isset($userDetails['name'])?$userDetails['name']:null);
+		$userInstance=ZCRMUser::getInstance($userDetails['id'],isset($userDetails['name'])?$userDetails['name']:null);
 		$userInstance->setCountry(isset($userDetails['country'])?$userDetails['country']:null);
-		$roleInstance=ZCRMRole::getInstance($userDetails['role']['id']+0,$userDetails['role']['name']);
+		$roleInstance=ZCRMRole::getInstance($userDetails['role']['id'],$userDetails['role']['name']);
 		$userInstance->setRole($roleInstance);
 		if(array_key_exists("customize_info",$userDetails))
 		{
@@ -538,7 +538,7 @@ class OrganizationAPIHandler extends APIHandler
 		$userInstance->setDecimalSeparator(isset($userDetails['decimal_separator'])?$userDetails['decimal_separator']:null);
 		$userInstance->setWebsite($userDetails['website']);
 		$userInstance->setTimeFormat($userDetails['time_format']);
-		$profile=ZCRMProfile::getInstance($userDetails['profile']['id']+0,$userDetails['profile']['name']);
+		$profile=ZCRMProfile::getInstance($userDetails['profile']['id'],$userDetails['profile']['name']);
 		$userInstance->setProfile($profile);
 		$userInstance->setMobile($userDetails['mobile']);
 		$userInstance->setLastName($userDetails['last_name']);

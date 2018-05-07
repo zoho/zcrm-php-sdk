@@ -80,7 +80,6 @@ class EntityAPIHandler extends APIHandler
 			$this->record->setCreatedBy(ZCRMUser::getInstance((int)$createdBy['id'], $createdBy['name']));
 			$modifiedBy = $reponseDetails['Modified_By'];
 			$this->record->setModifiedBy(ZCRMUser::getInstance((int)$modifiedBy['id'], $modifiedBy['name']));
-
 			$responseInstance->setData($this->record);
 
 			return $responseInstance;

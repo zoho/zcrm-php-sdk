@@ -534,9 +534,20 @@ class ZCRMModule
     
     public function searchRecords($searchWord,$page=1,$perPage=200)
     {
-    	return MassEntityAPIHandler::getInstance($this)->searchRecords($searchWord,$page,$perPage);
+    	return MassEntityAPIHandler::getInstance($this)->searchRecords($searchWord,$page,$perPage,"word");
     }
-    
+    public function searchRecordsByPhone($phone,$page=1,$perPage=200)
+    {
+    	return MassEntityAPIHandler::getInstance($this)->searchRecords($phone,$page,$perPage,"phone");
+    }
+    public function searchRecordsByEmail($email,$page=1,$perPage=200)
+    {
+    	return MassEntityAPIHandler::getInstance($this)->searchRecords($email,$page,$perPage,"email");
+    }
+    public function searchRecordsByCriteria($criteria,$page=1,$perPage=200)
+    {
+    	return MassEntityAPIHandler::getInstance($this)->searchRecords($criteria,$page,$perPage,"criteria");
+    }
     public function massUpdateRecords($entityIds,$fieldApiName,$value)
     {
     	return MassEntityAPIHandler::getInstance($this)->massUpdateRecords($entityIds,$fieldApiName,$value);

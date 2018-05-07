@@ -78,7 +78,7 @@ class MetaDataAPIHandler extends APIHandler
 		$crmModuleInstance->setWebLink(array_key_exists("web_link",$moduleDetails)?$moduleDetails['web_link']:null);
 		$crmModuleInstance->setSingularLabel($moduleDetails['singular_label']);
 		$crmModuleInstance->setPluralLabel($moduleDetails['plural_label']);
-		$crmModuleInstance->setId($moduleDetails['id']+0);
+		$crmModuleInstance->setId($moduleDetails['id']);
 		$crmModuleInstance->setModifiedTime($moduleDetails['modified_time']);
 		$crmModuleInstance->setApiSupported($moduleDetails['api_supported']);
 		$crmModuleInstance->setScoringSupported($moduleDetails['scoring_supported']);
@@ -97,7 +97,7 @@ class MetaDataAPIHandler extends APIHandler
 		$zcrmUserInstance=null;
 		if($moduleDetails['modified_by']!=null)
 		{
-			$zcrmUserInstance=ZCRMUser::getInstance(($moduleDetails['modified_by']["id"]+0),$moduleDetails['modified_by']["name"]);
+			$zcrmUserInstance=ZCRMUser::getInstance(($moduleDetails['modified_by']["id"]),$moduleDetails['modified_by']["name"]);
 		}
 		$crmModuleInstance->setModifiedBy($zcrmUserInstance);
 		$crmModuleInstance->setCustomModule('custom'===$moduleDetails['generated_type']);
@@ -117,8 +117,7 @@ class MetaDataAPIHandler extends APIHandler
 		
 		if(array_key_exists("display_field",$moduleDetails))
 		{
-			$crmModuleInstance->setDisplayFieldName(isset($moduleDetails['display_field']['name'])?$moduleDetails['display_field']['name']:null);
-			$crmModuleInstance->setDisplayFieldId(isset($moduleDetails['display_field']['id'])?$moduleDetails['display_field']['id']+0:null);
+			$crmModuleInstance->setDisplayFieldName($moduleDetails['display_field']);
 		}
 		$relatedListInstanceArray=null;
 		if(array_key_exists("related_lists",$moduleDetails))
@@ -164,7 +163,7 @@ class MetaDataAPIHandler extends APIHandler
 		if(array_key_exists('custom_view',$moduleDetails) && $moduleDetails['custom_view']!=null)
 		{
 			$crmModuleInstance->setDefaultCustomView(self::getModuleDefaultCustomView($moduleDetails[APIConstants::API_NAME],$moduleDetails['custom_view']));
-			$crmModuleInstance->setDefaultCustomViewId($moduleDetails['custom_view']['id']+0);
+			$crmModuleInstance->setDefaultCustomViewId($moduleDetails['custom_view']['id']);
 		}
 		if(array_key_exists('territory',$moduleDetails) && $moduleDetails['territory']!=null)
 		{
