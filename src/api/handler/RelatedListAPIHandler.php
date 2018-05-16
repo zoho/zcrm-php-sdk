@@ -128,8 +128,6 @@ class RelatedListAPIHandler extends APIHandler {
             $responseData = $responseJSON["data"][0];
             $responseDetails = isset($responseData['details']) ? $responseData["details"] : array();
             $zcrmNote = self::getZCRMNote($responseDetails, $zcrmNote);
-            //$zcrmNote->setId(isset($responseDetails['id'])?$responseDetails['id']+0:0);
-
             $responseInstance->setData($zcrmNote);
 
             return $responseInstance;

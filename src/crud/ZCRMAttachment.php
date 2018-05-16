@@ -24,7 +24,7 @@ class ZCRMAttachment {
         $this->id = $attachmentId;
     }
 
-    public function getInstance($parentRecord, $attachmentId = null) {
+    public static function getInstance($parentRecord, $attachmentId = null) {
         return new ZCRMAttachment($parentRecord, $attachmentId);
     }
 
