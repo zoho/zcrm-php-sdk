@@ -101,7 +101,8 @@ App Startup
 **Initialization**
 
 The SDK requires the following line of code invoked every time your client app is started.
->ZCRMRestClient::initialize();
+
+    ZCRMRestClient::initialize($config_path);
 
 Once the SDK has been initialized, you can use any APIs.
 
