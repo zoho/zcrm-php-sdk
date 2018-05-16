@@ -24,14 +24,9 @@ class ZCRMRestClient {
     }
 
     /**
-     * apiBaseUrl=www.zohoapis.com
-     * apiVersion=v2
-     * sandbox=false
-     * applicationLogFilePath=
-     * currentUserEmail=
      */
-    public static function initialize($config) {
-        ZCRMConfigUtil::initialize($config);
+    public static function initialize($config_path) {
+        ZCRMConfigUtil::initialize($config_path);
     }
 
     /**

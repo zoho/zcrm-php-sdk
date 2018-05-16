@@ -10,25 +10,14 @@ use ZCRM\oauth\clientapp\ZohoOAuthPersistenceByFile;
 use ZCRM\oauth\common\OAuthLogger;
 
 class ZohoOAuth {
-
     private static $configProperties = array();
 
-    public static function initializeWithOutInputStream() {
-        self::initialize(false);
-    }
+    public static function initialize($config) {
 
-    public static function initialize($configFilePointer) {
         try {
-            $configPath = realpath(dirname(__FILE__) . "/../../../../resources/oauth_configuration.properties");
-            $filePointer = fopen($configPath, "r");
-            self::$configProperties = ZohoOAuthUtil::getFileContentAsMap($filePointer);
-            if ($configFilePointer != false) {
-                $properties = ZohoOAuthUtil::getFileContentAsMap($configFilePointer);
-                foreach ($properties as $key => $value) {
-                    self::$configProperties[$key] = $value;
-                }
-            }
-            //self::$configProperties[ZohoOAuthConstants::IAM_URL]= "https://accounts.zoho.com";
+
+            self::$configProperties = $config['oauth'];
+
             $oAuthParams = new ZohoOAuthParams();
 
             $oAuthParams->setAccessType(self::getConfigValue(ZohoOAuthConstants::ACCESS_TYPE));
@@ -36,6 +25,7 @@ class ZohoOAuth {
             $oAuthParams->setClientSecret(self::getConfigValue(ZohoOAuthConstants::CLIENT_SECRET));
             $oAuthParams->setRedirectURL(self::getConfigValue(ZohoOAuthConstants::REDIRECT_URL));
             ZohoOAuthClient::getInstance($oAuthParams);
+
         } catch (IOException $ioe) {
             OAuthLogger::warn("Exception while initializing Zoho OAuth Client.. " . ioe);
             throw ioe;
@@ -100,7 +90,7 @@ class ZohoOAuth {
 
     public static function getClientInstance() {
         if (ZohoOAuthClient::getInstanceWithOutParam() == null) {
-            throw new ZohoOAuthException("ZohoOAuth.initializeWithOutInputStream() must be called before this.");
+            throw new ZohoOAuthException("ZohoOAuth.initialize() must be called before this.");
         }
         return ZohoOAuthClient::getInstanceWithOutParam();
     }

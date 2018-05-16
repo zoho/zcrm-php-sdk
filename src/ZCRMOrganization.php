@@ -12,6 +12,7 @@ use ZCRM\api\handler\OrganizationAPIHandler;
  *
  */
 class ZCRMOrganization {
+
     private $company_name;
     private $alias;
 

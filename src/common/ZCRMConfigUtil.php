@@ -4,76 +4,94 @@ namespace ZCRM\common;
 
 use ZCRM\oauth\client\ZohoOAuth;
 use ZCRM\exception\ZCRMException;
+use Symfony\Component\Yaml\Yaml;
 
 class ZCRMConfigUtil {
 
-    private static $configProperties = array();
+  private static $config = array();
+  private static $configProperties = array();
 
-    public static function getInstance() {
-        return new ZCRMConfigUtil();
+  public static function getInstance() {
+    return new ZCRMConfigUtil();
+  }
+
+  /**
+   * @param $config_path
+   * Path to config.yml file
+   */
+  public static function initialize($config_path) {
+
+    self::$config = Yaml::parseFile($config_path);
+    self::$configProperties = self::$config['api'];
+
+    ZohoOAuth::initialize(self::$config);
+
+  }
+
+  /**
+   * @param $fileHandler
+   */
+  public static function loadConfigProperties($fileHandler) {
+    $configMap = CommonUtil::getFileContentAsMap($fileHandler);
+    foreach ($configMap as $key => $value) {
+      self::$configProperties[$key] = $value;
     }
+  }
 
-    /**
-     * @param $initializeOAuth
-     *
-     */
-    public static function initialize($config) {
+  /**
+   * @param $key
+   * @return mixed|string
+   */
+  public static function getConfigValue($key) {
+    return isset(self::$configProperties[$key]) ? self::$configProperties[$key] : '';
+  }
 
-        // $path = realpath(dirname(__FILE__) . "/../../../../../resources/configuration.properties");
-        // $fileHandler = fopen($path, "r");
-        //if (!$fileHandler) {
-        //    return;
-        //}
-        //self::$configProperties = CommonUtil::getFileContentAsMap($fileHandler);
+  /**
+   * @param $key
+   * @param $value
+   */
+  public static function setConfigValue($key, $value) {
+    self::$configProperties[$key] = $value;
+  }
 
-        self::$configProperties = $config;
+  /**
+   * @return mixed|string
+   */
+  public static function getAPIBaseUrl() {
+    return self::getConfigValue("apiBaseUrl");
+  }
 
-        ZohoOAuth::initializeWithOutInputStream();
+  /**
+   * @return mixed|string
+   */
+  public static function getAPIVersion() {
+    return self::getConfigValue("apiVersion");
+  }
 
+  /**
+   * @return mixed
+   * @throws ZCRMException
+   */
+  public static function getAccessToken() {
+
+    $currentUserEmail = ZCRMRestClient::getCurrentUserEmailID();
+
+    if ($currentUserEmail == null && self::getConfigValue("currentUserEmail") == null) {
+      throw new ZCRMException("Current user should either be set in ZCRMRestClient or in configuration.properties file");
+    } else if ($currentUserEmail == null) {
+      $currentUserEmail = self::getConfigValue("currentUserEmail");
     }
+    $oAuthCliIns = ZohoOAuth::getClientInstance();
+    return $oAuthCliIns->getAccessToken($currentUserEmail);
+  }
 
-    public static function loadConfigProperties($fileHandler) {
-        $configMap = CommonUtil::getFileContentAsMap($fileHandler);
-        foreach ($configMap as $key => $value) {
-            self::$configProperties[$key] = $value;
-        }
-    }
+  /**
+   * @return array
+   */
+  public static function getAllConfigs() {
+    return self::$configProperties;
+  }
 
-    public static function getConfigValue($key) {
-        return isset(self::$configProperties[$key]) ? self::$configProperties[$key] : '';
-    }
-
-    public static function setConfigValue($key, $value) {
-        self::$configProperties[$key] = $value;
-    }
-
-    public static function getAPIBaseUrl() {
-        return self::getConfigValue("apiBaseUrl");
-    }
-
-    public static function getAPIVersion() {
-        return self::getConfigValue("apiVersion");
-    }
-
-    /**
-     * @return mixed
-     * @throws ZCRMException
-     */
-    public static function getAccessToken() {
-        $currentUserEmail = ZCRMRestClient::getCurrentUserEmailID();
-
-        if ($currentUserEmail == null && self::getConfigValue("currentUserEmail") == null) {
-            throw new ZCRMException("Current user should either be set in ZCRMRestClient or in configuration.properties file");
-        } else if ($currentUserEmail == null) {
-            $currentUserEmail = self::getConfigValue("currentUserEmail");
-        }
-        $oAuthCliIns = ZohoOAuth::getClientInstance();
-        return $oAuthCliIns->getAccessToken($currentUserEmail);
-    }
-
-    public static function getAllConfigs() {
-        return self::$configProperties;
-    }
 }
 
 ?>
