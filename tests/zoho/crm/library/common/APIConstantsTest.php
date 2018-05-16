@@ -61,7 +61,7 @@ class APIConstantsTest extends \PHPUnit_Framework_TestCase
         $this->instance->assertEqualsCheck(415,APIConstants::RESPONSECODE_UNSUPPORTED_MEDIA_TYPE);
         $this->instance->assertEqualsCheck(429,APIConstants::RESPONSECODE_TOO_MANY_REQUEST);
         $this->instance->assertEqualsCheck(500,APIConstants::RESPONSECODE_INTERNAL_SERVER_ERROR);
-        $this->instance->assertEqualsCheck("../../../../../../resources",APIConstants::DOWNLOAD_FILE_PATH);
+        $this->instance->assertEqualsCheck("../../../../../../example",APIConstants::DOWNLOAD_FILE_PATH);
         
     }
     

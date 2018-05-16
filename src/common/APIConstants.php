@@ -61,7 +61,7 @@ class APIConstants {
     const RESPONSECODE_TOO_MANY_REQUEST = 429;
     const RESPONSECODE_INTERNAL_SERVER_ERROR = 500;
 
-    const DOWNLOAD_FILE_PATH = "../../../../../../resources";
+    const DOWNLOAD_FILE_PATH = "../../../../../../example";
 
     const USER_EMAIL_ID = "user_email_id";
     const ACTION = "action";

@@ -1,0 +1,14 @@
+api:
+  apiBaseUrl: www.zohoapis.com
+  apiVersion: v2
+  sandbox: false
+  applicationLogFilePath:
+  currentUserEmail:
+oauth:
+  client_id: 0
+  client_secret:
+  redirect_uri:
+  accounts_url: https://accounts.zoho.com
+  token_persistence_path:
+  access_type: offline
+  persistence_handler_class: ZohoOAuthPersistenceHandler

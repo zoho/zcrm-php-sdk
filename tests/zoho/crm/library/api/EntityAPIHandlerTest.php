@@ -650,7 +650,7 @@ class EntityAPIHandlerTest
 	{
 		try{
 			$record=ZCRMRecord::getInstance(self::$firstParnetModule,self::$firstParnetId);
-			$responseIns=$record->uploadAttachment('../../../resources/image.png');
+			$responseIns=$record->uploadAttachment('../../../example/image.png');
 			$endTime=microtime(true)*1000;
 			$attchmentIns=$responseIns->getData();
 			if($responseIns->getHttpStatusCode()!=APIConstants::RESPONSECODE_OK || $attchmentIns->getId()==null)
