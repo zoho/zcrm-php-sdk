@@ -7,69 +7,62 @@ PHP SDK for Zoho CRM APIs provides wrapper for Zoho CRM APIs. Hence invoking a Z
 Registering a Zoho Client
 -------------------------
 Since Zoho CRM APIs are authenticated with OAuth2 standards, you should register your client app with Zoho. To register your app:
-1) Visit this page [https://accounts.zoho.com/developerconsole](https://accounts.zoho.com/developerconsole).
-2) Click on `Add Client ID`.
-3) Enter Client Name, Client Domain and Redirect URI then click `Create`.
-4) Your Client app would have been created and displayed by now.
-5) The newly registered app's Client ID and Client Secret can be found by clicking `Options` → `Edit`.
+1. Visit this page [https://accounts.zoho.com/developerconsole](https://accounts.zoho.com/developerconsole).
+2. Click on `Add Client ID`.
+3. Enter Client Name, Client Domain and Redirect URI then click `Create`.
+4. Your Client app would have been created and displayed by now.
+5. The newly registered app's Client ID and Client Secret can be found by clicking `Options` → `Edit`.
 (Options is the three dot icon at the right corner).
 
 Setting Up
 ----------
-PHP SDK is installable through `composer`. Composer is a tool for dependency management in PHP. SDK expects the following from the client app.
+SDK expects the following from the client app.
+PHP SDK is installable through `composer`.
+ 
+* Client app must have PHP 5.6
+* cUrl extension enabled
+* Must be installed into client app though composer.
+* MySQL running on the same machine serving at the default port 3306.  
+    - The database name should be "zohooauth".  
+* There must be a table "oauthtokens" 
+    - Columns "useridentifier"(varchar(100)), "accesstoken"(varchar(100)), "refreshtoken"(varchar(100)), "expirytime"(bigint).  
 
->Client app must have PHP 5.6 or above with curl extension enabled.
-Client library must be installed into client app though composer.
-The function ZCRMRestClient::initialize() must be called on startup of app.
+**If `token_persistence_path` config set, then persistence happens in file only and there is no need of MySQL**
+Create a empty file with name **zcrm_oauthtokens.txt** in the mentioned `token_persistence_path`
 
->MySQL should run in the same machine serving at the default port 3306.  
-The database name should be "zohooauth".  
-There must be a table "oauthtokens" with the columns "useridentifier"(varchar(100)), "accesstoken"(varchar(100)), "refreshtoken"(varchar(100)), "expirytime"(bigint).  
-
-**If `token_persistence_path` provided in `oauth_configuration.properties` file, then persistence happens in file only. In this case, no need of MySQL**
-please create a empty file with name **zcrm_oauthtokens.txt** in the mentioned `token_persistence_path`
-
-Installation of SDK through composer
+Installation
 ------------------------------------
+**Composer**
+
 Install Composer(if not installed)
-Run this command to install the composer
+For composer installation instructions refer to [Composer Documentation](https://getcomposer.org/doc/00-intro.md)
 
->curl -sS https://getcomposer.org/installer | php
+**PHP SDK**
 
-To make the composer accessible globally, follow the instructions from the link below
+Navigate to the workspace of your client app and run the command below:
 
-To install composer on mac/ linux machine:
+    composer require zohocrm/php-sdk
 
->https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx
-
-To install composer on windows machine:
-
->https://getcomposer.org/doc/00-intro.md#installation-windows
-
-Install PHP SDK
----------------
-Here's how you install the SDK  
-Navigate to the workspace of your client app  
-Run the command below:
-
->composer require zohocrm/php-sdk
-
-Hence, the SDK would be installed and a package named `vendor` would be created in the workspace of your client app.
-
-Configurations
+Configuration
 --------------
-Your OAuth Client details should be given to the SDK as a property file.  
-In SDK, we have placed a configuration file (oauth_configuration.properties).   
-Please place the respective values in that file.  
-You can find that file under `vendor/zohocrm/php-sdk/src/resources`.  
+In your project create a config file ex.'zcrm.config.yml' and supply the following values. 
 
-Please fill only the following keys. Based on your domain(EU,CN) please change the value of `accounts_url`. Default value set as US domain
-
->client_id=  
-client_secret=  
-redirect_uri=  
-accounts_url=https://accounts.zoho.com  
-token_persistence_path=  
+```
+api:
+   apiBaseUrl: www.zohoapis.com
+   apiVersion: v2
+   sandbox: false
+   applicationLogFilePath:
+   currentUserEmail:
+ oauth:
+   client_id: 0
+   client_secret:
+   redirect_uri:
+   accounts_url: https://accounts.zoho.com
+   token_persistence_path:
+   access_type: offline
+   persistence_handler_class: ZohoOAuthPersistenceHandler
+```
 
 Only the keys displayed above are to be filled.  
 `client_id`, `client_secret` and `redirect_uri` are your OAuth client’s configurations that you get after registering your Zoho client.  
@@ -82,16 +75,15 @@ You can find that file under `vendor/zohocrm/php-sdk/src/resources`. This file i
 
 Please fill only the following key
 
->applicationLogFilePath=
+    applicationLogFilePath=
 
 To make API calls to `sandbox account`, please change the value of following key to `true` in `configurations.properties`. By default the value is `false`  
 
->sandbox=true
-
+    sandbox=true
 
 If your application needs only a single user authentication then you have to set the user EmailId in configurations.properties file as given below:
 
->currentUserEmail=user@email.com
+`currentUserEmail=user@email.com`
 
 In order to work with multi user authentication, you need to set the user EmailId in PHP super global variable ‘$_SERVER’ as given below:
 
@@ -102,66 +94,67 @@ You can use `$_SERVER` variable for single user authentication as well, but it i
 If you do not set the user email in super global variable then SDK expect it from `configuration.properties` file. If user email is not set in any of these two then SDK will throw exception.
 
 
-Initialization
---------------
-The app would be ready to be initialized after defining the OAuth configuration file.
+App Startup
+-----------
 
 
-Generating self-authorized grant token
---------------------------------------
+**Initialization**
+
+The SDK requires the following line of code invoked every time your client app is started.
+>ZCRMRestClient::initialize();
+
+Once the SDK has been initialized, you can use any APIs.
+
+
+**Generating self-authorized grant token**
+
 For self client apps, the self authorized grant token should be generated from the Zoho Developer Console (https://accounts.zoho.com/developerconsole)
 
->1) Visit https://accounts.zoho.com/developerconsole
-2) Click Options → Self Client of the client for which you wish to authorize.
-3) Enter one or more(comma separated) valid Zoho CRM scopes, that you wish to authorize, in the “Scope” field and choose a time of expiry.
-4) Copy the grant token.
-5) Generate refresh_token from grant token by using below URL
+1. Visit https://accounts.zoho.com/developerconsole
+2. Click Options → Self Client of the client for which you wish to authorize.
+3. Enter one or more(comma separated) valid Zoho CRM scopes, that you wish to authorize, in the “Scope” field and choose a time of expiry.
+4. Copy the grant token.
+5. Generate refresh_token from grant token by using below URL
 
->https://accounts.zoho.com/oauth/v2/token?code={grant_token}&redirect_uri={redirect_uri}&client_id={client_id}&client_secret={client_secret}&grant_type=authorization_code
-It's a POST request
+   https://accounts.zoho.com/oauth/v2/token?code={grant_token}&redirect_uri={redirect_uri}&client_id={client_id}&client_secret={client_secret}&grant_type=authorization_code
+   It's a POST request`
 
 Copy the refresh_token for backup
 
 Please note that the generated grant token is valid only for the stipulated time you choose while generating it. Hence, refresh token should be generated within that time.
 
-Generating access token
------------------------
+**Generating access token**
+
 Access token can be generated by grant token or refresh token. Following any one of the two methods is sufficient.    
 
-Access Token from grant token:
-------------------------------------
+**Access Token from grant token:**
+
 The following code snippet should be executed from your main class to get access token. Please paste the copied grant token in the string literal mentioned below. This is a one-time process.
 
->ZCRMRestClient::initialize();  
-$oAuthClient = ZohoOAuth::getClientInstance();  
+```
+$config_path = 'path/to/zcrm.config.yml';
+ZCRMRestClient::initialize($config_path);
+$oAuthClient = ZohoOAuth::getClientInstance(); 
 $grantToken = "paste_the_grant_token_here";  
 $oAuthTokens = $oAuthClient->generateAccessToken($grantToken);
+```
 
+**Access Token from refresh token:**
 
-Access Token from refresh token:
-------------------------------------
 The following code snippet should be executed from your main class to get access token. Please paste the copied refresh token in the string literal mentioned below. This is a one-time process.
 
->ZCRMRestClient::initialize();  
-$oAuthClient = ZohoOAuth::getClientInstance();  
+```
+$config_path = 'path/to/zcrm.config.yml';
+ZCRMRestClient::initialize($config_path);
+$oAuthClient = ZohoOAuth::getClientInstance(); 
 $refreshToken = "paste_the_refresh_token_here";  
 $userIdentifier = "provide_user_identifier_like_email_here";  
 $oAuthTokens = $oAuthClient->generateAccessTokenFromRefreshToken($refreshToken,$userIdentifier);
-
+```
 
 Upon successful execution of the above code snippet, the generated access token and given refresh token would have been persisted through our persistence handler class.
 
 Once the OAuth tokens have been persisted, subsequent API calls would use the persisted access and refresh tokens. The SDK will take care of refreshing the access token using refresh token, as and when required.
-
-
-App Startup
------------
-The SDK requires the following line of code invoked every time your client app is started.
-
->ZCRMRestClient::initialize();
-
-Once the SDK has been initialized by the above line, you could use any APIs of the library to get proper results.
-
 
 Using the SDK
 -------------
