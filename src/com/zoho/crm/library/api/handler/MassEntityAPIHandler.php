@@ -6,7 +6,7 @@ require_once 'APIHandler.php';
 
 class MassEntityAPIHandler extends APIHandler
 {
-	private $module=null;
+	protected $module=null;
 	
 	public function __construct($moduleInstance)
 	{

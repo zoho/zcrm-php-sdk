@@ -13,14 +13,14 @@ require_once realpath(dirname(__FILE__)."/response/FileAPIResponse.php");
  */
 class APIRequest
 {
-	private $url=null;
-	private $requestParams=array();
-	private $requestHeaders=array();
-	private $requestBody;
-	private $requestMethod;
-	private $apiKey=null;
-	private $response=null;
-	private $reponseInfo=null;
+	protected $url=null;
+	protected $requestParams=array();
+	protected $requestHeaders=array();
+	protected $requestBody;
+	protected $requestMethod;
+	protected $apiKey=null;
+	protected $response=null;
+	protected $reponseInfo=null;
 	private function __construct($apiHandler)
 	{
 		self::constructAPIUrl();

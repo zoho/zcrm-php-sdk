@@ -19,7 +19,7 @@ require_once 'MetaDataAPIHandler.php';
 
 class ModuleAPIHandler extends APIHandler
 {
-	private $module=null;
+	protected $module=null;
 	
 	private function __construct($module)
 	{

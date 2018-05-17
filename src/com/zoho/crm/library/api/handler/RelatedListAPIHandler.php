@@ -8,9 +8,9 @@ require_once realpath(dirname(__FILE__).'/../../common/APIConstants.php');
 
 class RelatedListAPIHandler extends APIHandler
 {
-	private $parentRecord=null;//ZCRMRecord
-	private $relatedList=null;//ZCRMModuleRelation
-	private $junctionRecord;//ZCRMJunctionRecord
+	protected $parentRecord=null;//ZCRMRecord
+	protected $relatedList=null;//ZCRMModuleRelation
+	protected $junctionRecord;//ZCRMJunctionRecord
 	
 	private function __construct($parentRecord,$relatedList)
 	{

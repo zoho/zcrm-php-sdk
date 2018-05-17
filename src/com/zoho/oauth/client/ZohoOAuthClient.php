@@ -8,8 +8,8 @@ require_once realpath(dirname(__FILE__)."/../common/ZohoOAuthTokens.php");
 
 class ZohoOAuthClient
 {
-	private $zohoOAuthParams;
-	private static $zohoOAuthClient;
+	protected $zohoOAuthParams;
+	protected static $zohoOAuthClient;
 	
 	private function __construct($params)
 	{
