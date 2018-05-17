@@ -5,8 +5,8 @@ require_once 'CommonAPIResponse.php';
 
 class APIResponse extends CommonAPIResponse
 {
-	private $data=null;
-	private $status=null;
+	protected $data=null;
+	protected $status=null;
 	
 	
 	public function __construct($httpResponse,$httpStatusCode,$apiName=null)

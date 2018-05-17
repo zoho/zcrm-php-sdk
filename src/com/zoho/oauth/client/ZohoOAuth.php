@@ -10,7 +10,7 @@ require_once 'ZohoOAuthClient.php';
 class ZohoOAuth
 {
 
-	private static $configProperties =array();
+	protected static $configProperties =array();
 	
 	public static function initializeWithOutInputStream()
 	{

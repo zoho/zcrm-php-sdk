@@ -4,7 +4,7 @@ require_once realpath(dirname(__FILE__)."/../../../oauth/client/ZohoOAuth.php");
 
 class ZCRMConfigUtil
 {
-	private static $configProperties=array();
+	protected static $configProperties=array();
 	
 	public static function getInstance()
 	{

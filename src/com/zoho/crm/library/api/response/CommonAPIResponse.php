@@ -4,14 +4,14 @@ require_once realpath(dirname(__FILE__)."/../../common/APIConstants.php");
 
 class CommonAPIResponse
 {
-	private $httpStatusCode=null;
-	private $responseJSON=null;
-	private $responseHeaders=null;
-	private $code=null;
-	private $message=null;
-	private $details=null;
-	private $response=null;
-	private $apiName=null;
+	protected $httpStatusCode=null;
+	protected $responseJSON=null;
+	protected $responseHeaders=null;
+	protected $code=null;
+	protected $message=null;
+	protected $details=null;
+	protected $response=null;
+	protected $apiName=null;
 
 	public function __construct($response,$httpStatusCode,$apiName=null)
 	{
