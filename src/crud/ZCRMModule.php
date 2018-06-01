@@ -4,6 +4,8 @@ namespace ZCRM\crud;
 
 use ZCRM\api\handler\EntityAPIHandler;
 use ZCRM\api\handler\MassEntityAPIHandler;
+use ZCRM\api\handler\ModuleAPIHandler;
+
 
 class ZCRMModule {
     private $convertable = null;

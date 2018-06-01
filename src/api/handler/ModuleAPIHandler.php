@@ -19,6 +19,7 @@ use ZCRM\crud\ZCRMLeadConvertMapping;
 use ZCRM\crud\ZCRMLeadConvertMappingField;
 use ZCRM\exception\APIExceptionHandler;
 use ZCRM\api\APIRequest;
+use ZCRM\crud\ZCRMModule;
 
 class ModuleAPIHandler extends APIHandler {
     private $module = null;

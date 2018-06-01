@@ -5,6 +5,7 @@ namespace ZCRM\common;
 use ZCRM\oauth\client\ZohoOAuth;
 use ZCRM\exception\ZCRMException;
 use Symfony\Component\Yaml\Yaml;
+use ZCRM\ZCRMRestClient;
 
 class ZCRMConfigUtil {
 

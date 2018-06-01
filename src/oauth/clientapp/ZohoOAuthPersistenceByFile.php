@@ -4,8 +4,11 @@ namespace ZCRM\oauth\clientapp;
 
 use ZCRM\oauth\common\OAuthLogger;
 use ZCRM\oauth\common\ZohoOAuthTokens;
+use ZCRM\oauth\client\ZohoOAuthPersistenceInterface;
+use ZCRM\oauth\client\ZohoOAuth;
 
 class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface {
+
     public function setIncludePath() {
         $path = ZohoOAuth::getConfigValue('token_persistence_path');
         $path = trim($path);

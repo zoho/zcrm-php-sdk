@@ -19,7 +19,6 @@ class ZohoOAuth {
             self::$configProperties = $config['oauth'];
 
             $oAuthParams = new ZohoOAuthParams();
-
             $oAuthParams->setAccessType(self::getConfigValue(ZohoOAuthConstants::ACCESS_TYPE));
             $oAuthParams->setClientId(self::getConfigValue(ZohoOAuthConstants::CLIENT_ID));
             $oAuthParams->setClientSecret(self::getConfigValue(ZohoOAuthConstants::CLIENT_SECRET));
@@ -33,7 +32,8 @@ class ZohoOAuth {
     }
 
     public static function getConfigValue($key) {
-        return self::$configProperties[$key];
+        $value = self::$configProperties[$key];
+        return $value;
     }
 
     public static function getAllConfigs() {

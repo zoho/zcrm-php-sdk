@@ -83,11 +83,11 @@ To make API calls to `sandbox account`, please change the value of following key
 
 If your application needs only a single user authentication then you have to set the user EmailId in configurations.properties file as given below:
 
-`currentUserEmail=user@email.com`
+    currentUserEmail=user@email.com
 
 In order to work with multi user authentication, you need to set the user EmailId in PHP super global variable ‘$_SERVER’ as given below:
 
->$_SERVER[‘user_email_id’]=“user@email.com”
+    $_SERVER[‘user_email_id’]=“user@email.com”
 
 You can use `$_SERVER` variable for single user authentication as well, but it is recommended to go with setting up of email Id in `configuration.properties` file.
 
