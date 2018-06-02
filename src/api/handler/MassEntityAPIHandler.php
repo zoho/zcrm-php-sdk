@@ -261,7 +261,6 @@ class MassEntityAPIHandler extends APIHandler {
       if ($sortOrder != NULL) {
         $this->addParam("sort_order", $sortOrder);
       }
-      $this->addParam("scope", 'ZohoCRM.modules.all');
 
       $this->addParam("page", $page);
       $this->addParam("per_page", $perPage);
