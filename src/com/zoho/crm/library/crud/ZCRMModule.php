@@ -527,9 +527,9 @@ class ZCRMModule
     	return EntityAPIHandler::getInstance($record)->getRecord();
     }
     
-    public function getRecords($cvId=null, $sortByField=null, $sortOrder=null, $startIndex=1,$endIndex=200)
+    public function getRecords($cvId=null, $sortByField=null, $sortOrder=null, $startIndex=1,$endIndex=200,$headers=null)
     {
-    	return MassEntityAPIHandler::getInstance($this)->getRecords($cvId,$sortByField,$sortOrder,$startIndex,$endIndex);
+    	return MassEntityAPIHandler::getInstance($this)->getRecords($cvId,$sortByField,$sortOrder,$startIndex,$endIndex,$headers);
     }
     
     public function searchRecords($searchWord,$page=1,$perPage=200)

@@ -276,12 +276,19 @@ class MassEntityAPIHandler extends APIHandler
 		$trashRecordInstance->setDeletedTime($recordProperties['deleted_time']);
 		
 	}
-	public function getRecords($cvId, $sortByField, $sortOrder, $page,$perPage)
+	public function getRecords($cvId, $sortByField, $sortOrder, $page,$perPage,$customHeaders)
 	{
 		try{
 			$this->urlPath=$this->module->getAPIName();
 			$this->requestMethod=APIConstants::REQUEST_METHOD_GET;
 			$this->addHeader("Content-Type","application/json");
+			if($customHeaders!=null)
+			{
+				foreach ($customHeaders as $key=>$value)
+				{
+					$this->addHeader($key,$value);
+				}
+			}
 			if($cvId!=null)
 			{
 				$this->addParam("cvid",$cvId+0);
