@@ -12,83 +12,86 @@ use ZCRM\crud\ZCRMModule;
 
 class ZCRMRestClient {
 
-    private function __construct() {
 
-    }
+  public function __construct() {
+  }
+  /**
+   * @param $config
+   * Init direct with yml file or array
+   *        or
+   * pre-parse config as a default and then init w/ updated array
+   * will allow config to be managed by end users app
+   */
+  public static function initialize($config) {
+    ZCRMConfigUtil::initialize($config);
+  }
+  public static function parseConfig($config_path) {
+    return ZCRMConfigUtil::parseConfig($config_path);
+  }
 
-    /**
-     * @return ZCRMRestClient
-     */
-    public static function getInstance() {
-        return new ZCRMRestClient();
-    }
+  /**
+   * @return mixed
+   */
+  public function getAllModules() {
+    return MetaDataAPIHandler::getInstance()->getAllModules();
+  }
 
-    /**
-     */
-    public static function initialize($config_path) {
-        ZCRMConfigUtil::initialize($config_path);
-    }
+  /**
+   * @param $moduleName
+   *
+   * @return mixed
+   */
+  public function getModule($moduleName) {
+    return MetaDataAPIHandler::getInstance()->getModule($moduleName);
+  }
 
-    /**
-     * @return mixed
-     */
-    public function getAllModules() {
-        return MetaDataAPIHandler::getInstance()->getAllModules();
-    }
+  /**
+   * @return ZCRMOrganization
+   */
+  public function getOrganizationInstance() {
+    return ZCRMOrganization::getInstance();
+  }
 
-    /**
-     * @param $moduleName
-     * @return mixed
-     */
-    public function getModule($moduleName) {
-        return MetaDataAPIHandler::getInstance()->getModule($moduleName);
-    }
+  /**
+   * @param $moduleAPIName
+   *
+   * @return ZCRMModule
+   */
+  public function getModuleInstance($moduleAPIName) {
+    return ZCRMModule::getInstance($moduleAPIName);
+  }
 
-    /**
-     * @return ZCRMOrganization
-     */
-    public function getOrganizationInstance() {
-        return ZCRMOrganization::getInstance();
-    }
+  /**
+   * @param $moduleAPIName
+   * @param $entityId
+   *
+   * @return ZCRMRecord
+   */
+  public function getRecordInstance($moduleAPIName, $entityId) {
+    return ZCRMRecord::getInstance($moduleAPIName, $entityId);
+  }
 
-    /**
-     * @param $moduleAPIName
-     * @return ZCRMModule
-     */
-    public function getModuleInstance($moduleAPIName) {
-        return ZCRMModule::getInstance($moduleAPIName);
-    }
+  /**
+   * @return mixed
+   */
+  public function getCurrentUser() {
+    return OrganizationAPIHandler::getInstance()->getCurrentUser();
+  }
 
-    /**
-     * @param $moduleAPIName
-     * @param $entityId
-     * @return ZCRMRecord
-     */
-    public function getRecordInstance($moduleAPIName, $entityId) {
-        return ZCRMRecord::getInstance($moduleAPIName, $entityId);
-    }
+  /**
+   * @return null
+   */
+  public static function getCurrentUserEmailID() {
+    return isset($_SERVER[APIConstants::USER_EMAIL_ID]) ? $_SERVER[APIConstants::USER_EMAIL_ID] : NULL;
+  }
 
-    /**
-     * @return mixed
-     */
-    public function getCurrentUser() {
-        return OrganizationAPIHandler::getInstance()->getCurrentUser();
-    }
-
-    /**
-     * @return null
-     */
-    public static function getCurrentUserEmailID() {
-        return isset($_SERVER[APIConstants::USER_EMAIL_ID]) ? $_SERVER[APIConstants::USER_EMAIL_ID] : null;
-    }
-
-    /**
-     * @return mixed
-     * @throws exception\ZCRMException
-     */
-    public static function getOrganizationDetails() {
-        return OrganizationAPIHandler::getInstance()->getOrganizationDetails();
-    }
+  /**
+   * @return mixed
+   * @throws exception\ZCRMException
+   */
+  public static function getOrganizationDetails() {
+    return OrganizationAPIHandler::getInstance()->getOrganizationDetails();
+  }
 }
 
 ?>

@@ -10,6 +10,7 @@ use ZCRM\oauth\clientapp\ZohoOAuthPersistenceByFile;
 use ZCRM\oauth\common\OAuthLogger;
 
 class ZohoOAuth {
+    
     private static $configProperties = array();
 
     public static function initialize($config) {

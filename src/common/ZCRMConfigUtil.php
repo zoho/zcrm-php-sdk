@@ -9,26 +9,33 @@ use ZCRM\ZCRMRestClient;
 
 class ZCRMConfigUtil {
 
-  private static $config = array();
-  private static $configProperties = array();
+  private static $config = [];
+
+  private static $configProperties = [];
 
   public static function getInstance() {
     return new ZCRMConfigUtil();
   }
 
   /**
-   * @param $config_path
+   * @param $config
    * Path to config.yml file
    */
-  public static function initialize($config_path) {
+  public static function initialize($config) {
 
-    self::$config = Yaml::parseFile($config_path);
+    if (is_array($config)) {
+      self::$config = $config;
+    }
+    elseif (is_file($config)) {
+      self::$config = self::parseConfig($config);
+    }
     self::$configProperties = self::$config['api'];
-
     ZohoOAuth::initialize(self::$config);
-
   }
-
+  public static function parseConfig($config_path) {
+    return Yaml::parseFile($config_path);
+  }
+  
   /**
    * @param $fileHandler
    */
@@ -41,6 +48,7 @@ class ZCRMConfigUtil {
 
   /**
    * @param $key
+   *
    * @return mixed|string
    */
   public static function getConfigValue($key) {
@@ -77,10 +85,13 @@ class ZCRMConfigUtil {
 
     $currentUserEmail = ZCRMRestClient::getCurrentUserEmailID();
 
-    if ($currentUserEmail == null && self::getConfigValue("currentUserEmail") == null) {
+    if ($currentUserEmail == NULL && self::getConfigValue("currentUserEmail") == NULL) {
       throw new ZCRMException("Current user should either be set in ZCRMRestClient or in configuration.properties file");
-    } else if ($currentUserEmail == null) {
-      $currentUserEmail = self::getConfigValue("currentUserEmail");
+    }
+    else {
+      if ($currentUserEmail == NULL) {
+        $currentUserEmail = self::getConfigValue("currentUserEmail");
+      }
     }
     $oAuthCliIns = ZohoOAuth::getClientInstance();
     return $oAuthCliIns->getAccessToken($currentUserEmail);
