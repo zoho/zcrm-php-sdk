@@ -68,10 +68,11 @@ class MetaDataAPIHandler extends APIHandler {
       $this->urlPath = "settings/modules/" . $moduleName;
       $this->addHeader("Content-Type", "application/json");
       $this->addParam('scope', 'ZohoCRM.settings.modules.read');
-      $responseInstance = APIRequest::getInstance($this)->getAPIResponse();
-      $moduleArray = $responseInstance->getResponseJSON()['modules'];
-      $responseInstance->setData(self::getZCRMModule($moduleArray[0]));
-      return $responseInstance;
+      $res = APIRequest::getInstance($this)->getAPIResponse();
+      $moduleArray = $res->getResponseJSON()['modules'];
+      $res->setData(self::getZCRMModule($moduleArray[0]));
+      return $res;
+      
     } catch (ZCRMException $exception) {
       APIExceptionHandler::logException($exception);
       throw $exception;
