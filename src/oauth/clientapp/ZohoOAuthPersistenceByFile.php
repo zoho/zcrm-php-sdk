@@ -6,6 +6,7 @@ use ZCRM\oauth\common\OAuthLogger;
 use ZCRM\oauth\common\ZohoOAuthTokens;
 use ZCRM\oauth\client\ZohoOAuthPersistenceInterface;
 use ZCRM\oauth\client\ZohoOAuth;
+use ZCRM\oauth\common\ZohoOAuthException;
 
 class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface {
 
