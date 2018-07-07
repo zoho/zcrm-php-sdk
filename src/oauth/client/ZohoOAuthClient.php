@@ -113,7 +113,6 @@ class ZohoOAuthClient {
    * @throws ZohoOAuthException
    */
   public function refreshAccessToken($refreshToken, $userEmailId) {
-
     if ($refreshToken == NULL) {
       throw new ZohoOAuthException("Refresh token is not provided.");
     }
