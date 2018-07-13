@@ -554,7 +554,8 @@ class OrganizationAPIHandler extends APIHandler
 		$userInstance->setReportingTo(isset($userDetails['reporting_to'])?$userDetails['reporting_to']:null);
 		$userInstance->setCreatedBy($userDetails['created_by']);
 		$userInstance->setModifiedBy($userDetails['Modified_By']);
-		$userInstance->setIsOnline($userDetails['Isonline']);
+		if(isset($userDetails['Isonline']))
+			$userInstance->setIsOnline($userDetails['Isonline']);
 		$userInstance->setCurrency(isset($userDetails['Currency'])?$userDetails['Currency']:null);
 		$userInstance->setCreatedTime($userDetails['created_time']);
 		$userInstance->setModifiedTime($userDetails['Modified_Time']);
