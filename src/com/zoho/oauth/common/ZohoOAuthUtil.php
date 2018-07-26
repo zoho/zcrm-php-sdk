@@ -10,7 +10,7 @@ class ZohoOAuthUtil
 			{
 				$line=fgets($fileHandler);
 				$lineAfterSplit=explode("=",$line);
-				if(strpos($lineAfterSplit[0],"#")===false)
+				if(strpos($lineAfterSplit[0],"#")===false && count($lineAfterSplit) > 1)
 				{
 					$reponseMap[trim($lineAfterSplit[0])]=trim($lineAfterSplit[1]);
 				}
