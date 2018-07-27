@@ -3,8 +3,10 @@
 namespace ZCRM\api\handler;
 
 use ZCRM\api\APIRequest;
+use ZCRM\common\CommonUtil;
 use ZCRM\crud\ZCRMModuleRelation;
 use ZCRM\crud\ZCRMRecord;
+use ZCRM\exception\APIExceptionHandler;
 use ZCRM\users\ZCRMUser;
 use ZCRM\crud\ZCRMNote;
 use ZCRM\crud\ZCRMAttachment;
@@ -247,6 +249,7 @@ class RelatedListAPIHandler extends APIHandler {
   public function addRelation() {
     try {
       $this->requestMethod = APIConstants::REQUEST_METHOD_PUT;
+
       $this->urlPath = $this->parentRecord->getModuleApiName() . "/" . $this->parentRecord->getEntityId() . "/" . $this->junctionRecord->getApiName() . "/" . $this->junctionRecord->getId();
 
       $dataArray = $this->junctionRecord->getRelatedDetails();

@@ -12,9 +12,14 @@ class ZCRMConfigUtil {
   private static $config = [];
 
   private static $configProperties = [];
+  private static $instance;
 
   public static function getInstance() {
-    return new ZCRMConfigUtil();
+
+    if (!self::$instance) {
+      self::$instance = new self;
+    }
+    return self::$instance;
   }
 
   /**
@@ -23,6 +28,7 @@ class ZCRMConfigUtil {
    */
   public static function initialize($config) {
 
+    self::getInstance();
     if (is_array($config)) {
       self::$config = $config;
     }
