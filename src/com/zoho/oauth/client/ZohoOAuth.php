@@ -11,12 +11,12 @@ class ZohoOAuth
 {
 
 	private static $configProperties =array();
-	
+
 	public static function initializeWithOutInputStream()
 	{
 		self::initialize(false);
 	}
-	
+
 	public static function initialize($configFilePointer)
 	{
 		try
@@ -34,7 +34,7 @@ class ZohoOAuth
 			}
 			//self::$configProperties[ZohoOAuthConstants::IAM_URL]= "https://accounts.zoho.com";
 			$oAuthParams=new ZohoOAuthParams();
-			
+
 			$oAuthParams->setAccessType(self::getConfigValue(ZohoOAuthConstants::ACCESS_TYPE));
 			$oAuthParams->setClientId(self::getConfigValue(ZohoOAuthConstants::CLIENT_ID));
 			$oAuthParams->setClientSecret(self::getConfigValue(ZohoOAuthConstants::CLIENT_SECRET));
@@ -47,67 +47,67 @@ class ZohoOAuth
 			throw ioe;
 		}
 	}
-	
+
 	public static function getConfigValue($key)
 	{
-		return self::$configProperties[$key];
+		return isset(self::$configProperties[$key]) ? self::$configProperties[$key] : '';
 	}
-	
+
 	public static function getAllConfigs()
 	{
 		return self::$configProperties;
 	}
-	
+
 	public static function getIAMUrl()
 	{
 		return self::getConfigValue(ZohoOAuthConstants::IAM_URL);
 	}
-	
+
 	public static function getGrantURL()
 	{
 		return self::getIAMUrl()."/oauth/v2/auth";
 	}
-	
+
 	public static function getTokenURL()
 	{
 		return self::getIAMUrl()."/oauth/v2/token";
 	}
-	
+
 	public static function getRefreshTokenURL()
 	{
 		return self::getIAMUrl()."/oauth/v2/token";
 	}
-	
+
 	public static function getRevokeTokenURL()
 	{
 		return self::getIAMUrl()."/oauth/v2/token/revoke";
 	}
-	
+
 	public static function getUserInfoURL()
 	{
 		return self::getIAMUrl()."/oauth/user/info";
 	}
-	
+
 	public static function getClientID()
 	{
 		return self::getConfigValue(ZohoOAuthConstants::CLIENT_ID);
 	}
-	
+
 	public static function getClientSecret()
 	{
 		return self::getConfigValue(ZohoOAuthConstants::CLIENT_SECRET);
 	}
-	
+
 	public static function getRedirectURL()
 	{
 		return self::getConfigValue(ZohoOAuthConstants::REDIRECT_URL);
 	}
-	
+
 	public static function getAccessType()
 	{
 		return self::getConfigValue(ZohoOAuthConstants::ACCESS_TYPE);
 	}
-	
+
 	public static function getPersistenceHandlerInstance()
 	{
 		try
@@ -119,7 +119,7 @@ class ZohoOAuth
 			throw new ZohoOAuthException($ex);
 		}
 	}
-	
+
 	public static function getClientInstance()
 	{
 		if(ZohoOAuthClient::getInstanceWithOutParam() == null)
@@ -128,6 +128,6 @@ class ZohoOAuth
 		}
 		return ZohoOAuthClient::getInstanceWithOutParam();
 	}
-	
+
 }
 ?>
