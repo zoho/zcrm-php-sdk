@@ -263,7 +263,7 @@ class EntityAPIHandler extends APIHandler
 		{
 			$recordJSON["Tax"]=self::getTaxListAsJSON();
 		}
-		return array_filter($recordJSON);
+		return array_filter($recordJSON, function($v){ return $v !== null; });
 	}
 	
 	public function getTaxListAsJSON()
