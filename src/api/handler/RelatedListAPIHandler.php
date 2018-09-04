@@ -7,6 +7,7 @@ use ZCRM\common\CommonUtil;
 use ZCRM\crud\ZCRMModuleRelation;
 use ZCRM\crud\ZCRMRecord;
 use ZCRM\exception\APIExceptionHandler;
+use ZCRM\exception\ZCRMException;
 use ZCRM\users\ZCRMUser;
 use ZCRM\crud\ZCRMNote;
 use ZCRM\crud\ZCRMAttachment;

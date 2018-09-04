@@ -98,8 +98,8 @@ class EntityAPIHandler extends APIHandler {
 
       return $responseInstance;
     } catch (ZCRMException $exception) {
-      APIExceptionHandler::logException($exception);
-      throw $exception;
+     // APIExceptionHandler::logException($exception);
+      //throw $exception;
     }
   }
 
