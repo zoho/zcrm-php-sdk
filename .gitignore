@@ -28,3 +28,4 @@ composer.phar
 !bin/symfony_requirements
 .idea/inspectionProfiles/
 .idea/workspace.xml
+.DS_Store
