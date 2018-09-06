@@ -552,13 +552,13 @@ class ZCRMModule
     {
     	return MassEntityAPIHandler::getInstance($this)->massUpdateRecords($entityIds,$fieldApiName,$value);
     }
-    public function updateRecords($records)
+    public function updateRecords($records,$trigger=null)
     {
-    	return MassEntityAPIHandler::getInstance($this)->updateRecords($records);
+    	return MassEntityAPIHandler::getInstance($this)->updateRecords($records,$trigger);
     }
-    public function createRecords($records)
+    public function createRecords($records,$trigger=null)
     {
-    	return MassEntityAPIHandler::getInstance($this)->createRecords($records);
+    	return MassEntityAPIHandler::getInstance($this)->createRecords($records,$trigger);
     }
     public function upsertRecords($records)
     {

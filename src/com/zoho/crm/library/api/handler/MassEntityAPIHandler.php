@@ -17,7 +17,7 @@ class MassEntityAPIHandler extends APIHandler
 	{
 		return new MassEntityAPIHandler($moduleInstance);
 	}
-	public function createRecords($records)
+	public function createRecords($records,$trigger)
 	{
 		if(sizeof($records) > 100)
 		{
@@ -41,6 +41,10 @@ class MassEntityAPIHandler extends APIHandler
 				}
 			}
 			$requestBodyObj["data"]=$dataArray;
+			if($trigger !== null && is_array($trigger))
+			{
+				$requestBodyObj["trigger"]=$trigger;
+			}
 			$this->requestBody = $requestBodyObj;
 			
 			//Fire Request
@@ -125,7 +129,7 @@ class MassEntityAPIHandler extends APIHandler
 		}
 	}
 	
-	public function updateRecords($records)
+	public function updateRecords($records,$trigger)
 	{
 		if(sizeof($records) > 100)
 		{
@@ -147,6 +151,10 @@ class MassEntityAPIHandler extends APIHandler
 				array_push($dataArray,$recordJSON);
 			}
 			$requestBodyObj["data"]=$dataArray;
+			if($trigger !== null && is_array($trigger))
+			{
+				$requestBodyObj["trigger"]=$trigger;
+			}
 			$this->requestBody = $requestBodyObj;
 			
 			//Fire Request
