@@ -234,7 +234,7 @@ class ZCRMRecord
      * @return APIResponse of the record update.
      * @throws ZCRMException if Entity ID of the record is NULL
      */
-    public function update()
+    public function update($callWebhook = true)
     {
     	if(self::getEntityId() == null)
     	{
@@ -242,7 +242,7 @@ class ZCRMRecord
     		$exception->setExceptionCode("ID MISSING");
     		throw $exception;
     	}
-    	return EntityAPIHandler::getInstance($this)->updateRecord();
+    	return EntityAPIHandler::getInstance($this)->updateRecord($callWebhook);
     }
     
     /**

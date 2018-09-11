@@ -69,14 +69,17 @@ class EntityAPIHandler extends APIHandler
 		}
 	}
 	
-	public function updateRecord()
+	public function updateRecord($callWebhook = true)
 	{
 		try{
 			$inputJSON=self::getZCRMRecordAsJSON();
 			$this->requestMethod=APIConstants::REQUEST_METHOD_PUT;
 			$this->urlPath=$this->record->getModuleApiName()."/".$this->record->getEntityId();
 			$this->addHeader("Content-Type","application/json");
-			$this->requestBody=json_encode(array_filter(array("data"=>array($inputJSON))));;
+			$data = array_filter(array("data"=>array($inputJSON)));
+			if ($callWebhook == false)
+			    $data['trigger'] = [];
+			$this->requestBody=json_encode($data);
 				
 			$responseInstance=APIRequest::getInstance($this)->getAPIResponse();
 				
