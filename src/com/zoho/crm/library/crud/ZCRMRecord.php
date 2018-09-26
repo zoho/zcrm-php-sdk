@@ -261,9 +261,9 @@ class ZCRMRecord
     	return EntityAPIHandler::getInstance($this)->deleteRecord();
     }
     
-    public function convert($potentialRecord=null,$assignToUser=null)
+    public function convert($potentialRecord=null,$assignToUser=null,$additionalData=[])
     {
-    	return EntityAPIHandler::getInstance($this)->convertRecord($potentialRecord, $assignToUser);
+    	return EntityAPIHandler::getInstance($this)->convertRecord($potentialRecord, $assignToUser, $additionalData);
     }
     
     public function getRelatedListRecords($relatedListAPIName,$sortByField=null,$sortOrder=null,$page=1, $perPage=20) 

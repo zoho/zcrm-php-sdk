@@ -117,7 +117,7 @@ class EntityAPIHandler extends APIHandler
 		}
 	}
 	
-	public function convertRecord($potentialRecord, $assignToUser)
+	public function convertRecord($potentialRecord, $assignToUser, $additionalData=[])
 	{
 		try{
 			$this->requestMethod=APIConstants::REQUEST_METHOD_POST;
@@ -133,6 +133,9 @@ class EntityAPIHandler extends APIHandler
 			{
 				$dataObject['Deals']=self::getInstance($potentialRecord)->getZCRMRecordAsJSON();
 			}
+
+            $dataObject = array_merge($dataObject, $additionalData);
+
 			if(sizeof($dataObject)>0)
 			{
 				$dataArray=json_encode(array(APIConstants::DATA=>array(array_filter($dataObject))));
