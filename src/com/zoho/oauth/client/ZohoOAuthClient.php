@@ -172,6 +172,26 @@ class ZohoOAuthClient
     
     public function getUserEmailIdFromIAM($accessToken)
     {
+        /**
+         * For details on why these changes were needed, see:
+         * https://help.zoho.com/portal/community/topic/error-invalid-oauthscope-in-request-to-url-https-accounts-zoho-com-oauth-user-info?action=communityTopicLike&actionId=2266000011255084
+         *
+         * Also see that the Python SDK used the email config value, no need for a second request:
+         * https://github.com/zoho/zcrm-python-sdk/blob/master/zcrmsdk/OAuthClient.py#L112
+         */
+        $currentUserEmail= ZCRMRestClient::getCurrentUserEmailID();
+
+        if ($currentUserEmail == null && ZCRMConfigUtil::getConfigValue("currentUserEmail") == null)
+        {
+            throw new ZCRMException("Current user should either be set in ZCRMRestClient or in configuration.properties file");
+        }
+        else if ($currentUserEmail == null)
+        {
+            $currentUserEmail = ZCRMConfigUtil::getConfigValue("currentUserEmail");
+        }
+
+        return $currentUserEmail;
+        /**
     	$connector = new ZohoOAuthHTTPConnector();
     	//$connector->setUrl(ZohoOAuth::getUserInfoURL());
         // @see https://www.zoho.com/accounts/protocol/oauth/use-access-token.html
@@ -181,6 +201,7 @@ class ZohoOAuthClient
     	$jsonResponse=self::processResponse($apiResponse);
     	
     	return $jsonResponse['Email'];
+        **/
     }
     public function processResponse($apiResponse)
     {
