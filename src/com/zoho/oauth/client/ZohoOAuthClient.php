@@ -173,7 +173,9 @@ class ZohoOAuthClient
     public function getUserEmailIdFromIAM($accessToken)
     {
     	$connector = new ZohoOAuthHTTPConnector();
-    	$connector->setUrl(ZohoOAuth::getUserInfoURL());
+    	//$connector->setUrl(ZohoOAuth::getUserInfoURL());
+        // @see https://www.zoho.com/accounts/protocol/oauth/use-access-token.html
+    	$connector->setUrl('https://profile.zoho.com/oauth/user/info');
     	$connector->addHeadder(ZohoOAuthConstants::AUTHORIZATION, ZohoOAuthConstants::OAUTH_HEADER_PREFIX.$accessToken);
     	$apiResponse=$connector->get();
     	$jsonResponse=self::processResponse($apiResponse);
