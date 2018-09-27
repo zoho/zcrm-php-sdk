@@ -3,9 +3,20 @@ class OAuthLogger
 {
 	public static function writeToFile($msg)
 	{
-		$filePointer=fopen(dirname(__FILE__)."/../logger/OAuth.log","a");
-		fwrite($filePointer,sprintf("%s %s\n",date("Y-m-d H:i:s"),$msg));
-		fclose($filePointer);
+        set_include_path(ZCRMConfigUtil::getConfigValue('applicationLogFilePath'));
+        $path=get_include_path();
+        if($path{strlen($path)-1}!='\/')
+        {
+            $path=$path."/";
+        }
+        $path=str_replace("\n", "", $path);
+        $filePointer=fopen($path."OAuth.log","a");
+        if(!$filePointer)
+        {
+            return;
+        }
+        fwrite($filePointer,sprintf("%s %s\n",date("Y-m-d H:i:s"),$msg));
+        fclose($filePointer);
 	}
 	
 	public static function warn($msg)
