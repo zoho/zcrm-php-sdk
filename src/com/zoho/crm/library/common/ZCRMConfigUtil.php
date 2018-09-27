@@ -10,21 +10,21 @@ class ZCRMConfigUtil
 	{
 		return new ZCRMConfigUtil();
 	}
-	public static function initialize($initializeOAuth)
-	{
-		$path=realpath(dirname(__FILE__)."/../../../../../resources/configuration.properties");
-		$fileHandler=fopen($path,"r");
-		if(!$fileHandler)
-		{
-			return;
-		}
-		self::$configProperties=CommonUtil::getFileContentAsMap($fileHandler);
-		
-		if($initializeOAuth)
-		{
-			ZohoOAuth::initializeWithOutInputStream();
-		}
-	}
+	public static function initialize($configPath, $initializeOAuth = true)
+    {
+        $configPath = realpath(rtrim($configPath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'configuration.properties');
+        $filePointer = fopen($configPath, "r");
+
+        if (!$filePointer) {
+            return;
+        }
+
+        self::$configProperties = CommonUtil::getFileContentAsMap($filePointer);
+
+        if ($initializeOAuth) {
+            ZohoOAuth::initializeWithOutInputStream($configPath);
+        }
+    }
 	
 	public static function loadConfigProperties($fileHandler)
 	{

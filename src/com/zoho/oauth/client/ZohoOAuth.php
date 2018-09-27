@@ -12,26 +12,18 @@ class ZohoOAuth
 
 	private static $configProperties =array();
 	
-	public static function initializeWithOutInputStream()
+	public static function initializeWithOutInputStream($configPath)
 	{
-		self::initialize(false);
+		self::initialize($configPath);
 	}
 	
-	public static function initialize($configFilePointer)
+	public static function initialize($configPath)
 	{
 		try
 		{
-			$configPath=realpath(dirname(__FILE__)."/../../../../resources/oauth_configuration.properties");
-			$filePointer=fopen($configPath,"r");
+            $configFile = realpath(rtrim($configPath, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.'oauth_configuration.properties');
+			$filePointer = fopen($configFile,"r");
 			self::$configProperties = ZohoOAuthUtil::getFileContentAsMap($filePointer);
-			if($configFilePointer!=false)
-			{
-				$properties=ZohoOAuthUtil::getFileContentAsMap($configFilePointer);
-				foreach($properties as $key=>$value)
-				{
-					self::$configProperties[$key]=$value;
-				}
-			}
 			//self::$configProperties[ZohoOAuthConstants::IAM_URL]= "https://accounts.zoho.com";
 			$oAuthParams=new ZohoOAuthParams();
 			

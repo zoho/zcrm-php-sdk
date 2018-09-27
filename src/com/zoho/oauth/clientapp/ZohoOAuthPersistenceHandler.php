@@ -97,7 +97,15 @@ class ZohoOAuthPersistenceHandler implements ZohoOAuthPersistenceInterface
 	
 	public function getMysqlConnection()
 	{
-		$mysqli_con = new mysqli("localhost:3306", "root", "", "zohooauth");
+	    $host = ZohoOAuth::getConfigValue('connection_host') ? ZohoOAuth::getConfigValue('connection_host') : ini_get('mysqli.default_host');
+        $username = ZohoOAuth::getConfigValue('connection_username') ? ZohoOAuth::getConfigValue('connection_username') : ini_get('mysqli.default_user');
+        $password = ZohoOAuth::getConfigValue('connection_password') ? ZohoOAuth::getConfigValue('connection_password') : ini_get('mysqli.default_pw');
+        $database = ZohoOAuth::getConfigValue('connection_database') ? ZohoOAuth::getConfigValue('connection_database') : '';
+        $port = ZohoOAuth::getConfigValue('connection_port') ? ZohoOAuth::getConfigValue('connection_port') : ini_get('mysqli.default_port');
+        $socket = ZohoOAuth::getConfigValue('connection_socket') ? ZohoOAuth::getConfigValue('connection_socket') : ini_get('mysqli.default_socket');
+
+		$mysqli_con = new mysqli($host, $username, $password, $database, $port, $socket);
+
 		if ($mysqli_con->connect_errno) {
 			OAuthLogger::severe("Failed to connect to MySQL: (" . $mysqli_con->connect_errno . ") " . $mysqli_con->connect_error);
 			echo "Failed to connect to MySQL: (" . $mysqli_con->connect_errno . ") " . $mysqli_con->connect_error;
