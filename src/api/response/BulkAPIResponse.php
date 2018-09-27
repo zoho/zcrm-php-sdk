@@ -52,7 +52,7 @@ class BulkAPIResponse extends CommonAPIResponse {
 
     /**
      * bulkData
-     * @return unkown
+     * @return mixed Unknown
      */
     public function getData() {
         return $this->bulkData;
@@ -60,7 +60,7 @@ class BulkAPIResponse extends CommonAPIResponse {
 
     /**
      * bulkData
-     * @param unkown $bulkData
+     * @param mixed $bulkData Unknown
      */
     public function setData($bulkData) {
         $this->bulkData = $bulkData;
@@ -84,7 +84,7 @@ class BulkAPIResponse extends CommonAPIResponse {
 
     /**
      * info
-     * @return Instance of ResponseInfo
+     * @return ResponseInfo Instance of ResponseInfo
      */
     public function getInfo() {
         return $this->info;
@@ -102,7 +102,7 @@ class BulkAPIResponse extends CommonAPIResponse {
 
     /**
      * bulkEntitiesResponse
-     * @return Array of EntityResponse
+     * @return array of EntityResponse
      */
     public function getEntityResponses() {
         return $this->bulkEntitiesResponse;

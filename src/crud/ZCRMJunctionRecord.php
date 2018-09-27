@@ -19,7 +19,7 @@ class ZCRMJunctionRecord {
 
     /**
      * id
-     * @return Long
+     * @return int
      * get the ID of the junction record
      */
     public function getId() {

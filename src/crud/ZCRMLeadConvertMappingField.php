@@ -35,7 +35,7 @@ class ZCRMLeadConvertMappingField {
 
     /**
      * id
-     * @return Long
+     * @return int
      */
     public function getId() {
         return $this->id;
@@ -43,7 +43,7 @@ class ZCRMLeadConvertMappingField {
 
     /**
      * id
-     * @param Long $id
+     * @param int $id
      */
     public function setId($id) {
         $this->id = $id;

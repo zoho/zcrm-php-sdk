@@ -2,6 +2,7 @@
 
 namespace ZCRM\oauth\client;
 
+use ZCRM\oauth\common\ZohoOAuthException;
 use ZCRM\oauth\common\ZohoOAuthUtil;
 use ZCRM\oauth\common\ZohoOAuthConstants;
 use ZCRM\oauth\common\ZohoOAuthParams;
@@ -26,9 +27,9 @@ class ZohoOAuth {
             $oAuthParams->setRedirectURL(self::getConfigValue(ZohoOAuthConstants::REDIRECT_URL));
             ZohoOAuthClient::getInstance($oAuthParams);
 
-        } catch (IOException $ioe) {
-            OAuthLogger::warn("Exception while initializing Zoho OAuth Client.. " . ioe);
-            throw ioe;
+        } catch (\Exception $ioe) {
+            OAuthLogger::warn("Exception while initializing Zoho OAuth Client.. " . $ioe);
+            throw $ioe;
         }
     }
 
@@ -84,7 +85,7 @@ class ZohoOAuth {
     public static function getPersistenceHandlerInstance() {
         try {
             return ZohoOAuth::getConfigValue("token_persistence_path") != "" ? new ZohoOAuthPersistenceByFile() : new ZohoOAuthPersistenceHandler();
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             throw new ZohoOAuthException($ex);
         }
     }

@@ -81,7 +81,7 @@ class ZCRMUser {
 
     /**
      * id
-     * @return Long
+     * @return int
      */
     public function getId() {
         return $this->id;
@@ -89,7 +89,7 @@ class ZCRMUser {
 
     /**
      * id
-     * @param Long $id
+     * @param int $id
      */
     public function setId($id) {
         $this->id = $id;
@@ -481,7 +481,7 @@ class ZCRMUser {
 
     /**
      * mobile
-     * @return Long
+     * @return int
      */
     public function getMobile() {
         return $this->mobile;
@@ -489,7 +489,7 @@ class ZCRMUser {
 
     /**
      * mobile
-     * @param Long $mobile
+     * @param int $mobile
      */
     public function setMobile($mobile) {
         $this->mobile = $mobile;
@@ -529,7 +529,7 @@ class ZCRMUser {
 
     /**
      * zuid
-     * @return Long
+     * @return int
      */
     public function getZuid() {
         return $this->zuid;
@@ -537,7 +537,7 @@ class ZCRMUser {
 
     /**
      * zuid
-     * @param Long $zuid
+     * @param int $zuid
      */
     public function setZuid($zuid) {
         $this->zuid = $zuid;
@@ -577,7 +577,7 @@ class ZCRMUser {
 
     /**
      * phone
-     * @return Long
+     * @return int
      */
     public function getPhone() {
         return $this->phone;
@@ -585,7 +585,7 @@ class ZCRMUser {
 
     /**
      * phone
-     * @param Long $phone
+     * @param int $phone
      */
     public function setPhone($phone) {
         $this->phone = $phone;
@@ -677,7 +677,7 @@ class ZCRMUser {
 
     /**
      * territories
-     * @return Array
+     * @return array
      */
     public function getTerritories() {
         return $this->territories;
@@ -685,7 +685,7 @@ class ZCRMUser {
 
     /**
      * territories
-     * @param Array $territories
+     * @param array $territories
      * @return ZCRMUser
      */
     public function setTerritories($territories) {

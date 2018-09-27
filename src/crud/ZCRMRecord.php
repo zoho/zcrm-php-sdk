@@ -3,7 +3,10 @@
 namespace ZCRM\crud;
 
 use ZCRM\api\handler\EntityAPIHandler;
+use ZCRM\api\response\APIResponse;
 use ZCRM\common\APIConstants;
+use ZCRM\exception\ZCRMException;
+use ZCRM\users\ZCRMUser;
 
 /**
  * Provides methods for basic CRUD operations of the record.
@@ -66,7 +69,7 @@ class ZCRMRecord {
   /**
    * entityId
    *
-   * @return Long
+   * @return int
    */
   public function getEntityId() {
     return $this->entityId;
@@ -75,7 +78,7 @@ class ZCRMRecord {
   /**
    * entityId
    *
-   * @param Long $entityId
+   * @param int $entityId
    */
   public function setEntityId($entityId) {
     $this->entityId = $entityId;
@@ -124,7 +127,7 @@ class ZCRMRecord {
   /**
    * lineItems
    *
-   * @return Array
+   * @return array
    */
   public function getLineItems() {
     return $this->lineItems;
@@ -133,7 +136,7 @@ class ZCRMRecord {
   /**
    * lineItems
    *
-   * @param Array $lineItems
+   * @param array $lineItems
    */
   public function addLineItem($lineItem) {
     array_push($this->lineItems, $lineItem);
@@ -365,7 +368,7 @@ class ZCRMRecord {
   /**
    * To upload photo to the record
    *
-   * @param unknown $filePath
+   * @param mixed $filePath Unknown
    */
   public function uploadPhoto($filePath) {
     return EntityAPIHandler::getInstance($this)->uploadPhoto($filePath);
@@ -425,7 +428,7 @@ class ZCRMRecord {
   /**
    * participants
    *
-   * @return Array
+   * @return array
    */
   public function getParticipants() {
     return $this->participants;
@@ -434,7 +437,7 @@ class ZCRMRecord {
   /**
    * participants
    *
-   * @param Array $participants
+   * @param array $participants
    */
   public function addParticipant($participant) {
     array_push($this->participants, $participant);
@@ -443,7 +446,7 @@ class ZCRMRecord {
   /**
    * priceDetails
    *
-   * @return Array
+   * @return array
    */
   public function getPriceDetails() {
     return $this->priceDetails;
@@ -452,7 +455,7 @@ class ZCRMRecord {
   /**
    * priceDetails
    *
-   * @param Array $priceDetails
+   * @param array $priceDetails
    */
   public function addPriceDetail($priceDetail) {
     array_push($this->priceDetails, $priceDetail);

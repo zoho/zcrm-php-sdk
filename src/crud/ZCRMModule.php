@@ -272,7 +272,7 @@ class ZCRMModule {
 
     /**
      * properties
-     * @param unkown $properties
+     * @param mixed $properties Unknown
      */
     public function setProperties($properties) {
         $this->properties = $properties;
@@ -297,7 +297,7 @@ class ZCRMModule {
 
     /**
      * Get the module search layout fields
-     * @return Array
+     * @return array
      */
     public function getSearchLayoutFields() {
         return $this->searchLayoutFields;
@@ -305,7 +305,7 @@ class ZCRMModule {
 
     /**
      * Set the module search layout fields
-     * @param Array $searchLayoutFields
+     * @param array $searchLayoutFields
      */
     public function setSearchLayoutFields($searchLayoutFields) {
         $this->searchLayoutFields = $searchLayoutFields;
@@ -329,7 +329,7 @@ class ZCRMModule {
 
     /**
      * Get the module's defaultTerritoryId
-     * @return Long
+     * @return int
      */
     public function getDefaultTerritoryId() {
         return $this->defaultTerritoryId;
@@ -337,7 +337,7 @@ class ZCRMModule {
 
     /**
      * Set the module's defaultTerritoryId
-     * @param Long $defaultTerritoryId
+     * @param int $defaultTerritoryId
      */
     public function setDefaultTerritoryId($defaultTerritoryId) {
         $this->defaultTerritoryId = $defaultTerritoryId;
@@ -457,7 +457,7 @@ class ZCRMModule {
 
     /**
      * Method to get related lists of a module.
-     * @return Array of related list instances
+     * @return array of related list instances
      */
     public function getAllRelatedLists() {
         return ModuleAPIHandler::getInstance($this)->getAllRelatedLists();
@@ -474,7 +474,7 @@ class ZCRMModule {
 
     /**
      * Get module's defaultCustomViewId
-     * @return Long
+     * @return int
      */
     public function getDefaultCustomViewId() {
         return $this->defaultCustomViewId;
@@ -482,7 +482,7 @@ class ZCRMModule {
 
     /**
      * Set module's defaultCustomViewId
-     * @param Long $defaultCustomViewId
+     * @param int $defaultCustomViewId
      */
     public function setDefaultCustomViewId($defaultCustomViewId) {
         $this->defaultCustomViewId = $defaultCustomViewId;

@@ -2,6 +2,8 @@
 
 namespace ZCRM\crud;
 
+use ZCRM\users\ZCRMUser;
+
 class ZCRMTrashRecord {
     private $entityId = null;
     private $displayName;
@@ -21,7 +23,7 @@ class ZCRMTrashRecord {
 
     /**
      * entityId
-     * @return Long
+     * @return int
      */
     public function getEntityId() {
         return $this->entityId;
@@ -29,7 +31,7 @@ class ZCRMTrashRecord {
 
     /**
      * entityId
-     * @param Long $entityId
+     * @param int $entityId
      */
     public function setEntityId($entityId) {
         $this->entityId = $entityId;

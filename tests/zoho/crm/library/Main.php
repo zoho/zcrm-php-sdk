@@ -1,5 +1,7 @@
 <?php
-require_once realpath(dirname(__FILE__).'/../../../../com/zoho/crm/library/setup/restclient/ZCRMRestClient.php');
+
+use ZCRM\ZCRMRestClient;
+
 require_once './api/MetaDataAPIHandlerTest.php';
 require_once './api/EntityAPIHandlerTest.php';
 require_once './api/ModuleAPIHandlerTest.php';
@@ -7,7 +9,6 @@ require_once './api/RelatedListAPIHandlerTest.php';
 require_once './api/OrganizationAPIHandlerTest.php';
 require_once './api/MassEntityAPIHandlerTest.php';
 require_once './common/Helper.php';
-//require_once '/usr/local/php5/lib/php/Mail/mime.php'; // PEAR Mail_Mime packge
 
 class Main
 {

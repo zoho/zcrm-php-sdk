@@ -1,8 +1,11 @@
 <?php
-require_once realpath(dirname(__FILE__)."/../../../../../com/zoho/crm/library/api/handler/EntityAPIHandler.php");
-require_once realpath(dirname(__FILE__)."/../../../../../com/zoho/crm/library/crud/ZCRMJunctionRecord.php");
-require_once 'MetaDataAPIHandlerTest.php';
-require_once realpath(dirname(__FILE__)."/../common/TestUtil.php");
+
+use ZCRM\common\APIConstants;
+use ZCRM\crud\ZCRMJunctionRecord;
+use ZCRM\crud\ZCRMModule;
+use ZCRM\crud\ZCRMNote;
+use ZCRM\crud\ZCRMRecord;
+use ZCRM\exception\ZCRMException;
 
 class EntityAPIHandlerTest
 {

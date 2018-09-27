@@ -2,6 +2,8 @@
 
 namespace ZCRM\crud;
 
+use ZCRM\users\ZCRMUser;
+
 class ZCRMAttachment {
     private $id = null;
     private $fileName = null;
@@ -30,7 +32,7 @@ class ZCRMAttachment {
 
     /**
      * id
-     * @return Long
+     * @return int
      */
     public function getId() {
         return $this->id;
@@ -38,7 +40,7 @@ class ZCRMAttachment {
 
     /**
      * id
-     * @param Long $id
+     * @param int $id
      */
     public function setId($id) {
         $this->id = $id;
@@ -240,7 +242,7 @@ class ZCRMAttachment {
 
     /**
      * parentId
-     * @return Long
+     * @return int
      */
     public function getParentId() {
         return $this->parentId;
@@ -248,7 +250,7 @@ class ZCRMAttachment {
 
     /**
      * parentId
-     * @param Long $parentId
+     * @param int $parentId
      */
     public function setParentId($parentId) {
         $this->parentId = $parentId;

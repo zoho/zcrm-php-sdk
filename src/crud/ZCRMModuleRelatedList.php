@@ -51,7 +51,7 @@ class ZCRMModuleRelatedList {
 
     /**
      * displayLabel
-     * @return unkown
+     * @return mixed Unknown
      */
     public function getDisplayLabel() {
         return $this->displayLabel;
@@ -59,7 +59,7 @@ class ZCRMModuleRelatedList {
 
     /**
      * displayLabel
-     * @param unkown $displayLabel
+     * @param mixed $displayLabel Unknown
      * @return ZCRMModuleRelatedList
      */
     public function setDisplayLabel($displayLabel) {
@@ -68,7 +68,7 @@ class ZCRMModuleRelatedList {
 
     /**
      * visible
-     * @return unkown
+     * @return mixed Unknown
      */
     public function isVisible() {
         return $this->visible;
@@ -76,7 +76,7 @@ class ZCRMModuleRelatedList {
 
     /**
      * visible
-     * @param unkown $visible
+     * @param mixed $visible Unknown
      * @return ZCRMModuleRelatedList
      */
     public function setVisible($visible) {
@@ -85,7 +85,7 @@ class ZCRMModuleRelatedList {
 
     /**
      * name
-     * @return unkown
+     * @return mixed Unknown
      */
     public function getName() {
         return $this->name;
@@ -93,7 +93,7 @@ class ZCRMModuleRelatedList {
 
     /**
      * name
-     * @param unkown $name
+     * @param mixed $name Unknown
      * @return ZCRMModuleRelatedList
      */
     public function setName($name) {
@@ -102,7 +102,7 @@ class ZCRMModuleRelatedList {
 
     /**
      * id
-     * @return unkown
+     * @return mixed Unknown
      */
     public function getId() {
         return $this->id;
@@ -110,7 +110,7 @@ class ZCRMModuleRelatedList {
 
     /**
      * id
-     * @param unkown $id
+     * @param mixed $id Unknown
      * @return ZCRMModuleRelatedList
      */
     public function setId($id) {
@@ -119,7 +119,7 @@ class ZCRMModuleRelatedList {
 
     /**
      * href
-     * @return unkown
+     * @return mixed Unknown
      */
     public function getHref() {
         return $this->href;
@@ -127,7 +127,7 @@ class ZCRMModuleRelatedList {
 
     /**
      * href
-     * @param unkown $href
+     * @param mixed $href Unknown
      * @return ZCRMModuleRelatedList
      */
     public function setHref($href) {
@@ -136,7 +136,7 @@ class ZCRMModuleRelatedList {
 
     /**
      * type
-     * @return unkown
+     * @return mixed Unknown
      */
     public function getType() {
         return $this->type;
@@ -144,7 +144,7 @@ class ZCRMModuleRelatedList {
 
     /**
      * type
-     * @param unkown $type
+     * @param mixed $type Unknown
      * @return ZCRMModuleRelatedList
      */
     public function setType($type) {

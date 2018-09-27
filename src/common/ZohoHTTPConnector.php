@@ -176,7 +176,7 @@ class ZohoHTTPConnector {
 
     /**
      * isBulkRequest
-     * @return unkown
+     * @return mixed Unknown
      */
     public function isBulkRequest() {
         return $this->isBulkRequest;
@@ -184,7 +184,7 @@ class ZohoHTTPConnector {
 
     /**
      * isBulkRequest
-     * @param unkown $isBulkRequest
+     * @param mixed $isBulkRequest Unknown
      */
     public function setBulkRequest($isBulkRequest) {
         $this->isBulkRequest = $isBulkRequest;

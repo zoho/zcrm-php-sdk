@@ -3,6 +3,7 @@
 namespace ZCRM\api\response;
 
 use ZCRM\common\APIConstants;
+use ZCRM\exception\APIExceptionHandler;
 use ZCRM\exception\ZCRMException;
 
 class FileAPIResponse {
@@ -77,7 +78,7 @@ class FileAPIResponse {
 
     /**
      * responseJSON
-     * @return Array
+     * @return array
      */
     public function getResponseJSON() {
         return $this->responseJSON;
@@ -85,7 +86,7 @@ class FileAPIResponse {
 
     /**
      * responseJSON
-     * @param Array $responseJSON
+     * @param array $responseJSON
      */
     public function setResponseJSON($responseJSON) {
         $this->responseJSON = $responseJSON;
@@ -109,7 +110,7 @@ class FileAPIResponse {
 
     /**
      * responseHeaders
-     * @return Array
+     * @return array
      */
     public function getResponseHeaders() {
         return $this->responseHeaders;
@@ -117,7 +118,7 @@ class FileAPIResponse {
 
     /**
      * responseHeaders
-     * @param Array $responseHeaders
+     * @param array $responseHeaders
      */
     public function setResponseHeaders($responseHeaders) {
         $this->responseHeaders = $responseHeaders;
@@ -158,7 +159,7 @@ class FileAPIResponse {
 
     /**
      * details
-     * @return Array
+     * @return array
      */
     public function getDetails() {
         return $this->details;
@@ -166,7 +167,7 @@ class FileAPIResponse {
 
     /**
      * details
-     * @param Array $details
+     * @param array $details
      * @return NewFileAPIResponse
      */
     public function setDetails($details) {
