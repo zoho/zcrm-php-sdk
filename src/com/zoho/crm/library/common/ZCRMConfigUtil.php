@@ -12,8 +12,8 @@ class ZCRMConfigUtil
 	}
 	public static function initialize($configPath, $initializeOAuth = true)
     {
-        $configPath = realpath(rtrim($configPath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'configuration.properties');
-        $filePointer = fopen($configPath, "r");
+        $configFile = realpath(rtrim($configPath, '/\\') . DIRECTORY_SEPARATOR . 'configuration.properties');
+        $filePointer = fopen($configFile, "r");
 
         if (!$filePointer) {
             return;

@@ -21,7 +21,7 @@ class ZohoOAuth
 	{
 		try
 		{
-            $configFile = realpath(rtrim($configPath, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.'oauth_configuration.properties');
+            $configFile = realpath(rtrim($configPath, '/\\').DIRECTORY_SEPARATOR.'oauth_configuration.properties');
 			$filePointer = fopen($configFile,"r");
 			self::$configProperties = ZohoOAuthUtil::getFileContentAsMap($filePointer);
 			//self::$configProperties[ZohoOAuthConstants::IAM_URL]= "https://accounts.zoho.com";
