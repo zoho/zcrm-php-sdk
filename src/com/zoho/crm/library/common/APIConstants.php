@@ -73,5 +73,10 @@ class APIConstants
 	const CURR_WINDOW_RESET="X-RATELIMIT-RESET";
 	const API_COUNT_REMAINING_FOR_THE_DAY="X-RATELIMIT-DAY-REMAINING";
 	const API_LIMIT_FOR_THE_DAY="X-RATELIMIT-DAY-LIMIT";
+	const APPLICATION_LOGFILE_PATH = "applicationLogFilePath";
+	const CURRENT_USER_EMAIL = "currentUserEmail";
+	const SANDBOX = "sandbox";
+	const API_BASEURL = "apiBaseUrl";
+	const API_VERSION = "apiVersion";
 }
 ?>
