@@ -34,7 +34,11 @@ class ZohoOAuthConstants
 	const AUTHORIZATION="Authorization";
 	const REQUEST_METHOD_GET="GET";
 	const REQUEST_METHOD_POST="POST";
-	
+	const SANDBOX = "sandbox";
+	const TOKEN_PERSISTENCE_PATH = "token_persistence_path";
+	const DATABASE_PORT = "db_port";
+	const DATABASE_USERNAME = "db_username";
+	const DATABASE_PASSWORD = "db_password";
 	const RESPONSECODE_OK=200;
 }
 ?>
