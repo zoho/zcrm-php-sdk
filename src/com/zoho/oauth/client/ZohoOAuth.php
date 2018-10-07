@@ -39,36 +39,37 @@ class ZohoOAuth
 			{
 				self::setConfigValues($configuration);
 			}
-				if(!array_key_exists(ZohoOAuthConstants::TOKEN_PERSISTENCE_PATH,self::$configProperties) || self::$configProperties[ZohoOAuthConstants::TOKEN_PERSISTENCE_PATH] == "")
-				{
-                    if(!array_key_exists(ZohoOAuthConstants::DATABASE_HOST,self::$configProperties))
-                    {
-                        self::$configProperties[ZohoOAuthConstants::DATABASE_HOST] = "localhost";
-                    }
-					if(!array_key_exists(ZohoOAuthConstants::DATABASE_PORT,self::$configProperties))
-					{
-						self::$configProperties[ZohoOAuthConstants::DATABASE_PORT] = "3306";
-					}
-                    if(!array_key_exists(ZohoOAuthConstants::DATABASE_NAME,self::$configProperties))
-                    {
-                        self::$configProperties[ZohoOAuthConstants::DATABASE_NAME] = "zohooauth";
-                    }
-					if(!array_key_exists(ZohoOAuthConstants::DATABASE_USERNAME,self::$configProperties))
-					{
-						self::$configProperties[ZohoOAuthConstants::DATABASE_USERNAME] = "root";
-					}
-					if(!array_key_exists(ZohoOAuthConstants::DATABASE_PASSWORD,self::$configProperties))
-					{
-						self::$configProperties[ZohoOAuthConstants::DATABASE_PASSWORD] = "";
-					}
-				}
-	            $oAuthParams=new ZohoOAuthParams();
-	            
-	            $oAuthParams->setAccessType(self::getConfigValue(ZohoOAuthConstants::ACCESS_TYPE));
-	            $oAuthParams->setClientId(self::getConfigValue(ZohoOAuthConstants::CLIENT_ID));
-	            $oAuthParams->setClientSecret(self::getConfigValue(ZohoOAuthConstants::CLIENT_SECRET));
-	            $oAuthParams->setRedirectURL(self::getConfigValue(ZohoOAuthConstants::REDIRECT_URL));
-	            ZohoOAuthClient::getInstance($oAuthParams);
+
+            if(!array_key_exists(ZohoOAuthConstants::TOKEN_PERSISTENCE_PATH,self::$configProperties) || self::$configProperties[ZohoOAuthConstants::TOKEN_PERSISTENCE_PATH] == "")
+            {
+                if(!array_key_exists(ZohoOAuthConstants::DATABASE_HOST,self::$configProperties))
+                {
+                    self::$configProperties[ZohoOAuthConstants::DATABASE_HOST] = "localhost";
+                }
+                if(!array_key_exists(ZohoOAuthConstants::DATABASE_PORT,self::$configProperties))
+                {
+                    self::$configProperties[ZohoOAuthConstants::DATABASE_PORT] = "3306";
+                }
+                if(!array_key_exists(ZohoOAuthConstants::DATABASE_NAME,self::$configProperties))
+                {
+                    self::$configProperties[ZohoOAuthConstants::DATABASE_NAME] = "zohooauth";
+                }
+                if(!array_key_exists(ZohoOAuthConstants::DATABASE_USERNAME,self::$configProperties))
+                {
+                    self::$configProperties[ZohoOAuthConstants::DATABASE_USERNAME] = "root";
+                }
+                if(!array_key_exists(ZohoOAuthConstants::DATABASE_PASSWORD,self::$configProperties))
+                {
+                    self::$configProperties[ZohoOAuthConstants::DATABASE_PASSWORD] = "";
+                }
+            }
+
+            $oAuthParams=new ZohoOAuthParams();
+            $oAuthParams->setAccessType(self::getConfigValue(ZohoOAuthConstants::ACCESS_TYPE));
+            $oAuthParams->setClientId(self::getConfigValue(ZohoOAuthConstants::CLIENT_ID));
+            $oAuthParams->setClientSecret(self::getConfigValue(ZohoOAuthConstants::CLIENT_SECRET));
+            $oAuthParams->setRedirectURL(self::getConfigValue(ZohoOAuthConstants::REDIRECT_URL));
+            ZohoOAuthClient::getInstance($oAuthParams);
 	    }
 	    catch (IOException $ioe)
 	    {
