@@ -3,7 +3,7 @@ class OAuthLogger
 {
 	public static function writeToFile($msg)
 	{
-        set_include_path(ZCRMConfigUtil::getConfigValue('applicationLogFilePath'));
+        set_include_path(ZCRMConfigUtil::getConfigValue(APIConstants::APPLICATION_LOGFILE_PATH));
         $path=get_include_path();
         if($path{strlen($path)-1}!='\/')
         {

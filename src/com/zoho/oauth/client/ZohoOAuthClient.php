@@ -179,29 +179,18 @@ class ZohoOAuthClient
          * Also see that the Python SDK used the email config value, no need for a second request:
          * https://github.com/zoho/zcrm-python-sdk/blob/master/zcrmsdk/OAuthClient.py#L112
          */
-        $currentUserEmail= ZCRMRestClient::getCurrentUserEmailID();
+        $currentUserEmail = ZCRMRestClient::getCurrentUserEmailID();
 
-        if ($currentUserEmail == null && ZCRMConfigUtil::getConfigValue("currentUserEmail") == null)
+        if ($currentUserEmail == null && ZCRMConfigUtil::getConfigValue(APIConstants::CURRENT_USER_EMAIL) == null)
         {
-            throw new ZCRMException("Current user should either be set in ZCRMRestClient or in configuration.properties file");
+            throw new ZCRMException("Current user should either be set in the server environment or via configuration");
         }
         else if ($currentUserEmail == null)
         {
-            $currentUserEmail = ZCRMConfigUtil::getConfigValue("currentUserEmail");
+            $currentUserEmail = ZCRMConfigUtil::getConfigValue(APIConstants::CURRENT_USER_EMAIL);
         }
 
         return $currentUserEmail;
-        /**
-    	$connector = new ZohoOAuthHTTPConnector();
-    	//$connector->setUrl(ZohoOAuth::getUserInfoURL());
-        // @see https://www.zoho.com/accounts/protocol/oauth/use-access-token.html
-    	$connector->setUrl('https://profile.zoho.com/oauth/user/info');
-    	$connector->addHeadder(ZohoOAuthConstants::AUTHORIZATION, ZohoOAuthConstants::OAUTH_HEADER_PREFIX.$accessToken);
-    	$apiResponse=$connector->get();
-    	$jsonResponse=self::processResponse($apiResponse);
-    	
-    	return $jsonResponse['Email'];
-        **/
     }
     public function processResponse($apiResponse)
     {

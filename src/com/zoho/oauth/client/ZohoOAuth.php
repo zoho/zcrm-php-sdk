@@ -79,8 +79,8 @@ class ZohoOAuth
 	
 	private function setConfigValues($configuration)
 	{
-	    $config_keys = array(
-	        ZohoOAuthConstants::CLIENT_ID,
+        $config_keys = array(
+            ZohoOAuthConstants::CLIENT_ID,
             ZohoOAuthConstants::CLIENT_SECRET,
             ZohoOAuthConstants::REDIRECT_URL,
             ZohoOAuthConstants::ACCESS_TYPE,

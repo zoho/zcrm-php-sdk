@@ -13,7 +13,13 @@ class ZCRMConfigUtil
 
 	public static function initialize($initializeOAuth,$configuration)
 	{
-	    $mandatory_keys = array(ZohoOAuthConstants::CLIENT_ID,ZohoOAuthConstants::CLIENT_SECRET,ZohoOAuthConstants::REDIRECT_URL,APIConstants::CURRENT_USER_EMAIL);
+        $mandatory_keys = array(
+            ZohoOAuthConstants::CLIENT_ID,
+            ZohoOAuthConstants::CLIENT_SECRET,
+            ZohoOAuthConstants::REDIRECT_URL,
+            APIConstants::CURRENT_USER_EMAIL,
+            APIConstants::APPLICATION_LOGFILE_PATH
+        );
 	    if($configuration == null)
 	    {
 	        $path=realpath(dirname(__FILE__)."/../../../../../resources/configuration.properties");
@@ -58,8 +64,13 @@ class ZCRMConfigUtil
 
 	private function setConfigValues($configuration)
 	{
-	    $config_keys = array(APIConstants::CURRENT_USER_EMAIL,ZohoOAuthConstants::SANDBOX,APIConstants::API_BASEURL,
-	        APIConstants::API_VERSION,APIConstants::APPLICATION_LOGFILE_PATH);
+	    $config_keys = array(
+	        APIConstants::CURRENT_USER_EMAIL,
+            ZohoOAuthConstants::SANDBOX,
+            APIConstants::API_BASEURL,
+	        APIConstants::API_VERSION,
+            APIConstants::APPLICATION_LOGFILE_PATH
+        );
 	    
 	    if(!array_key_exists(ZohoOAuthConstants::SANDBOX,$configuration))
 	    {
