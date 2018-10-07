@@ -41,10 +41,18 @@ class ZohoOAuth
 			}
 				if(!array_key_exists(ZohoOAuthConstants::TOKEN_PERSISTENCE_PATH,self::$configProperties) || self::$configProperties[ZohoOAuthConstants::TOKEN_PERSISTENCE_PATH] == "")
 				{
+                    if(!array_key_exists(ZohoOAuthConstants::DATABASE_HOST,self::$configProperties))
+                    {
+                        self::$configProperties[ZohoOAuthConstants::DATABASE_HOST] = "localhost";
+                    }
 					if(!array_key_exists(ZohoOAuthConstants::DATABASE_PORT,self::$configProperties))
 					{
 						self::$configProperties[ZohoOAuthConstants::DATABASE_PORT] = "3306";
 					}
+                    if(!array_key_exists(ZohoOAuthConstants::DATABASE_NAME,self::$configProperties))
+                    {
+                        self::$configProperties[ZohoOAuthConstants::DATABASE_NAME] = "zohooauth";
+                    }
 					if(!array_key_exists(ZohoOAuthConstants::DATABASE_USERNAME,self::$configProperties))
 					{
 						self::$configProperties[ZohoOAuthConstants::DATABASE_USERNAME] = "root";
@@ -71,9 +79,20 @@ class ZohoOAuth
 	
 	private function setConfigValues($configuration)
 	{
-	    $config_keys = array(ZohoOAuthConstants::CLIENT_ID,ZohoOAuthConstants::CLIENT_SECRET,ZohoOAuthConstants::REDIRECT_URL,ZohoOAuthConstants::ACCESS_TYPE
-			,ZohoOAuthConstants::PERSISTENCE_HANDLER_CLASS,ZohoOAuthConstants::IAM_URL,ZohoOAuthConstants::TOKEN_PERSISTENCE_PATH,ZohoOAuthConstants::DATABASE_PORT
-			,ZohoOAuthConstants::DATABASE_PASSWORD,ZohoOAuthConstants::DATABASE_USERNAME);
+	    $config_keys = array(
+	        ZohoOAuthConstants::CLIENT_ID,
+            ZohoOAuthConstants::CLIENT_SECRET,
+            ZohoOAuthConstants::REDIRECT_URL,
+            ZohoOAuthConstants::ACCESS_TYPE,
+            ZohoOAuthConstants::PERSISTENCE_HANDLER_CLASS,
+            ZohoOAuthConstants::IAM_URL,
+            ZohoOAuthConstants::TOKEN_PERSISTENCE_PATH,
+            ZohoOAuthConstants::DATABASE_HOST,
+            ZohoOAuthConstants::DATABASE_PORT,
+            ZohoOAuthConstants::DATABASE_NAME,
+            ZohoOAuthConstants::DATABASE_PASSWORD,
+            ZohoOAuthConstants::DATABASE_USERNAME
+        );
 	    
 	    if(!array_key_exists(ZohoOAuthConstants::ACCESS_TYPE,$configuration) || $configuration[ZohoOAuthConstants::ACCESS_TYPE] == "")
 	    {
