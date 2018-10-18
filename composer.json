@@ -1,13 +1,19 @@
 {
-    "name": "zohocrm/php-sdk",
+    "name": "jobs-at/zohocrm-php-sdk",
     "description": "Zoho CRM API SDK for PHP",
-    "type": "SDK",
+    "type": "sdk",
     "homepage": "https://github.com/zoho/zcrm-php-sdk",
     "authors": [
         {
             "name": "Zoho CRM API Team",
             "email":"support@zohocrm.com",
             "homepage": "https://www.zoho.com/crm/help/customer-support.html",
+            "role": "Creator"
+        },
+        {
+            "name": "jobs.at Dev Team",
+            "email": "dev@jobs.at",
+            "homepage": "https://www.jobs.at",
             "role": "Developer"
         }
     ],
