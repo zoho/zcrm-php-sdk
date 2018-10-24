@@ -56,7 +56,7 @@ class ZCRMConfigUtil
 	    }
 	}
 
-	private function setConfigValues($configuration)
+	private static function setConfigValues($configuration)
 	{
 	    $config_keys = array(APIConstants::CURRENT_USER_EMAIL,ZohoOAuthConstants::SANDBOX,APIConstants::API_BASEURL,
 	        APIConstants::API_VERSION,APIConstants::APPLICATION_LOGFILE_PATH);
