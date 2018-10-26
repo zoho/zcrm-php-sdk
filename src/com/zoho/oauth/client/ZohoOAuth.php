@@ -69,7 +69,7 @@ class ZohoOAuth
 	    }
 	}
 	
-	private function setConfigValues($configuration)
+	private static function setConfigValues($configuration)
 	{
 	    $config_keys = array(ZohoOAuthConstants::CLIENT_ID,ZohoOAuthConstants::CLIENT_SECRET,ZohoOAuthConstants::REDIRECT_URL,ZohoOAuthConstants::ACCESS_TYPE
 			,ZohoOAuthConstants::PERSISTENCE_HANDLER_CLASS,ZohoOAuthConstants::IAM_URL,ZohoOAuthConstants::TOKEN_PERSISTENCE_PATH,ZohoOAuthConstants::DATABASE_PORT
