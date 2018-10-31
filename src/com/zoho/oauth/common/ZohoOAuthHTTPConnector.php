@@ -18,6 +18,7 @@ class ZohoOAuthHTTPConnector
 		curl_setopt($curl_pointer,CURLOPT_HTTPHEADER,self::getRequestHeadersAsArray());
 		curl_setopt($curl_pointer,CURLOPT_POST,$this->requestParamCount);
 		curl_setopt($curl_pointer,CURLOPT_CUSTOMREQUEST,ZohoOAuthConstants::REQUEST_METHOD_POST);
+		curl_setopt($curl_pointer,CURLOPT_FOLLOWLOCATION,true);
 		$result=curl_exec($curl_pointer);
 		curl_close($curl_pointer);
 		
