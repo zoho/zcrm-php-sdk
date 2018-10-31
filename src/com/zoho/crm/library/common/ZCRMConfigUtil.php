@@ -63,7 +63,7 @@ class ZCRMConfigUtil
 
 	    if(!array_key_exists(ZohoOAuthConstants::SANDBOX,$configuration))
 	    {
-	        self::$configProperties[ZohoOAuthConstants::SANDBOX] = "false";
+	        self::$configProperties[ZohoOAuthConstants::SANDBOX] = false;
 	    }
 	    if(!array_key_exists(APIConstants::API_BASEURL,$configuration))
 	    {
