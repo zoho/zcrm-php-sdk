@@ -182,10 +182,10 @@ class ZohoOAuthClient
     }
     public function processResponse($apiResponse)
     {
-    	list($headers, $content) = explode("\r\n\r\n",$apiResponse,2);
-    	$jsonResponse=json_decode($content,true);
-    	
-    	return $jsonResponse;
+        $headerRows = explode("\n",$apiResponse);
+        $responseBody = end($headerRows);
+
+    	return json_decode($responseBody,true);
     }
     
 }
