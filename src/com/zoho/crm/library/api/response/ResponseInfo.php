@@ -7,13 +7,18 @@ class ResponseInfo
 	private $recordCount=null;
 	private $pageNo=null;
 	private $perPage=null;
-	
+    private $tagAllowedCount=null;
+    
 	public function __construct($reponseInfoJSON)
 	{
 		$this->moreRecords=(bool)$reponseInfoJSON[APIConstants::MORE_RECORDS];
 		$this->recordCount=$reponseInfoJSON[APIConstants::COUNT]+0;
 		$this->pageNo=$reponseInfoJSON[APIConstants::PAGE]+0;
-		$this->perPage=$reponseInfoJSON[APIConstants::PER_PAGE]+0;
+        $this->perPage=$reponseInfoJSON[APIConstants::PER_PAGE]+0;
+        if(array_key_exists(APIConstants::ALLOWED_COUNT,$reponseInfoJSON))
+		{
+		    $this->tagAllowedCount=$reponseInfoJSON[APIConstants::ALLOWED_COUNT]+0;
+		}
 	}
 
     /**
@@ -78,6 +83,22 @@ class ResponseInfo
      */
     public function setPerPage($perPage){
         $this->perPage = $perPage;
+    }
+
+    /**
+     * allowedCount
+     * @return int
+     */
+    public function getAllowedCount(){
+        return $this->allowedCount;
+    }
+    
+    /**
+     * $allowedCount
+     * @param int $allowedCount
+     */
+    public function setAllowedCount($allowedCount){
+        $this->allowedCount = $allowedCount;
     }
 
 }

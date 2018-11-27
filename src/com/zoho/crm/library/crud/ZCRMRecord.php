@@ -26,7 +26,8 @@ class ZCRMRecord
 	private $priceDetails = array();
 	private $layout=null;
 	private $taxList=array();
-	private $lastActivityTime=null;
+    private $lastActivityTime=null;
+    private $tags=array();
 	
 	private function __construct($module,$entityId)
 	{
@@ -213,6 +214,22 @@ class ZCRMRecord
     public function setModifiedTime($modifiedTime){
         $this->modifiedTime = $modifiedTime;
     }
+
+    /**
+     * tags
+     * @return Array
+     */
+    public function getTags(){
+        return $this->tags;
+    }
+    
+    /**
+     * tags
+     * @param Array $tags
+     */
+    public function setTags($tags){
+        $this->tags = $tags;
+    }
     
     /**
      * Returns the API response of the record creation.
@@ -364,7 +381,39 @@ class ZCRMRecord
     {
     	return ZCRMModuleRelation::getInstance($this, $junctionRecord)->removeRelation();
     }
-
+    public function addTags($tagNames)
+    {
+        if ($this->entityId == null || $this->entityId == 0)
+        {
+            throw new ZCRMException("Record ID MUST NOT be null/empty for Add Tags to a Specific record operation");
+        }
+        if ($this->moduleApiName == null || $this->moduleApiName == "")
+        {
+            throw new ZCRMException("Module Api Name MUST NOT be null/empty for Add Tags to a Specific record operation");
+        }
+        if(sizeof($tagNames)<=0)
+        {
+            throw new ZCRMException("Tag Name list MUST NOT be null/empty for Add Tags to a Specific record operation");
+        }
+        return TagAPIHandler::getInstance()->addTags($this, $tagNames);
+    }
+    
+    public function removeTags($tagNames)
+    {
+        if ($this->entityId == null || $this->entityId == 0)
+        {
+            throw new ZCRMException("Record ID MUST NOT be null/empty for Remove Tags from a Specific record operation");
+        }
+        if ($this->moduleApiName == null || $this->moduleApiName == "")
+        {
+            throw new ZCRMException("Module Api Name MUST NOT be null/empty for Remove Tags from a Specific record operation");
+        }
+        if(sizeof($tagNames)<=0)
+        {
+            throw new ZCRMException("Tag Name list MUST NOT be null/empty for Remove Tags from a Specific record operation");
+        }
+        return TagAPIHandler::getInstance()->removeTags($this, $tagNames);
+    }
     /**
      * properties
      * @return HashMap

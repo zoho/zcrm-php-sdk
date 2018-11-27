@@ -2,6 +2,7 @@
 require_once 'ZCRMRecord.php';
 require_once realpath(dirname(__FILE__).'/../api/handler/EntityAPIHandler.php');
 require_once realpath(dirname(__FILE__).'/../api/handler/MassEntityAPIHandler.php');
+require_once realpath(dirname(__FILE__).'/../api/handler/TagAPIHandler.php');
 
 class ZCRMModule
 {
@@ -579,6 +580,83 @@ class ZCRMModule
     public function getPermanentlyDeletedRecords()
     {
     	return MassEntityAPIHandler::getInstance($this)->getPermanentlyDeletedRecords();
+    }
+    public  function getTags() 
+    {
+        if($this->apiName == null || $this->apiName == "")
+        {
+            throw new ZCRMException("Module Api Name MUST NOT be null/empty for getTags operation");
+        }
+        return TagAPIHandler::getInstance($this)->getTags();
+    }
+    public function getTagCount($tagid)
+    {
+        if($this->apiName == null || $this->apiName == "")
+        {
+            throw new ZCRMException("Module Api Name MUST NOT be null/empty for getTagCount operation");
+        }
+        if ($tagid == null || $tagid == 0)
+        {
+            throw new ZCRMException("Tag ID MUST NOT be null/empty for getTagCount operation");
+        }
+        return TagAPIHandler::getInstance($this)->getTagCount($tagid);
+    }
+    public function createTags($tags)
+    {
+        if($this->apiName == null || $this->apiName == "")
+        {
+            throw new ZCRMException("Module Api Name MUST NOT be null/empty for createTags operation");
+        }
+        if(sizeof($tags)<=0){
+            throw new ZCRMException("Tag object list MUST NOT be null/empty for createTags operation");
+        }
+        return TagAPIHandler::getInstance($this)->createTags($tags);
+        
+    }
+    public function updateTags($tags)
+    {
+        if($this->apiName == null || $this->apiName == "")
+        {
+            throw new ZCRMException("Module Api Name MUST NOT be null/empty for updateTags operation");
+        }
+        if(sizeof($tags)<=0){
+            throw new ZCRMException("Tag object list MUST NOT be null/empty for updateTags operation");
+        }
+        return TagAPIHandler::getInstance($this)->updateTags($tags);
+        
+    }
+    public function addTagsToRecords($recordIds, $tagNames)
+    {
+        if($this->apiName == null || $this->apiName == "")
+        {
+            throw new ZCRMException("Module Api Name MUST NOT be null/empty for Add Tags to Multiple records operation");
+        }
+        if(sizeof($tagNames)<=0)
+        {
+            throw new ZCRMException("Tag Name list MUST NOT be null/empty for Add Tags to Multiple records operation");
+        }
+        if(sizeof($recordIds)<=0)
+        {
+            throw new ZCRMException("Record ID list MUST NOT be null/empty for Add Tags to Multiple records operation");
+        }
+        return TagAPIHandler::getInstance($this)->addTagsToRecords($recordIds, $tagNames);
+    }
+    
+    public function removeTagsFromRecords($recordIds, $tagNames)
+    {
+        if($this->apiName == null || $this->apiName == "")
+        {
+            throw new ZCRMException("Module Api Name MUST NOT be null/empty for Remove Tags from Multiple records operation");
+        }
+        if(sizeof($tagNames)<=0)
+        {
+            throw new ZCRMException("Tag Name list MUST NOT be null/empty for Remove Tags from Multiple records operation");
+        }
+        if(sizeof($recordIds)<=0)
+        {
+            throw new ZCRMException("Record ID list MUST NOT be null/empty for Remove Tags from Multiple records operation");
+        }
+        return TagAPIHandler::getInstance($this)->removeTagsFromRecords($recordIds, $tagNames);
     }
 }
 ?>

@@ -16,6 +16,8 @@ class APIConstants
 	const API_NAME="api_name";
 	const INVALID_ID_MSG = "The given id seems to be invalid.";
 	const API_MAX_RECORDS_MSG = "Cannot process more than 100 records at a time.";
+	const API_MAX_TAGS_MSG = "Cannot process more than 50 tags at a time.";
+	const API_MAX_RECORD_TAGS_MSG = "Cannot process more than 10 tags at a time.";
 	const INVALID_DATA="INVALID_DATA";
 	
 	const CODE_SUCCESS = "SUCCESS";
@@ -36,12 +38,14 @@ class APIConstants
 	const PAGE = "page";
 	const COUNT = "count";
 	const MORE_RECORDS = "more_records";
+	const ALLOWED_COUNT = "allowed_count";
 	
 	const MESSAGE = "message";
 	const CODE = "code";
 	const STATUS = "status";
 	
 	const DATA = "data";
+	const TAGS = "tags";
 	const INFO = "info";
 	
 	const RESPONSECODE_OK=200;

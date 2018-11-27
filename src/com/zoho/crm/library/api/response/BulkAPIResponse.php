@@ -49,12 +49,24 @@ class BulkAPIResponse extends CommonAPIResponse
 			$recordsArray = $bulkResponseJSON[APIConstants::DATA];
 			foreach ($recordsArray as $record)
 			{
-				if($record!=null && array_key_exists(APIConstants::STATUS,$record))
-				{
-					array_push($this->bulkEntitiesResponse,new EntityResponse($record));
-				}
+			    if($record!=null && array_key_exists(APIConstants::STATUS,$record))
+			    {
+			        array_push($this->bulkEntitiesResponse,new EntityResponse($record));
+			    }
 			}
 		}
+		if(array_key_exists(APIConstants::TAGS,$bulkResponseJSON))
+		{
+		    $recordsArray = $bulkResponseJSON[APIConstants::TAGS];
+		    foreach ($recordsArray as $record)
+		    {
+		        if($record!=null && array_key_exists(APIConstants::STATUS,$record))
+		        {
+		            array_push($this->bulkEntitiesResponse,new EntityResponse($record));
+		        }
+		    }
+		}
+		
 	}
 
     /**

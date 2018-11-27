@@ -68,6 +68,10 @@ class APIResponse extends CommonAPIResponse
     	if(array_key_exists("data",$responseJSON))
     	{
     		$responseJSON=$responseJSON['data'][0];
+		}
+		if(array_key_exists("tags",$responseJSON))
+    	{
+    	    $responseJSON=$responseJSON['tags'][0];
     	}
     	else if(array_key_exists("users",$responseJSON))
     	{
