@@ -3,7 +3,7 @@ class OAuthLogger
 {
 	public static function writeToFile($msg)
 	{
-		$filePointer=fopen(dirname(__FILE__)."/../logger/OAuth.log","a");
+		$filePointer=@fopen(dirname(__FILE__)."/../logger/OAuth.log","a");
 		if(!$filePointer)
 		{
 			return;

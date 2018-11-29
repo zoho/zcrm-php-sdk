@@ -11,7 +11,7 @@ class Logger
 			$path=$path."/";
 		}
 		$path=str_replace("\n", "", $path);
-		$filePointer=fopen($path."ZCRMClientLibrary.log","a");
+		$filePointer=@fopen($path."ZCRMClientLibrary.log","a");
 		if(!$filePointer)
 		{
 			return;
