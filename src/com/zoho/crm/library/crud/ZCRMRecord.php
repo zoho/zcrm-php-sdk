@@ -1,6 +1,7 @@
 <?php
 require_once realpath(dirname(__FILE__).'/../api/handler/EntityAPIHandler.php');
 require_once realpath(dirname(__FILE__).'/../common/APIConstants.php');
+require_once realpath(dirname(__FILE__).'/../api/handler/TagAPIHandler.php');
 require_once 'ZCRMModuleRelation.php';
 
 /**

@@ -1,6 +1,10 @@
 <?php 
 require_once realpath(dirname(__FILE__).'/../../crud/ZCRMTag.php');
 require_once realpath(dirname(__FILE__).'/../../crud/ZCRMRecord.php');
+require_once realpath(dirname(__FILE__).'/../../common/APIConstants.php');
+require_once realpath(dirname(__FILE__).'/../../exception/APIExceptionHandler.php');
+require_once realpath(dirname(__FILE__).'/../APIRequest.php');
+require_once 'APIHandler.php';
 class TagAPIHandler extends APIHandler
 {
 	protected $module=null;

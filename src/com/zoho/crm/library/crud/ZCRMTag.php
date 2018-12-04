@@ -1,5 +1,5 @@
 <?php
-
+require_once realpath(dirname(__FILE__).'/../api/handler/TagAPIHandler.php');
 class ZCRMTag
 {	
 	private $id=null;
