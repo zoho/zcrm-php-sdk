@@ -11,10 +11,22 @@ class ResponseInfo
     
 	public function __construct($reponseInfoJSON)
 	{
-		$this->moreRecords=(bool)$reponseInfoJSON[APIConstants::MORE_RECORDS];
-		$this->recordCount=$reponseInfoJSON[APIConstants::COUNT]+0;
-		$this->pageNo=$reponseInfoJSON[APIConstants::PAGE]+0;
-        $this->perPage=$reponseInfoJSON[APIConstants::PER_PAGE]+0;
+        if(array_key_exists(APIConstants::MORE_RECORDS,$reponseInfoJSON))
+		{
+		    $this->moreRecords=(bool)$reponseInfoJSON[APIConstants::MORE_RECORDS];
+        }
+        if(array_key_exists(APIConstants::COUNT,$reponseInfoJSON))
+		{
+		    $this->recordCount=$reponseInfoJSON[APIConstants::COUNT]+0;
+        }
+        if(array_key_exists(APIConstants::PAGE,$reponseInfoJSON))
+		{
+		    $this->pageNo=$reponseInfoJSON[APIConstants::PAGE]+0;
+        }
+        if(array_key_exists(APIConstants::PER_PAGE,$reponseInfoJSON))
+		{
+		    $this->perPage=$reponseInfoJSON[APIConstants::PER_PAGE]+0;
+        }
         if(array_key_exists(APIConstants::ALLOWED_COUNT,$reponseInfoJSON))
 		{
 		    $this->tagAllowedCount=$reponseInfoJSON[APIConstants::ALLOWED_COUNT]+0;
