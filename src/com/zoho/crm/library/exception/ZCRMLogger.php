@@ -1,6 +1,6 @@
 <?php
 require_once realpath(dirname(__FILE__)."/../common/ZCRMConfigUtil.php");
-class Logger
+class ZCRMLogger
 {
 	public static function writeToFile($msg)
 	{

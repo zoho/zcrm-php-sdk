@@ -1,5 +1,5 @@
 <?php
-require_once 'Logger.php';
+require_once 'ZCRMLogger.php';
 require_once realpath(dirname(__FILE__)."/../common/APIConstants.php");
 
 class APIExceptionHandler
@@ -8,7 +8,7 @@ class APIExceptionHandler
 	{
 		$msg=get_class($e)." Caused by:'{$e->getMessage()}' in {$e->getFile()}({$e->getLine()})\nTrace::".$e->getTraceAsString();
 		$message=$e->getMessage().";;Trace::".$e->getTraceAsString();
-		Logger::err($msg);
+		ZCRMLogger::err($msg);
 	}
 	
 	public static function getFaultyResponseCodes()

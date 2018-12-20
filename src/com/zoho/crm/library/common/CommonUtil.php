@@ -1,5 +1,5 @@
 <?php
-require_once realpath(dirname(__FILE__)."/../exception/Logger.php");
+require_once realpath(dirname(__FILE__)."/../exception/ZCRMLogger.php");
 class CommonUtil
 {
 	public static function getFileContentAsMap($fileHandler)
@@ -19,7 +19,7 @@ class CommonUtil
 		}
 		catch (Exception $ex)
 		{
-			Logger::warn("Exception occured while converting file content as map (file::ZohoOAuthUtil.php)");
+			ZCRMLogger::warn("Exception occured while converting file content as map (file::ZohoOAuthUtil.php)");
 		}
 		return $reponseMap;
 	}
