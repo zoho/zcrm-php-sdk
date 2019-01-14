@@ -158,7 +158,7 @@ class ZohoOAuth
 	{
 		try
 		{
-			return ZohoOAuth::getConfigValue("token_persistence_path")!=""?new ZohoOAuthPersistenceByFile():new ZohoOAuthPersistenceHandler();
+			return ZohoOAuth::getConfigValue("token_persistence_path")!=""?new ZohoOAuthPersistenceByFile():new self::$configProperties[ZohoOAuthConstants::PERSISTENCE_HANDLER_CLASS];
 		}
 		catch (Exception $ex)
 		{
