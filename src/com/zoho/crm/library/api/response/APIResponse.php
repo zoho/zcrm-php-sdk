@@ -5,39 +5,63 @@ require_once 'CommonAPIResponse.php';
 
 class APIResponse extends CommonAPIResponse
 {
+    /**
+     * data of the api response
+     * @var object
+     */
 	private $data=null;
+	/**
+	 * response status of the api
+	 * @var string
+	 */
 	private $status=null;
 	
-	
+	/**
+	 * constructor to set the http response , http code and apiname
+	 * @param string $httpResponse the http response
+	 * @param int $httpStatusCode status code of the response
+	 * @param string $apiName module api name
+	 */
 	public function __construct($httpResponse,$httpStatusCode,$apiName=null)
 	{
 		parent::__construct($httpResponse,$httpStatusCode,$apiName);
 	}
-	
+	/**
+	 * method to set the data of the class object
+	 * @param object $data data to be set for the object
+	 */
 	public function setData($data)
 	{
 		$this->data=$data;
 	}
+	/**
+	 * method to get the data of the class object
+	 * @return object data of the object
+	 */
 	public function getData()
 	{
 		return $this->data;
 	}
 	/**
-	 * Get the response status
-	 * @return String
+	 * method to Get the response status
+	 * @return String the response status
 	 */
 	public function getStatus(){
 		return $this->status;
 	}
 	
 	/**
-	 * Set the response status
-	 * @param String $status
+	 *  method to Set the response status
+	 * @param String $status the response status
 	 */
 	public function setStatus($status){
 		$this->status = $status;
 	}
-
+    /**
+     * 
+     * {@inheritDoc}
+     * @see CommonAPIResponse::handleForFaultyResponses()
+     */
 	public function handleForFaultyResponses()
 	{
 		$statusCode=self::getHttpStatusCode();
@@ -59,6 +83,11 @@ class APIResponse extends CommonAPIResponse
 			}
 		}
 	}
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see CommonAPIResponse::processResponseData()
+	 */
     public function processResponseData()
     {
     	$responseJSON=$this->getResponseJSON();

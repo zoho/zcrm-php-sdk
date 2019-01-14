@@ -7,15 +7,35 @@
  */
 class ZCRMTax
 {
+    /**
+     * tax name
+     * @var string
+     */
 	private $taxName=null;
+	/**
+	 * percentage of the tax
+	 * @var double
+	 * 
+	 */
 	private $percentage=null;
+	/**
+	 * tax value
+	 * @var double
+	 */
 	private $value=null;
-	
+	/**
+	 * constructor to assign tax name
+	 * @param string $taxName tax name
+	 */
 	private function __construct($taxName)
 	{
 		$this->taxName=$taxName;
 	}
-	
+	/**
+	 * method to get the instance of the tax
+	 * @param string $taxName tax name
+	 * @return ZCRMTax ZCRMTax class instance
+	 */
 	public static function getInstance($taxName)
 	{
 		return new ZCRMTax($taxName);
@@ -24,48 +44,48 @@ class ZCRMTax
 	
 
     /**
-     * taxName
-     * @return String
+     * method to get the tax name
+     * @return String the tax name
      */
     public function getTaxName(){
         return $this->taxName;
     }
 
     /**
-     * taxName
-     * @param String $taxName
+     * method to set the tax name
+     * @param String $taxName the tax name
      */
     public function setTaxName($taxName){
         $this->taxName = $taxName;
     }
 
     /**
-     * percentage
-     * @return Double
+     *method to get the tax percentage
+     * @return Double the tax percentage
      */
     public function getPercentage(){
         return $this->percentage;
     }
 
     /**
-     * percentage
-     * @param Double $percentage
+     *method to set the tax percentage
+     * @param Double $percentage the tax percentage
      */
     public function setPercentage($percentage){
         $this->percentage = $percentage;
     }
 
     /**
-     * value
-     * @return Double
+     * method to get the tax value
+     * @return Double the tax value
      */
     public function getValue(){
         return $this->value;
     }
 
     /**
-     * value
-     * @param Double $value
+     * method to set the tax value
+     * @param Double $value the tax value
      */
     public function setValue($value){
         $this->value = $value;

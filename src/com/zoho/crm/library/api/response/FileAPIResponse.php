@@ -4,15 +4,53 @@ require_once realpath(dirname(__FILE__)."/../../exception/ZCRMException.php");
 
 class FileAPIResponse
 {
+    /**
+     * response
+     * @var string
+     */
 	private $response=null;
+	/**
+	 * Json response 
+	 * @var array array of json object
+	 */
 	private $responseJSON=null;
+	/**
+	 * http status code
+	 * @var string
+	 */
 	private $httpStatusCode=null;
+	/**
+	 * response headers
+	 * @var array
+	 */
 	private $responseHeaders=null;
+	/**
+	 * code
+	 * @var string
+	 */
 	private $code=null;
+	/**
+	 * message
+	 * @var string
+	 */
 	private $message=null;
+	/**
+	 * details
+	 * @var array
+	 */
 	private $details=null;
+	/**
+	 * response status
+	 * @var string
+	 */
 	private $status=null;
-	
+	/**
+	 * method to set the content of the file
+	 * @param string $httpResponse http response
+	 * @param int $httpStatusCode status code
+	 * @throws ZCRMException exception is thrown if the response is faulty
+	 * @return FileAPIResponse instance of the FileAPIResponse class containing the file api response
+	 */
 	public function setFileContent($httpResponse,$httpStatusCode)
 	{
 		$this->httpStatusCode=$httpStatusCode;
@@ -33,7 +71,7 @@ class FileAPIResponse
 			{
 				$splitArray=explode(":",$key);
 				$headerMap[$splitArray[0]]=$splitArray[1];
-			}
+			} 
 		}
 		if(in_array($httpStatusCode,APIExceptionHandler::getFaultyResponseCodes()))
 		{
@@ -53,133 +91,140 @@ class FileAPIResponse
 		$this->responseHeaders=$headerMap;
 		return $this;
 	}
-	
+	/**
+	 * method to get the name of the file
+	 * @return string the name of the file
+	 */
 	public function getFileName()
 	{
 		$contentDisp=self::getResponseHeaders()['Content-Disposition'];
 		$fileName=substr($contentDisp,strrpos($contentDisp,"'")+1,strlen($contentDisp));
 		return $fileName;
 	}
-	
+	/**
+	 * method to get the content of the file
+	 * @return string content of the file
+	 */
 	public function getFileContent()
 	{
 		return $this->response;
 	}
 
     /**
-     * response
-     * @return String
+     * method to get the response 
+     * @return String  the response
      */
     public function getResponse(){
         return $this->response;
     }
 
     /**
-     * response
-     * @param String $response
+     * method to set the response
+     * @param String $response the reponse to be set
      */
     public function setResponse($response){
         $this->response = $response;
     }
 
     /**
-     * responseJSON
-     * @return Array
+     * method to get the json response object
+     * @return Array array of the Json response objects
      */
     public function getResponseJSON(){
         return $this->responseJSON;
     }
 
     /**
-     * responseJSON
-     * @param Array $responseJSON
+     * method to set the json response objects
+     * @param Array $responseJSON array of the Json response objects
      */
     public function setResponseJSON($responseJSON){
         $this->responseJSON = $responseJSON;
     }
 
     /**
-     * httpStatusCode
-     * @return String
+     * method to get the http Status Code
+     * @return String the http Status Code
      */
     public function getHttpStatusCode(){
         return $this->httpStatusCode;
     }
 
     /**
-     * httpStatusCode
-     * @param String $httpStatusCode
+     * method to set the http Status Code
+     * @param String $httpStatusCode the http Status Code
      */
     public function setHttpStatusCode($httpStatusCode){
         $this->httpStatusCode = $httpStatusCode;
     }
 
     /**
-     * responseHeaders
-     * @return Array
+     * method to get the response headers
+     * @return Array array containing the response headers
      */
     public function getResponseHeaders(){
         return $this->responseHeaders;
     }
 
     /**
-     * responseHeaders
-     * @param Array $responseHeaders
+     * method to set the response headers
+     * @param Array $responseHeaders array containing the response headers
      */
     public function setResponseHeaders($responseHeaders){
         $this->responseHeaders = $responseHeaders;
     }
 
     /**
-     * code
-     * @return String
+     * method to get the code
+     * @return String the code
      */
     public function getCode(){
         return $this->code;
     }
 
     /**
-     * code
-     * @param String $code
-     * @return NewFileAPIResponse
+     * method to set the code
+     * @param String $code the code to be set
      */
     public function setCode($code){
         $this->code = $code;
     }
 
     /**
-     * message
-     * @return String
+     * method to get the message
+     * @return String the message
      */
     public function getMessage(){
         return $this->message;
     }
 
     /**
-     * message
-     * @param String $message
+     * method to set the message
+     * @param String $message the message
      */
     public function setMessage($message){
         $this->message = $message;
     }
 
     /**
-     * details
-     * @return Array
+     * method to get the details
+     * @return Array array containing the details
      */
     public function getDetails(){
         return $this->details;
     }
 
     /**
-     * details
-     * @param Array $details
-     * @return NewFileAPIResponse
+     * method to set the details
+     * @param Array $details array containing the details
      */
     public function setDetails($details){
         $this->details = $details;
     }
-    
+    /**
+     * method to get the status
+     * @return string the status
+     */
     public function getStatus()
     {
     	return $this->status;
