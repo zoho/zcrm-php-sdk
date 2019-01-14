@@ -190,7 +190,7 @@ class ZCRMLayout
 		return $this->createdBy;
 	}
 	/**
-	 * method to set the profiles taht can access the layout
+	 * method to set the profiles that can access the layout
 	 * @param array $profiles array of instances of ZCRMProfile class
 	 */
 	
@@ -199,7 +199,7 @@ class ZCRMLayout
 		$this->accessibleProfiles=$profiles;
 	}
 	/**
-	 * method to get the profiles taht can access the layout
+	 * method to get the profiles that can access the layout
 	 * @return array array of instances of ZCRMProfile class
 	 */
 	public function getAccessibleProfiles()
