@@ -274,7 +274,7 @@ All unexpected behaviours like faulty API responses, library anomalies are handl
 
 ## Sample Request for insert records:
 
-```
+```php
 $zcrmModuleIns = ZCRMModule::getInstance("Invoices");
 // $recordsArray - array of ZCRMRecord instances filled with required data for creation.
 $bulkAPIResponse=$zcrmModuleIns->createRecords($recordsArray);
@@ -296,7 +296,7 @@ foreach($entityResponses as $entityResponse)
 
 ## Sample Invoice record instance with filled data
 
-```
+```php
 $record=ZCRMRecord::getInstance("Invoices",null);
 $record->setFieldValue("Subject","Iphone sale to John");
 $record->setFieldValue("Account_Name","410405000001016021");
@@ -317,7 +317,7 @@ $record->addLineItem($lineItem);
 
 ## Sample Request to fetch records:
 
-```
+```php
 $zcrmModuleIns = ZCRMModule::getInstance("Contacts");
 $bulkAPIResponse=$zcrmModuleIns->getRecords();
 $recordsArray = $bulkAPIResponse->getData(); // $recordsArray - array of ZCRMRecord instances
