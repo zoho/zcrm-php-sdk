@@ -122,8 +122,7 @@ The app would be ready to be initialized after defining the OAuth configuration 
 
 For self client apps, the self authorized grant token should be generated from the Zoho Developer Console (https://accounts.zoho.com/developerconsole)
 
-> 1.  Visit https://accounts.zoho.com/developerconsole
-
+1.  Visit https://accounts.zoho.com/developerconsole
 2.  Click Options → Self Client of the client for which you wish to authorize.
 3.  Enter one or more(comma separated) valid Zoho CRM scopes, that you wish to authorize, in the “Scope” field and choose a time of expiry.
 4.  Copy the grant token.
