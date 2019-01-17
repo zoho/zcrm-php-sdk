@@ -1,4 +1,4 @@
-## #PHP SDK for Zoho CRM
+# PHP SDK for Zoho CRM
 
 PHP SDK for Zoho CRM APIs provides wrapper for Zoho CRM APIs. Hence invoking a Zoho CRM API from your client application is just a method call.It supports both single user as well as multi user authentication.
 
