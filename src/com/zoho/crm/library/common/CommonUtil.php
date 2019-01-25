@@ -28,5 +28,9 @@ class CommonUtil
 	{
 		return new ArrayObject();
 	}
+	public static function removeNullValuesAlone($value)
+	{
+		return $value!==null;
+	}
 }
 ?>

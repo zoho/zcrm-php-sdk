@@ -374,7 +374,7 @@ class EntityAPIHandler extends APIHandler
 			}
 			$lineItemData['line_tax']=$lineTaxArray;
 			
-			array_push($lineItemsAsJSONArray,array_filter($lineItemData));
+			array_push($lineItemsAsJSONArray,array_filter($lineItemData,'CommonUtil::removeNullValuesAlone'));
 		}
 		return array_filter($lineItemsAsJSONArray);
 	}
