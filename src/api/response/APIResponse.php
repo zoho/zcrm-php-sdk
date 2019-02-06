@@ -63,27 +63,32 @@ class APIResponse extends CommonAPIResponse {
     }
   }
 
-  /**
-   * @throws ZCRMException
-   */
   public function processResponseData() {
-    $responseJSON = $this->getResponseJSON();
-    if ($responseJSON == NULL) {
+    
+    $json = $this->getResponseJSON();
+    if ($json == NULL) {
       return;
     }
-    if (array_key_exists("data", $responseJSON)) {
-      $responseJSON = $responseJSON['data'][0];
+    if (array_key_exists("data", $json)) {
+      $json = $json['data'][0];
     }
     else {
-      if (array_key_exists("users", $responseJSON)) {
-        $responseJSON = $responseJSON['users'][0];
+      if (array_key_exists("users", $json)) {
+        $json = $json['users'][0];
       }
       else {
-        if (array_key_exists("modules", $responseJSON)) {
-          $responseJSON = $responseJSON['modules'];
+        if (array_key_exists("modules", $json)) {
+          $json = $json['modules'];
         }
       }
     }
+
+    self::setCode($json['code']);
+    self::setStatus($json['status']);
+    self::setMessage($json['message']);
+    self::setDetails($json['details']);
+
+    /*
     if (isset($responseJSON['status']) && $responseJSON['status'] == APIConstants::STATUS_ERROR) {
       $exception = new ZCRMException($responseJSON['message'], self::getHttpStatusCode());
       $exception->setExceptionCode($responseJSON['code']);
@@ -96,6 +101,8 @@ class APIResponse extends CommonAPIResponse {
       self::setMessage($responseJSON['message']);
       self::setDetails($responseJSON['details']);
     }
+    */
+
   }
 
 }

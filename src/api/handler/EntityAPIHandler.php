@@ -29,15 +29,22 @@ class EntityAPIHandler extends APIHandler {
   }
 
   public function getRecord() {
+
     try {
       $this->requestMethod = APIConstants::REQUEST_METHOD_GET;
       $this->urlPath = $this->record->getModuleApiName() . "/" . $this->record->getEntityId();
       $this->addHeader("Content-Type", "application/json");
-      $responseInstance = APIRequest::getInstance($this)->getAPIResponse();
-      $recordDetails = $responseInstance->getResponseJSON()['data'];
-      self::setRecordProperties($recordDetails[0]);
-      $responseInstance->setData($this->record);
-      return $responseInstance;
+      
+      $res = APIRequest::getInstance($this)->getAPIResponse();
+
+      if($res->getStatus() == APIConstants::STATUS_SUCCESS){
+        $recordDetails = $res->getResponseJSON()['data'];
+        self::setRecordProperties($recordDetails[0]);
+        $res->setData($this->record);
+      }
+
+      return $res;
+
     } catch (ZCRMException $exception) {
       APIExceptionHandler::logException($exception);
       throw $exception;
@@ -49,24 +56,30 @@ class EntityAPIHandler extends APIHandler {
    * @throws \ZCRM\exception\ZCRMException
    */
   public function createRecord() {
+
     try {
+
       $inputJSON = self::getZCRMRecordAsJSON();
       $this->requestMethod = APIConstants::REQUEST_METHOD_POST;
       $this->urlPath = $this->record->getModuleApiName();
       $this->addHeader("Content-Type", "application/json");
       $this->requestBody = json_encode(array_filter(["data" => [$inputJSON]]));
-      $responseInstance = APIRequest::getInstance($this)->getAPIResponse();
-      $responseDataArray = $responseInstance->getResponseJSON()['data'];
-      $responseData = $responseDataArray[0];
-      $reponseDetails = $responseData['details'];
-      $this->record->setEntityId($reponseDetails['id']);
-      $this->record->setCreatedTime($reponseDetails['Created_Time']);
-      $createdBy = $reponseDetails['Created_By'];
-      $this->record->setCreatedBy(ZCRMUser::getInstance($createdBy['id'], $createdBy['name']));
 
-      $responseInstance->setData($this->record);
+      $res = APIRequest::getInstance($this)->getAPIResponse();
 
-      return $responseInstance;
+      if($res->getStatus() == APIConstants::STATUS_SUCCESS){
+        $responseDataArray = $res->getResponseJSON()['data'];
+        $responseData = $responseDataArray[0];
+        $reponseDetails = $responseData['details'];
+        $this->record->setEntityId($reponseDetails['id']);
+        $this->record->setCreatedTime($reponseDetails['Created_Time']);
+        $createdBy = $reponseDetails['Created_By'];
+        $this->record->setCreatedBy(ZCRMUser::getInstance($createdBy['id'], $createdBy['name']));
+        $res->setData($this->record);
+      }
+
+      return $res;
+
     } catch (ZCRMException $exception) {
       APIExceptionHandler::logException($exception);
       throw $exception;
@@ -78,31 +91,34 @@ class EntityAPIHandler extends APIHandler {
    * @throws \ZCRM\exception\ZCRMException
    */
   public function updateRecord() {
+
     try {
+
       $inputJSON = self::getZCRMRecordAsJSON();
       $this->requestMethod = APIConstants::REQUEST_METHOD_PUT;
       $this->urlPath = $this->record->getModuleApiName() . "/" . $this->record->getEntityId();
       $this->addHeader("Content-Type", "application/json");
       $this->requestBody = json_encode(array_filter(["data" => [$inputJSON]]));;
 
-      $responseInstance = APIRequest::getInstance($this)->getAPIResponse();
+      $res = APIRequest::getInstance($this)->getAPIResponse();
 
-      $responseDataArray = $responseInstance->getResponseJSON()['data'];
-      $responseData = $responseDataArray[0];
-      $reponseDetails = $responseData['details'];
-      $this->record->setCreatedTime($reponseDetails['Created_Time']);
-      $this->record->setModifiedTime($reponseDetails['Modified_Time']);
-      $createdBy = $reponseDetails['Created_By'];
-      $this->record->setCreatedBy(ZCRMUser::getInstance($createdBy['id'], $createdBy['name']));
-      $modifiedBy = $reponseDetails['Modified_By'];
-      $this->record->setModifiedBy(ZCRMUser::getInstance($modifiedBy['id'], $modifiedBy['name']));
+      if($res->getStatus() == APIConstants::STATUS_SUCCESS){
+        $arr = $res->getResponseJSON()['data'];
+        $reponseDetails = $arr[0]['details'];
+        $this->record->setCreatedTime($reponseDetails['Created_Time']);
+        $this->record->setModifiedTime($reponseDetails['Modified_Time']);
+        $createdBy = $reponseDetails['Created_By'];
+        $this->record->setCreatedBy(ZCRMUser::getInstance($createdBy['id'], $createdBy['name']));
+        $modifiedBy = $reponseDetails['Modified_By'];
+        $this->record->setModifiedBy(ZCRMUser::getInstance($modifiedBy['id'], $modifiedBy['name']));
+        $res->setData($this->record);
+      }
 
-      $responseInstance->setData($this->record);
+      return $res;
 
-      return $responseInstance;
     } catch (ZCRMException $exception) {
-     // APIExceptionHandler::logException($exception);
-      //throw $exception;
+      APIExceptionHandler::logException($exception);
+      throw $exception;
     }
   }
 
@@ -116,9 +132,8 @@ class EntityAPIHandler extends APIHandler {
       $this->urlPath = $this->record->getModuleApiName() . "/" . $this->record->getEntityId();
       $this->addHeader("Content-Type", "application/json");
 
-      $responseInstance = APIRequest::getInstance($this)->getAPIResponse();
+      return APIRequest::getInstance($this)->getAPIResponse();
 
-      return $responseInstance;
     } catch (ZCRMException $exception) {
       APIExceptionHandler::logException($exception);
       throw $exception;
@@ -144,8 +159,7 @@ class EntityAPIHandler extends APIHandler {
         $dataObject['assign_to'] = $assignToUser->getId();
       }
       if ($potentialRecord != NULL) {
-        $dataObject['Deals'] = self::getInstance($potentialRecord)
-          ->getZCRMRecordAsJSON();
+        $dataObject['Deals'] = self::getInstance($potentialRecord)->getZCRMRecordAsJSON();
       }
       if (sizeof($dataObject) > 0) {
         $dataArray = json_encode([APIConstants::DATA => [array_filter($dataObject)]]);
