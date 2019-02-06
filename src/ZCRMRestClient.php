@@ -18,13 +18,17 @@ class ZCRMRestClient {
   /**
    * @param $config
    * Init direct with yml file or array
-   *        or
+   *  or
    * pre-parse config as a default and then init w/ updated array
    * will allow config to be managed by end users app
    */
   public static function initialize($config) {
     ZCRMConfigUtil::initialize($config);
   }
+
+  /**
+   * 
+   */
   public static function parseConfig($config_path) {
     return ZCRMConfigUtil::parseConfig($config_path);
   }

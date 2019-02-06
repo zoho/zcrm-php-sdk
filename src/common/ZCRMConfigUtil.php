@@ -38,6 +38,7 @@ class ZCRMConfigUtil {
     self::$configProperties = self::$config['api'];
     ZohoOAuth::initialize(self::$config);
   }
+  
   public static function parseConfig($config_path) {
     return Yaml::parseFile($config_path);
   }
