@@ -43,7 +43,7 @@ class ZCRMInventoryLineItem
 
     /**
      * id
-     * @return Long
+     * @return int
      */
     public function getId(){
         return $this->id;
@@ -51,7 +51,7 @@ class ZCRMInventoryLineItem
 
     /**
      * id
-     * @param Long $id
+     * @param int $id
      */
     public function setId($id){
         $this->id = $id;
@@ -235,7 +235,7 @@ class ZCRMInventoryLineItem
 
     /**
      * lineTax
-     * @return Array of ZCRMTax
+     * @return array of ZCRMTax
      */
     public function getLineTax(){
         return $this->lineTax;
@@ -243,7 +243,7 @@ class ZCRMInventoryLineItem
 
     /**
      * lineTax
-     * @param Array of ZCRMTax $lineTax
+     * @param array of ZCRMTax $lineTax
      */
     public function addLineTax($lineTax){
     	array_push($this->lineTax,$lineTax);

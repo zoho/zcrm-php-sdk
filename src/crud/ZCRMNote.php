@@ -2,6 +2,8 @@
 
 namespace ZCRM\crud;
 
+use ZCRM\users\ZCRMUser;
+
 class ZCRMNote {
     private $id = null;
     private $title = null;
@@ -31,7 +33,7 @@ class ZCRMNote {
 
     /**
      * id
-     * @return Long
+     * @return int
      */
     public function getId() {
         return $this->id;
@@ -39,7 +41,7 @@ class ZCRMNote {
 
     /**
      * id
-     * @param Long $id
+     * @param int $id
      */
     public function setId($id) {
         $this->id = $id;
@@ -176,7 +178,7 @@ class ZCRMNote {
 
     /**
      * attachments
-     * @return Array of ZCRMAttachment instance
+     * @return array of ZCRMAttachment instance
      */
     public function getAttachments() {
         return $this->attachments;
@@ -184,7 +186,7 @@ class ZCRMNote {
 
     /**
      * attachments
-     * @param Array of ZCRMAttachment instances $attachments
+     * @param array of ZCRMAttachment instances $attachments
      */
     public function setAttachments($attachments) {
         $this->attachments = $attachments;
@@ -259,7 +261,7 @@ class ZCRMNote {
 
     /**
      * parentId
-     * @return Long
+     * @return int
      */
     public function getParentId() {
         return $this->parentId;
@@ -267,7 +269,7 @@ class ZCRMNote {
 
     /**
      * parentId
-     * @param Long $parentId
+     * @param int $parentId
      */
     public function setParentId($parentId) {
         $this->parentId = $parentId;

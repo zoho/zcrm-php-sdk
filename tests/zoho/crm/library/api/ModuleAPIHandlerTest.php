@@ -1,5 +1,10 @@
 <?php
 
+use ZCRM\common\APIConstants;
+use ZCRM\crud\ZCRMCustomView;
+use ZCRM\crud\ZCRMModule;
+use ZCRM\exception\ZCRMException;
+
 class ModuleAPIHandlerTest
 {
 	private static $filePointer=null;

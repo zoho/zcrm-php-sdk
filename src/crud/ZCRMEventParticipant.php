@@ -53,7 +53,7 @@ class ZCRMEventParticipant {
 
     /**
      * id
-     * @return Long
+     * @return int
      */
     public function getId() {
         return $this->id;
@@ -61,7 +61,7 @@ class ZCRMEventParticipant {
 
     /**
      * id
-     * @param Long $id
+     * @param int $id
      * @return ZCRMEventParticipant
      */
     public function setId($id) {

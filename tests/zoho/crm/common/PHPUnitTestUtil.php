@@ -1,5 +1,5 @@
 <?php
-class PHPUnitTestUtil extends \PHPUnit_Framework_TestCase
+class PHPUnitTestUtil extends \PHPUnit\Framework\TestCase
 {
 	public function assertEqualsCheck($expectedValue,$actualValue)
 	{

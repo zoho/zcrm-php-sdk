@@ -143,7 +143,7 @@ class CommonAPIResponse {
 
     /**
      * Get the extra details of response (if any)
-     * @return Array
+     * @return array
      */
     public function getDetails() {
         return $this->details;
@@ -151,7 +151,7 @@ class CommonAPIResponse {
 
     /**
      * Set the extra details for response (if any)
-     * @param Array $details
+     * @param array $details
      */
     public function setDetails($details) {
         $this->details = $details;

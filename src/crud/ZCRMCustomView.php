@@ -31,7 +31,7 @@ class ZCRMCustomView {
 
     /**
      * Get the display Name of the customView
-     * @return unkown
+     * @return mixed Unknown
      */
     public function getDisplayValue() {
         return $this->displayValue;
@@ -39,7 +39,7 @@ class ZCRMCustomView {
 
     /**
      * Set the display Name of the customView
-     * @param unkown $displayValue
+     * @param mixed $displayValue Unknown
      */
     public function setDisplayValue($displayValue) {
         $this->displayValue = $displayValue;
@@ -55,7 +55,7 @@ class ZCRMCustomView {
 
     /**
      * Method to set the custom view as default
-     * @param unkown $default
+     * @param mixed $default Unknown
      */
     public function setDefault($default) {
         $this->default = $default;
@@ -229,14 +229,14 @@ class ZCRMCustomView {
         return $this->moduleAPIName;
     }
 
-    public function getRecords(String $sortByField = null, String $sortOrder = null, $startIndex = 1, $endIndex = 200) {
+    public function getRecords($sortByField = null, $sortOrder = null, $startIndex = 1, $endIndex = 200) {
         return ZCRMModule::getInstance($apiName)->getRecords($this->id, $sortByField, $sortOrder, $startIndex, $endIndex);
     }
 
 
     /**
      * categoriesList
-     * @return unkown
+     * @return mixed Unknown
      */
     public function getCategoriesList() {
         return $this->categoriesList;
@@ -244,7 +244,7 @@ class ZCRMCustomView {
 
     /**
      * categoriesList
-     * @param unkown $categoriesList
+     * @param mixed $categoriesList Unknown
      */
     public function setCategoriesList($categoriesList) {
         $this->categoriesList = $categoriesList;

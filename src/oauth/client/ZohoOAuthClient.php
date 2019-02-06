@@ -164,7 +164,7 @@ class ZohoOAuthClient {
   /**
    * zohoOAuthParams
    *
-   * @return unkown
+   * @return mixed Unknown
    */
   public function getZohoOAuthParams() {
     return $this->zohoOAuthParams;
@@ -173,7 +173,7 @@ class ZohoOAuthClient {
   /**
    * zohoOAuthParams
    *
-   * @param unkown $zohoOAuthParams
+   * @param mixed $zohoOAuthParams Unknown
    */
   public function setZohoOAuthParams($zohoOAuthParams) {
     $this->zohoOAuthParams = $zohoOAuthParams;

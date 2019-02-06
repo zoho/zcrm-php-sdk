@@ -37,7 +37,7 @@ class ZCRMRole {
 
     /**
      * get the Id of the Role
-     * @return Long
+     * @return int
      */
     public function getId() {
         return $this->id;
@@ -45,7 +45,7 @@ class ZCRMRole {
 
     /**
      * Set the Id of the Role
-     * @param Long $id
+     * @param int $id
      */
     public function setId($id) {
         $this->id = $id;

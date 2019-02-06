@@ -1,7 +1,12 @@
 <?php
 
-require_once realpath(dirname(__FILE__) . "/../Main.php");
-require_once realpath(dirname(__FILE__) . "/../common/Helper.php");
+use ZCRM\common\APIConstants;
+use ZCRM\exception\ZCRMException;
+use ZCRM\users\ZCRMProfile;
+use ZCRM\users\ZCRMRole;
+use ZCRM\users\ZCRMUser;
+use ZCRM\ZCRMOrganization;
+use ZCRM\ZCRMRestClient;
 
 class OrganizationAPIHandlerTest {
     

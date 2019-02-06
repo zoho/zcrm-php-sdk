@@ -1,5 +1,4 @@
 <?php
-require_once realpath(dirname(__FILE__)."/../Main.php");
 class Helper
 {
 	const TRTDOPEN="<tr><td>";

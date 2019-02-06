@@ -81,7 +81,7 @@ class EntityResponse {
 
     /**
      * responseJson
-     * @return JSONObject
+     * @return mixed JSONObject
      */
     public function getResponseJSON() {
         return $this->responseJSON;
@@ -90,7 +90,7 @@ class EntityResponse {
 
     /**
      * data
-     * @return Entity Data
+     * @return mixed Entity Data
      */
     public function getData() {
         return $this->data;
@@ -98,7 +98,7 @@ class EntityResponse {
 
     /**
      * data
-     * @param Entity Data $data
+     * @param mixed $data Entity Data
      */
     public function setData($data) {
         $this->data = $data;

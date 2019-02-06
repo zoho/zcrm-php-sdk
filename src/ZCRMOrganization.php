@@ -100,7 +100,7 @@ class ZCRMOrganization {
 
     /**
      * orgId
-     * @return Long
+     * @return int
      */
     public function getOrgId() {
         return $this->orgId;
@@ -108,7 +108,7 @@ class ZCRMOrganization {
 
     /**
      * orgId
-     * @param Long $orgId
+     * @param int $orgId
      */
     public function setOrgId($orgId) {
         $this->orgId = $orgId;
@@ -116,7 +116,7 @@ class ZCRMOrganization {
 
     /**
      * primary_zuid
-     * @return Long
+     * @return int
      */
     public function getPrimaryZuid() {
         return $this->primary_zuid;
@@ -124,7 +124,7 @@ class ZCRMOrganization {
 
     /**
      * primary_zuid
-     * @param Long $primary_zuid
+     * @param int $primary_zuid
      */
     public function setPrimaryZuid($primary_zuid) {
         $this->primary_zuid = $primary_zuid;
@@ -132,7 +132,7 @@ class ZCRMOrganization {
 
     /**
      * zgid
-     * @return Long
+     * @return int
      */
     public function getZgid() {
         return $this->zgid;
@@ -140,7 +140,7 @@ class ZCRMOrganization {
 
     /**
      * zgid
-     * @param Long $zgid
+     * @param int $zgid
      */
     public function setZgid($zgid) {
         $this->zgid = $zgid;

@@ -14,7 +14,7 @@ class ZohoOAuthUtil {
                 }
             }
             fclose($fileHandler);
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             OAuthLogger::warn("Exception occured while converting file content as map (file::ZohoOAuthUtil.php)");
         }
         return $reponseMap;

@@ -1,7 +1,9 @@
 <?php
-require_once realpath(dirname(__FILE__)."/../../../../../com/zoho/crm/library/api/handler/MassEntityAPIHandler.php");
-require_once 'MetaDataAPIHandlerTest.php';
-require_once realpath(dirname(__FILE__)."/../common/TestUtil.php");
+
+use ZCRM\common\APIConstants;
+use ZCRM\crud\ZCRMModule;
+use ZCRM\crud\ZCRMRecord;
+use ZCRM\exception\ZCRMException;
 
 class MassEntityAPIHandlerTest
 {

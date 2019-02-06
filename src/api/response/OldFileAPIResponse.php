@@ -3,6 +3,8 @@
 namespace ZCRM\api\response;
 
 use ZCRM\common\APIConstants;
+use ZCRM\exception\APIExceptionHandler;
+use ZCRM\exception\ZCRMException;
 
 class OldFileAPIResponse extends APIResponse {
     public function __construct($httpResponse, $httpStatusCode) {

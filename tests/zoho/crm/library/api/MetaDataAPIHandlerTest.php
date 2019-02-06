@@ -1,7 +1,8 @@
 <?php
-require_once realpath(dirname(__FILE__)."/../common/Helper.php");
-require_once realpath(dirname(__FILE__)."/../Main.php");
-require_once realpath(dirname(__FILE__)."/../../../../../com/zoho/crm/library/common/APIConstants.php");
+
+use ZCRM\common\APIConstants;
+use ZCRM\exception\ZCRMException;
+use ZCRM\ZCRMRestClient;
 
 class MetaDataAPIHandlerTest
 {

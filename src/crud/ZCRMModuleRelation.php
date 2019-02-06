@@ -116,7 +116,7 @@ class ZCRMModuleRelation {
 
     /**
      * id
-     * @return Long
+     * @return int
      */
     public function getId() {
         return $this->id;
@@ -124,7 +124,7 @@ class ZCRMModuleRelation {
 
     /**
      * id
-     * @param Long $id
+     * @param int $id
      */
     public function setId($id) {
         $this->id = $id;

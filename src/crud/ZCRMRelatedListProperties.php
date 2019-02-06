@@ -17,7 +17,7 @@ class ZCRMRelatedListProperties {
 
     /**
      * sortBy
-     * @return unkown
+     * @return mixed Unknown
      */
     public function getSortBy() {
         return $this->sortBy;
@@ -25,7 +25,7 @@ class ZCRMRelatedListProperties {
 
     /**
      * sortBy
-     * @param unkown $sortBy
+     * @param mixed $sortBy Unknown
      * @return ZCRMRelatedListProperties
      */
     public function setSortBy($sortBy) {
@@ -34,7 +34,7 @@ class ZCRMRelatedListProperties {
 
     /**
      * sortOrder
-     * @return unkown
+     * @return mixed Unknown
      */
     public function getSortOrder() {
         return $this->sortOrder;
@@ -42,7 +42,7 @@ class ZCRMRelatedListProperties {
 
     /**
      * sortOrder
-     * @param unkown $sortOrder
+     * @param mixed $sortOrder Unknown
      * @return ZCRMRelatedListProperties
      */
     public function setSortOrder($sortOrder) {
@@ -51,7 +51,7 @@ class ZCRMRelatedListProperties {
 
     /**
      * fields
-     * @return unkown
+     * @return mixed Unknown
      */
     public function getFields() {
         return $this->fields;
@@ -59,7 +59,7 @@ class ZCRMRelatedListProperties {
 
     /**
      * fields
-     * @param unkown $fields
+     * @param mixed $fields Unknown
      * @return ZCRMRelatedListProperties
      */
     public function setFields($fields) {

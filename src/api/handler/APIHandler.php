@@ -79,7 +79,7 @@ class APIHandler implements APIHandlerInterface {
 
   /**
    * set the request Headers
-   * @param Array $requestHeaders
+   * @param array $requestHeaders
    */
   public function setRequestHeaders($requestHeaders) {
     $this->requestHeaders = $requestHeaders;
@@ -87,7 +87,7 @@ class APIHandler implements APIHandlerInterface {
 
   /**
    * Set the request parameters
-   * @param Array $requestParams
+   * @param array $requestParams
    */
   public function setRequestParams($requestParams) {
     $this->requestParams = $requestParams;
@@ -95,7 +95,7 @@ class APIHandler implements APIHandlerInterface {
 
   /**
    * Set the requestBody
-   * @param JSON $requestBody
+   * @param mixed $requestBody JSON
    */
   public function setRequestBody($requestBody) {
     $this->requestBody = $requestBody;

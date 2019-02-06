@@ -1,8 +1,12 @@
 <?php
-require_once realpath(dirname(__FILE__)."/../../../../../com/zoho/crm/library/common/APIConstants.php");
-require_once realpath(dirname(__FILE__)."/../../common/PHPUnitTestUtil.php");
-class APIConstantsTest extends \PHPUnit_Framework_TestCase
+
+use ZCRM\common\APIConstants;
+
+class APIConstantsTest extends \PHPUnit\Framework\TestCase
 {
+    /** @var PHPUnitTestUtil */
+    public $instance;
+
 	public function setUp()
 	{
 		$this->instance=new PHPUnitTestUtil();

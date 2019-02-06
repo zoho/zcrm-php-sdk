@@ -2,6 +2,7 @@
 
 namespace ZCRM\api;
 
+use ZCRM\api\handler\APIHandler;
 use ZCRM\common\ZCRMConfigUtil;
 use ZCRM\common\ZohoHTTPConnector;
 use ZCRM\common\APIConstants;
@@ -23,8 +24,11 @@ class APIRequest {
     private $requestMethod;
     private $apiKey = null;
     private $response = null;
-    private $reponseInfo = null;
+    private $responseInfo = null;
 
+    /**
+     * @param APIHandler $apiHandler
+     */
     private function __construct($apiHandler) {
 
         self::constructAPIUrl();
@@ -232,7 +236,7 @@ class APIRequest {
 
     /**
      * Set the request headers
-     * @param Array $requestHeaders
+     * @param array $requestHeaders
      */
     public function setRequestHeaders($requestHeaders) {
         $this->requestHeaders = $requestHeaders;

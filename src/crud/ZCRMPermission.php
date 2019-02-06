@@ -52,7 +52,7 @@ class ZCRMPermission {
 
     /**
      * id
-     * @return Long
+     * @return int
      */
     public function getId() {
         return $this->id;
@@ -60,7 +60,7 @@ class ZCRMPermission {
 
     /**
      * id
-     * @param Long $id
+     * @param int $id
      */
     public function setId($id) {
         $this->id = $id;

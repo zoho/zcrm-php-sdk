@@ -5,6 +5,7 @@ namespace ZCRM\oauth\clientapp;
 use ZCRM\oauth\client\ZohoOAuthPersistenceInterface;
 use ZCRM\oauth\common\ZohoOAuthException;
 use ZCRM\oauth\common\OAuthLogger;
+use ZCRM\oauth\common\ZohoOAuthTokens;
 
 
 class ZohoOAuthPersistenceHandler implements ZohoOAuthPersistenceInterface {
@@ -29,9 +30,8 @@ class ZohoOAuthPersistenceHandler implements ZohoOAuthPersistenceInterface {
                 OAuthLogger::severe("OAuth token insertion failed: (" . $db_link->errno . ") " . $db_link->error);
             }
 
-        } catch (Exception $ex) {
-            Logger:
-            severe("Exception occured while inserting OAuthTokens into DB(file::ZohoOAuthPersistenceHandler)({$ex->getMessage()})\n{$ex}");
+        } catch (\Exception $ex) {
+            OAuthLogger::severe("Exception occured while inserting OAuthTokens into DB(file::ZohoOAuthPersistenceHandler)({$ex->getMessage()})\n{$ex}");
         } finally {
             if ($db_link != null) {
                 $db_link->close();
@@ -63,7 +63,7 @@ class ZohoOAuthPersistenceHandler implements ZohoOAuthPersistenceInterface {
                     break;
                 }
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             OAuthLogger::severe("Exception occured while getting OAuthTokens from DB(file::ZohoOAuthPersistenceHandler)({$ex->getMessage()})\n{$ex}");
         } finally {
             if ($db_link != null) {
@@ -82,7 +82,7 @@ class ZohoOAuthPersistenceHandler implements ZohoOAuthPersistenceInterface {
             if (!$resultSet) {
                 OAuthLogger::severe("Deleting  oauthtokens failed: (" . $db_link->errno . ") " . $db_link->error);
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             OAuthLogger::severe("Exception occured while Deleting OAuthTokens from DB(file::ZohoOAuthPersistenceHandler)({$ex->getMessage()})\n{$ex}");
         } finally {
             if ($db_link != null) {
@@ -92,7 +92,7 @@ class ZohoOAuthPersistenceHandler implements ZohoOAuthPersistenceInterface {
     }
 
     public function getMysqlConnection() {
-        $mysqli_con = new mysqli("localhost:3306", "root", "", "zohooauth");
+        $mysqli_con = new \mysqli("localhost:3306", "root", "", "zohooauth");
         if ($mysqli_con->connect_errno) {
             OAuthLogger::severe("Failed to connect to MySQL: (" . $mysqli_con->connect_errno . ") " . $mysqli_con->connect_error);
             echo "Failed to connect to MySQL: (" . $mysqli_con->connect_errno . ") " . $mysqli_con->connect_error;

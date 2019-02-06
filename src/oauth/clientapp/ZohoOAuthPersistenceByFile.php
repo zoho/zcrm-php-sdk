@@ -29,7 +29,7 @@ class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface {
             array_push($arr, $zohoOAuthTokens);
             $serialized = serialize($arr);
             file_put_contents("zcrm_oauthtokens.txt", $serialized, FILE_USE_INCLUDE_PATH);
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             OAuthLogger::severe("Exception occured while Saving OAuthTokens to file(file::ZohoOAuthPersistenceByFile)({$ex->getMessage()})\n{$ex}");
             throw $ex;
         }
@@ -59,7 +59,7 @@ class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface {
             return $tokens;
         } catch (ZohoOAuthException $e) {
             throw $e;
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             OAuthLogger::severe("Exception occured while fetching OAuthTokens from file(file::ZohoOAuthPersistenceByFile)({$ex->getMessage()})\n{$ex}");
             throw $ex;
         }
@@ -87,7 +87,7 @@ class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface {
             }
             $serialized = serialize($arr);
             file_put_contents("zcrm_oauthtokens.txt", $serialized, FILE_USE_INCLUDE_PATH);
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             OAuthLogger::severe("Exception occured while Saving OAuthTokens to file(file::ZohoOAuthPersistenceByFile)({$ex->getMessage()})\n{$ex}");
             throw $ex;
         }
