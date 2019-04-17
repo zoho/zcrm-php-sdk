@@ -42,14 +42,20 @@ class EntityAPIHandler extends APIHandler
 		}
 	}
 	
-	public function createRecord()
+	public function createRecord($larId)
 	{
 		try{
-			$inputJSON=self::getZCRMRecordAsJSON();
 			$this->requestMethod=APIConstants::REQUEST_METHOD_POST;
 			$this->urlPath=$this->record->getModuleApiName();
 			$this->addHeader("Content-Type","application/json");
-			$this->requestBody=json_encode(array_filter(array("data"=>array($inputJSON))));
+			$requestBodyObj = array();
+			$dataArray = array();
+			array_push($dataArray, self::getZCRMRecordAsJSON());
+			$requestBodyObj["data"] = $dataArray;
+			if ($larId != null) {
+			    $requestBodyObj["lar_id"] = $larId;
+			}
+			$this->requestBody = json_encode($requestBodyObj);
 			$responseInstance=APIRequest::getInstance($this)->getAPIResponse();
 			$responseDataArray=$responseInstance->getResponseJSON()['data'];
 			$responseData=$responseDataArray[0];
@@ -72,22 +78,23 @@ class EntityAPIHandler extends APIHandler
 	public function updateRecord()
 	{
 		try{
-			$inputJSON=self::getZCRMRecordAsJSON();
-			$this->requestMethod=APIConstants::REQUEST_METHOD_PUT;
-			$this->urlPath=$this->record->getModuleApiName()."/".$this->record->getEntityId();
-			$this->addHeader("Content-Type","application/json");
-			$this->requestBody=json_encode(array_filter(array("data"=>array($inputJSON))));;
-				
-			$responseInstance=APIRequest::getInstance($this)->getAPIResponse();
-				
-			$responseDataArray=$responseInstance->getResponseJSON()['data'];
-			$responseData=$responseDataArray[0];
-			$reponseDetails=$responseData['details'];
-			$this->record->setCreatedTime($reponseDetails['Created_Time']);
-			$this->record->setModifiedTime($reponseDetails['Modified_Time']);
-			$createdBy=$reponseDetails['Created_By'];
-			$this->record->setCreatedBy(ZCRMUser::getInstance($createdBy['id'],$createdBy['name']));
-			$modifiedBy=$reponseDetails['Modified_By'];
+			$this->requestMethod = APIConstants::REQUEST_METHOD_PUT;
+            $this->urlPath = $this->record->getModuleApiName() . "/" . $this->record->getEntityId();
+            $this->addHeader("Content-Type", "application/json");
+            $requestBodyObj = array();
+            $dataArray = array();
+            array_push($dataArray, self::getZCRMRecordAsJSON());
+            $requestBodyObj["data"] = $dataArray;
+            $this->requestBody = json_encode($requestBodyObj);
+            $responseInstance = APIRequest::getInstance($this)->getAPIResponse();
+            $responseDataArray = $responseInstance->getResponseJSON()['data'];
+            $responseData = $responseDataArray[0];
+            $reponseDetails = $responseData['details'];
+            $this->record->setCreatedTime($reponseDetails['Created_Time']);
+            $this->record->setModifiedTime($reponseDetails['Modified_Time']);
+            $createdBy = $reponseDetails['Created_By'];
+            $this->record->setCreatedBy(ZCRMUser::getInstance($createdBy['id'], $createdBy['name']));
+            $modifiedBy = $reponseDetails['Modified_By'];
 			$this->record->setModifiedBy(ZCRMUser::getInstance($modifiedBy['id'],$modifiedBy['name']));
 			
 			$responseInstance->setData($this->record);

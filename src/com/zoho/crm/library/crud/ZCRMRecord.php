@@ -322,10 +322,11 @@ class ZCRMRecord
     /**
      * Method creates record
      * @throws ZCRMException if Entity ID of the record is not NULL
+     * @param string $larId lead assignment rule id
      * @return APIResponse instance of the APIResponse class which holds the API response.
      
      */
-    public function create()
+    public function create($larId=null)
     {
     	if(self::getEntityId() != null)
     	{
@@ -333,7 +334,7 @@ class ZCRMRecord
     		$exception->setExceptionCode("ID EXIST");
     		throw $exception;
     	}
-    	return EntityAPIHandler::getInstance($this)->createRecord();
+    	return EntityAPIHandler::getInstance($this)->createRecord($larId);
     }
     /**
     *Method to update the records

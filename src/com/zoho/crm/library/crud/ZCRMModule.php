@@ -939,17 +939,18 @@ class ZCRMModule
      */
     public function updateRecords($records,$trigger=null)
     {
-    	return MassEntityAPIHandler::getInstance($this)->updateRecords($records,$trigger);
+        return MassEntityAPIHandler::getInstance($this)->updateRecords($records,$trigger);
     }
     /**
      * method to create the records in the module
      * @param array $records array of instances of ZCRMRecord class
      * @param string $trigger 
+     * @param string $larId lead assignment rule id
      * @return BulkAPIResponse instance of the BulkAPIResponse class which holds the Bulk API response.
      */
-    public function createRecords($records,$trigger=null)
+    public function createRecords($records,$trigger=null,$larId=null)
     {
-    	return MassEntityAPIHandler::getInstance($this)->createRecords($records,$trigger);
+        return MassEntityAPIHandler::getInstance($this)->createRecords($records,$trigger,$larId);
     }
     /**
      * method to upsert the records of the module 
@@ -958,7 +959,7 @@ class ZCRMModule
      */
     public function upsertRecords($records)
     {
-    	return MassEntityAPIHandler::getInstance($this)->upsertRecords($records);
+        return MassEntityAPIHandler::getInstance($this)->upsertRecords($records);
     }
     /**
      * method to delete the records of the module

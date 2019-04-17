@@ -17,7 +17,7 @@ class MassEntityAPIHandler extends APIHandler
 	{
 		return new MassEntityAPIHandler($moduleInstance);
 	}
-	public function createRecords($records,$trigger)
+	public function createRecords($records,$trigger,$larId)
 	{
 		if(sizeof($records) > 100)
 		{
@@ -44,6 +44,10 @@ class MassEntityAPIHandler extends APIHandler
 			if($trigger !== null && is_array($trigger))
 			{
 				$requestBodyObj["trigger"]=$trigger;
+			}
+			if($larId != null)
+			{
+			    $requestBodyObj["lar_id"]=$larId;
 			}
 			$this->requestBody = $requestBodyObj;
 			
@@ -98,6 +102,7 @@ class MassEntityAPIHandler extends APIHandler
 				array_push($dataArray,$recordJSON);
 			}
 			$requestBodyObj["data"]=$dataArray;
+		
 			$this->requestBody = $requestBodyObj;
 				
 			//Fire Request
@@ -155,8 +160,8 @@ class MassEntityAPIHandler extends APIHandler
 			{
 				$requestBodyObj["trigger"]=$trigger;
 			}
-			$this->requestBody = $requestBodyObj;
 			
+			$this->requestBody = $requestBodyObj;
 			//Fire Request
 			$bulkAPIResponse = APIRequest::getInstance($this)->getBulkAPIResponse();
 			$upsertRecords=array();
