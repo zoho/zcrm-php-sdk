@@ -31,18 +31,14 @@ class EntityAPIHandler extends APIHandler {
   public function getRecord() {
 
     try {
+      
       $this->requestMethod = APIConstants::REQUEST_METHOD_GET;
       $this->urlPath = $this->record->getModuleApiName() . "/" . $this->record->getEntityId();
       $this->addHeader("Content-Type", "application/json");
-      
       $res = APIRequest::getInstance($this)->getAPIResponse();
-
-      if($res->getStatus() == APIConstants::STATUS_SUCCESS){
-        $recordDetails = $res->getResponseJSON()['data'];
-        self::setRecordProperties($recordDetails[0]);
-        $res->setData($this->record);
-      }
-
+      $recordDetails = $res->getResponseJSON()['data'];
+      self::setRecordProperties($recordDetails[0]);
+      $res->setData($this->record);
       return $res;
 
     } catch (ZCRMException $exception) {
