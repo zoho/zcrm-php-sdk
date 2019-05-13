@@ -14,7 +14,7 @@ class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface
     {
         $path = ZohoOAuth::getConfigValue('token_persistence_path');
         $path = trim($path);
-        set_include_path($path);
+        set_include_path(get_include_path() . PATH_SEPARATOR . $path);
     }
     
     public function saveOAuthData($zohoOAuthTokens)
