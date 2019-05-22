@@ -26,9 +26,9 @@ class ZCRMRestClient
     {
         return new ZCRMRestClient();
     }
-    public  function setCurrentUserEmailId($UserEmailId)
+    public static function setCurrentUserEmailId($UserEmailId)
     {
-        $this->CurrentUserEmailID=$UserEmailId;
+        self::$CurrentUserEmailID=$UserEmailId;
     }
     /**
      * method to initialize the configurationsto the rest client
@@ -39,7 +39,6 @@ class ZCRMRestClient
     {
         ZCRMConfigUtil::initialize($configuration);
     }
-    
     /**
      * method to get all the modules of the restclient
      *

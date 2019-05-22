@@ -22,20 +22,19 @@ class ZCRMConfigUtil
         $mandatory_keys = array(
             ZohoOAuthConstants::CLIENT_ID,
             ZohoOAuthConstants::CLIENT_SECRET,
-            ZohoOAuthConstants::REDIRECT_URL,
-            APIConstants::CURRENT_USER_EMAIL
+            ZohoOAuthConstants::REDIRECT_URL
         );
         // check if user input contains all mandatory values
         foreach ($mandatory_keys as $key) {
             if (! array_key_exists($key, $configuration)) {
-                if ($key != APIConstants::CURRENT_USER_EMAIL) {
-                    throw new ZohoOAuthException($key . " is mandatory");
-                } else if (ZCRMRestClient::getCurrentUserEmailID() == NULL) {
-                    throw new ZohoOAuthException($key . " is mandatory");
-                }
+                throw new ZohoOAuthException($key . " is mandatory");
             } else if (array_key_exists($key, $configuration) && $configuration[$key] == "") {
                 throw new ZohoOAuthException($key . " value is missing");
             }
+        }
+        if(array_key_exists(APIConstants::CURRENT_USER_EMAIL, $configuration) && $configuration[APIConstants::CURRENT_USER_EMAIL] != "")//if current user email id is provided in map and is not empty
+        {
+            ZCRMRestClient::setCurrentUserEmailId($configuration[APIConstants::CURRENT_USER_EMAIL]);
         }
         self::setConfigValues($configuration);
         ZohoOAuth::initialize($configuration);
