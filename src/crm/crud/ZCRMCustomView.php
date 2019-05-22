@@ -94,7 +94,12 @@ class ZCRMCustomView
      * @var ZCRMCustomViewCriteria
      */
     private $criteria = null;
-    
+    /**
+     * criteria condition
+     *
+     * @var string
+     */
+    private $criteriaCondition = null;
     /**
      * category list of the view
      *
@@ -128,9 +133,9 @@ class ZCRMCustomView
      * @param string $id module API name
      * @return ZCRMCustomView instance of ZCRMCustomView class
      */
-    public static function getInstance($moduleAPIName = null, $id)
+    public static function getInstance($moduleAPIName , $id)
     {
-        return new ZCRMCustomView($moduleAPIName, $id);
+        return new ZCRMCustomView( $moduleAPIName,$id);
     }
     
     /**
@@ -372,7 +377,14 @@ class ZCRMCustomView
     {
         $this->criteria = $criteria;
     }
-    
+    public function getCriteriaCondition()
+    {
+        return $this->criteriaCondition;
+    }
+    public function setCriteriaCondition($criteriaCondition)
+    {
+        $this->criteriaCondition = $criteriaCondition;
+    }
     /**
      * Method to get the module api name of the custom view
      *

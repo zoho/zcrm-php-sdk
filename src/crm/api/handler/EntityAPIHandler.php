@@ -375,7 +375,7 @@ class EntityAPIHandler extends APIHandler
             if ($lineItem->getDescription() != null) {
                 $lineItemData["product_description"] = $lineItem->getDescription();
             }
-            if ($lineItem->getListPrice() != null) {
+            if ($lineItem->getListPrice() !== null) {
                 $lineItemData["list_price"] = $lineItem->getListPrice();
             }
             $lineItemData["quantity"] = $lineItem->getQuantity();

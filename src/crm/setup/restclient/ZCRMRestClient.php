@@ -9,6 +9,7 @@ use zcrmsdk\crm\utility\ZCRMConfigUtil;
 use zcrmsdk\crm\setup\org\ZCRMOrganization;
 use zcrmsdk\crm\crud\ZCRMModule;
 use zcrmsdk\crm\crud\ZCRMRecord;
+use zcrmsdk\crm\crud\ZCRMCustomView;
 
 class ZCRMRestClient
 {
@@ -68,6 +69,15 @@ class ZCRMRestClient
     public function getOrganizationInstance()
     {
         return ZCRMOrganization::getInstance();
+    }
+    /**
+     * method to get the Custom view of the organisation
+     *
+     * @return ZCRMCustomView instance of the ZCRMCustomView class
+     */
+    public function getCustomViewInstance($moduleAPIName,$id)
+    {
+        return ZCRMCustomView::getInstance($moduleAPIName,$id );
     }
     
     /**

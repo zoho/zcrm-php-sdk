@@ -3,6 +3,7 @@ namespace zcrmsdk\crm\api\handler;
 
 use zcrmsdk\crm\api\APIRequest;
 use zcrmsdk\crm\crud\ZCRMCustomView;
+use zcrmsdk\crm\crud\ZCRMCustomViewCategory;
 use zcrmsdk\crm\crud\ZCRMCustomViewCriteria;
 use zcrmsdk\crm\crud\ZCRMModule;
 use zcrmsdk\crm\crud\ZCRMModuleRelatedList;
@@ -143,7 +144,7 @@ class MetaDataAPIHandler extends APIHandler
             $crmModuleInstance->setSearchLayoutFields($moduleDetails['search_layout_fields']);
         }
         if (array_key_exists('custom_view', $moduleDetails) && $moduleDetails['custom_view'] != null) {
-            $crmModuleInstance->setDefaultCustomView(self::getModuleDefaultCustomView($moduleDetails[APIConstants::API_NAME], $moduleDetails['custom_view']));
+            $crmModuleInstance->setDefaultCustomView(self::getZCRMCustomView( $moduleDetails[APIConstants::API_NAME],$moduleDetails['custom_view']));
             $crmModuleInstance->setDefaultCustomViewId($moduleDetails['custom_view']['id']);
         }
         if (array_key_exists('territory', $moduleDetails) && $moduleDetails['territory'] != null) {
@@ -154,53 +155,7 @@ class MetaDataAPIHandler extends APIHandler
         return $crmModuleInstance;
     }
     
-    public function getModuleDefaultCustomView($moduleAPIName, $customViewDetails)
-    {
-        $customViewInstance = ZCRMCustomView::getInstance($moduleAPIName, $customViewDetails['id']);
-        $customViewInstance->setDisplayValue($customViewDetails['display_value']);
-        $customViewInstance->setDefault((boolean) $customViewDetails['default']);
-        $customViewInstance->setName($customViewDetails['name']);
-        $customViewInstance->setSystemName($customViewDetails['system_name']);
-        $customViewInstance->setSortBy(array_key_exists('sort_by', $customViewDetails) ? $customViewDetails['sort_by'] : null);
-        $customViewInstance->setCategory(array_key_exists('category', $customViewDetails) ? $customViewDetails['category'] : null);
-        $customViewInstance->setFields(array_key_exists('fields', $customViewDetails) ? $customViewDetails['fields'] : null);
-        $customViewInstance->setFavorite($customViewDetails['favorite']);
-        $customViewInstance->setSortOrder(array_key_exists('sort_order', $customViewDetails) ? $customViewDetails['sort_order'] : null);
-        if (array_key_exists('criteria', $customViewDetails) && $customViewDetails['criteria'] != null) {
-            $criteriaList = $customViewDetails['criteria'];
-            $criteriaPattern = "";
-            $criteriaInstanceArray = array();
-            if (isset($criteriaList[0]) && is_array($criteriaList[0])) {
-                for ($i = 0; $i < sizeof($criteriaList); $i ++) {
-                    $criteria = array_values($criteriaList)[$i];
-                    if ($criteria === "or" || $criteria === "and") {
-                        $criteriaPattern = $criteriaPattern . $criteria;
-                    } else {
-                        $criteriaInstance = ZCRMCustomViewCriteria::getInstance();
-                        $criteriaInstance->setField($criteria['field']);
-                        $criteriaInstance->setValue($criteria['value']);
-                        $criteriaInstance->setComparator($criteria['comparator']);
-                        $criteriaPattern = $criteriaPattern . $i;
-                        array_push($criteriaInstanceArray, $criteriaInstance);
-                    }
-                }
-            } else {
-                $criteriaInstance = ZCRMCustomViewCriteria::getInstance();
-                $criteriaInstance->setField($criteriaList['field']);
-                $criteriaInstance->setValue($criteriaList['value']);
-                $criteriaInstance->setComparator($criteriaList['comparator']);
-                array_push($criteriaInstanceArray, $criteriaInstance);
-            }
-            $customViewInstance->setCriteria($criteriaInstanceArray);
-            $customViewInstance->setCriteriaPattern($criteriaPattern);
-        }
-        
-        if (isset($customViewDetails['offline'])) {
-            $customViewInstance->setOffLine($customViewDetails['offline']);
-        }
-        
-        return $customViewInstance;
-    }
+    
     
     public function getRelatedListProperties($relatedListProperties)
     {
@@ -210,5 +165,77 @@ class MetaDataAPIHandler extends APIHandler
         $relatedListPropInstance->setFields(array_key_exists("fields", $relatedListProperties) ? $relatedListProperties['fields'] : null);
         
         return $relatedListPropInstance;
+    }
+    public function constructCriteria($criteria,&$index)
+    {
+        $criteria_instance=ZCRMCustomViewCriteria::getInstance();
+        $criteria_instance->setField(isset($criteria['field'])? $criteria['field'] : null);
+        $criteria_instance->setComparator(isset($criteria['comparator'])? $criteria['comparator'] : null);
+        if(isset($criteria['value']))
+        {
+            $criteria_instance->setValue($criteria['value']);
+            $criteria_instance->setIndex($index);
+            $criteria_instance->setPattern((string)$index);
+            $index++;
+            $criteria_instance->setCriteria("(".$criteria['field'].":".$criteria['comparator'].":".(string)$criteria['value'].")");
+        }
+        $group_criteria=array();
+        if (isset($criteria['group']))
+        {
+            for ($x = 0; $x < count($criteria['group']); $x++) {
+                $ins=self::constructCriteria($criteria['group'][$x],$index);
+                array_push($group_criteria,$ins);
+            }
+        }
+        if($group_criteria!=null)
+        {
+            $criteria_instance->setGroup($group_criteria);
+        }
+        
+        if(isset($criteria['group_operator'])){
+            $criteria_instance->setGroup_operator($criteria['group_operator']);
+            $criteria_instance->setCriteria("(".$group_criteria[0]->getCriteria().$criteria_instance->getGroup_operator().$group_criteria[1]->getCriteria().")");
+            $criteria_instance->setPattern("(".$group_criteria[0]->getPattern().$criteria_instance->getGroup_operator().$group_criteria[1]->getPattern().")");
+        }
+        return $criteria_instance;
+    }
+    /**
+     * Method to process the given custom view details and set them in ZCRMCustomView instance
+     * Input:: custom view details as array
+     * Returns ZCRMCustomView instance
+     */
+    public function getZCRMCustomView($moduleApiName,$customViewDetails, $categoriesArr=null)
+    {
+        $customViewInstance = ZCRMCustomView::getInstance( $moduleApiName,$customViewDetails['id']);
+        $customViewInstance->setDisplayValue($customViewDetails['display_value']);
+        $customViewInstance->setDefault((boolean) $customViewDetails['default']);
+        $customViewInstance->setName($customViewDetails['name']);
+        $customViewInstance->setSystemName($customViewDetails['system_name']);
+        $customViewInstance->setSortBy(isset($customViewDetails['sort_by']) ? $customViewDetails['sort_by'] : null);
+        $customViewInstance->setCategory(isset($customViewDetails['category']) ? $customViewDetails['category'] : null);
+        $customViewInstance->setFields(isset($customViewDetails['fields']) ? $customViewDetails['fields'] : null);
+        $customViewInstance->setFavorite(isset($customViewDetails['favorite']) ? $customViewDetails['favorite'] : null);
+        $customViewInstance->setSortOrder(isset($customViewDetails['sort_order']) ? $customViewDetails['sort_order'] : null);
+        if (isset($customViewDetails['criteria']) && $customViewDetails['criteria'] != null) {
+            $index=1;
+            $criteriaInstance=self::constructCriteria($customViewDetails['criteria'],$index);
+            $customViewInstance->setCriteria($criteriaInstance);
+            $customViewInstance->setCriteriaPattern($criteriaInstance->getPattern());
+            $customViewInstance->setCriteriaCondition($criteriaInstance->getCriteria());
+        }
+        if ($categoriesArr != null) {
+            $categoryInstanceArray = array();
+            foreach ($categoriesArr as $key => $value) {
+                $customViewCategoryIns = ZCRMCustomViewCategory::getInstance();
+                $customViewCategoryIns->setDisplayValue($value);
+                $customViewCategoryIns->setActualValue($key);
+                array_push($categoryInstanceArray, $customViewCategoryIns);
+            }
+            $customViewInstance->setCategoriesList($categoryInstanceArray);
+        }
+        if (isset($customViewDetails['offline'])) {
+            $customViewInstance->setOffLine($customViewDetails['offline']);
+        }
+        return $customViewInstance;
     }
 }

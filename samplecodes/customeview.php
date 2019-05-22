@@ -17,9 +17,9 @@ class customView
 
     public function getrecords()
     {
-        $customviewinstance = ZCRMCustomView::getInstance("{module_id}","{customView_id}" );
-        $response = $customviewinstance->getRecords("Company", null, 1, 200); // to get the records(parameter - custom_view_id,field_api_name,sort_order,customHeaders is optional and can be given null if not required), customheader is a keyvalue pair for eg("if-modified-since"=>"2008-09-15T15:53:00")
-       $records = $response->getData();
+        $customviewinstance = ZCRMRestClient::getCustomViewInstance( "{module_apiname}","{customView_id}");
+        $response = ZCRMRestClient::getCustomViewInstance("{module_api_name","{custom_view_id}" )->getRecords("{field_api_name}", "{sort_order}", (start_index),(end_index) ); // to get the records(parameter - ,field_api_name-to sortby,sort_order(asc or desc),starting index,ending inde
+        $records = $response->getData();
         try {
             foreach ($records as $record) {
                 echo "\n\n";

@@ -1,15 +1,13 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
-
 use zcrmsdk\crm\crud\ZCRMCustomView;
 use zcrmsdk\crm\crud\ZCRMInventoryLineItem;
-use zcrmsdk\crm\crud\ZCRMJunctionRecord;
-use zcrmsdk\crm\crud\ZCRMNote;
 use zcrmsdk\crm\crud\ZCRMRecord;
 use zcrmsdk\crm\crud\ZCRMTag;
 use zcrmsdk\crm\crud\ZCRMTax;
 use zcrmsdk\crm\exception\ZCRMException;
 use zcrmsdk\crm\setup\restclient\ZCRMRestClient;
+
+
 
 class Module
 {
@@ -412,7 +410,7 @@ class Module
     public function updateCustomView()
     {
         $moduleIns = ZCRMRestClient::getInstance()->getModuleInstance("{module_api_name}"); // to get the instance of the module
-        $customViewInstance = ZCRMCustomView::getInstance("{module_api_name}", "{custom_view_id}"); // to get the custom view instance
+        $customViewInstance = ZCRMCustomView::getInstance("{module_api_name}","{custom_view_id}"); // to get the custom view instance
         $customViewInstance->setSortOrder("desc"); // for ascending order
         $customViewInstance->setSortBy("Lead_owner"); // field api names
         $responseIns = $moduleIns->updateCustomView($customViewInstance);

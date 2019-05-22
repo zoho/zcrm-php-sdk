@@ -157,8 +157,7 @@ class ModuleAPIHandler extends APIHandler
             $responseInstance = APIRequest::getInstance($this)->getAPIResponse();
             $responseJSON = $responseInstance->getResponseJSON();
             $categories = $responseJSON['info']['translation'];
-            
-            $responseInstance->setData(self::getZCRMCustomView($responseJSON['custom_views'][0], $categories));
+            $responseInstance->setData(MetaDataAPIHandler::getInstance()->getZCRMCustomView($this->module->getAPIName(),$responseJSON['custom_views'][0], $categories));
             return $responseInstance;
         } catch (ZCRMException $exception) {
             APIExceptionHandler::logException($exception);
@@ -183,7 +182,7 @@ class ModuleAPIHandler extends APIHandler
             $categories = $responseJSON['info']['translation'];
             $customViewInstances = array();
             foreach ($customViews as $customView) {
-                array_push($customViewInstances, self::getZCRMCustomView($customView, $categories));
+                array_push($customViewInstances, MetaDataAPIHandler::getInstance()->getZCRMCustomView($this->module->getAPIName(),$customView, $categories));
             }
             $responseInstance->setData($customViewInstances);
             return $responseInstance;
@@ -294,67 +293,8 @@ class ModuleAPIHandler extends APIHandler
         }
     }
     
-    /**
-     * Method to process the given custom view details and set them in ZCRMCustomView instance
-     * Input:: custom view details as array
-     * Returns ZCRMCustomView instance
-     */
-    public function getZCRMCustomView($customViewDetails, $categoriesArr)
-    {
-        $customViewInstance = ZCRMCustomView::getInstance($this->module->getAPIName(), $customViewDetails['id']);
-        $customViewInstance->setDisplayValue($customViewDetails['display_value']);
-        $customViewInstance->setDefault((boolean) $customViewDetails['default']);
-        $customViewInstance->setName($customViewDetails['name']);
-        $customViewInstance->setSystemName($customViewDetails['system_name']);
-        $customViewInstance->setSortBy(isset($customViewDetails['sort_by']) ? $customViewDetails['sort_by'] : null);
-        $customViewInstance->setCategory(isset($customViewDetails['category']) ? $customViewDetails['category'] : null);
-        $customViewInstance->setFields(isset($customViewDetails['fields']) ? $customViewDetails['fields'] : null);
-        $customViewInstance->setFavorite(isset($customViewDetails['favorite']) ? $customViewDetails['favorite'] : null);
-        $customViewInstance->setSortOrder(isset($customViewDetails['sort_order']) ? $customViewDetails['sort_order'] : null);
-        if (isset($customViewDetails['criteria']) && $customViewDetails['criteria'] != null) {
-            $criteriaList = $customViewDetails['criteria'];
-            $criteriaPattern = "";
-            $criteriaInstanceArray = array();
-            $criteriaIndex = 1;
-            if (isset($criteriaList[0]) && is_array($criteriaList[0])) {
-                for ($i = 0; $i < sizeof($criteriaList); $i ++) {
-                    $criteria = array_values($criteriaList)[$i];
-                    if ($criteria === "or" || $criteria === "and") {
-                        $criteriaPattern = $criteriaPattern . $criteria . " ";
-                    } else {
-                        $criteriaInstance = ZCRMCustomViewCriteria::getInstance();
-                        $criteriaInstance->setField($criteria['field']);
-                        $criteriaInstance->setValue($criteria['value']);
-                        $criteriaInstance->setComparator($criteria['comparator']);
-                        $criteriaPattern = $criteriaPattern . $criteriaIndex ++ . " ";
-                        array_push($criteriaInstanceArray, $criteriaInstance);
-                    }
-                }
-            } else {
-                $criteriaInstance = ZCRMCustomViewCriteria::getInstance();
-                $criteriaInstance->setField($criteriaList['field']);
-                $criteriaInstance->setValue($criteriaList['value']);
-                $criteriaInstance->setComparator($criteriaList['comparator']);
-                array_push($criteriaInstanceArray, $criteriaInstance);
-            }
-            $customViewInstance->setCriteria($criteriaInstanceArray);
-            $customViewInstance->setCriteriaPattern($criteriaPattern);
-        }
-        if ($categoriesArr != null) {
-            $categoryInstanceArray = array();
-            foreach ($categoriesArr as $key => $value) {
-                $customViewCategoryIns = ZCRMCustomViewCategory::getInstance();
-                $customViewCategoryIns->setDisplayValue($value);
-                $customViewCategoryIns->setActualValue($key);
-                array_push($categoryInstanceArray, $customViewCategoryIns);
-            }
-            $customViewInstance->setCategoriesList($categoryInstanceArray);
-        }
-        if (isset($customViewDetails['offline'])) {
-            $customViewInstance->setOffLine($customViewDetails['offline']);
-        }
-        return $customViewInstance;
-    }
+    
+    
     
     public function getLayouts($allLayoutDetails)
     {
@@ -537,12 +477,12 @@ class ModuleAPIHandler extends APIHandler
         
         if(isset($lookupDetails['display_label']))
             $lookupInstance->setDisplayLabel($lookupDetails['display_label']);
-        if(isset($lookupDetails['id']))
-            $lookupInstance->setId($lookupDetails['id']);
-        if(isset($lookupDetails['module']))
-            $lookupInstance->setModule($lookupDetails['module']);
-          return $lookupInstance;
-}
+            if(isset($lookupDetails['id']))
+                $lookupInstance->setId($lookupDetails['id']);
+                if(isset($lookupDetails['module']))
+                    $lookupInstance->setModule($lookupDetails['module']);
+                    return $lookupInstance;
+    }
     
     /**
      * Method to process the given Picklist details and set them in ZCRMPickListValue instance

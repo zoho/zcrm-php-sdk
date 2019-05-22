@@ -29,7 +29,11 @@ class ZCRMCustomViewCriteria
      * @var string
      */
     private $value = null;
-    
+    private $group=null;
+    private $group_operator=null;
+    private $pattern=null;
+    private $index=null;
+    private $criteria=null;
     private function __construct()
     {}
     
@@ -102,4 +106,46 @@ class ZCRMCustomViewCriteria
     {
         $this->value = $value;
     }
+    public function getGroup()
+    {
+        return $this->group;
+    }
+    public function getGroup_operator()
+    {
+        return $this->group_operator;
+    }
+    public function getPattern()
+    {
+        return $this->pattern;
+    }
+    public function getIndex()
+    {
+        return $this->index;
+    }
+    public function getCriteria()
+    {
+        return $this->criteria;
+    }
+    public function setGroup($group)
+    {
+        $this->group = $group;
+    }
+    public function setGroup_operator($group_operator)
+    {
+        $this->group_operator = $group_operator;
+    }
+    public function setPattern($pattern)
+    {
+        $this->pattern = $pattern;
+    }
+    public function setIndex($index)
+    {
+        $this->index = $index;
+    }
+    public function setCriteria($criteria)
+    {
+        $this->criteria = $criteria;
+    }
+    
+    
 }
