@@ -71,10 +71,10 @@ class ZCRMTag
      * @param string $id tag id
      * @param string $moduleApiName api name of the module to which the tag belong
      */
-    private function __construct($id, $moduleApiName)
+    private function __construct($id, $name)
     {
         $this->id = $id;
-        $this->moduleApiName = $moduleApiName;
+        $this->name = $name;
     }
     
     /**
@@ -84,9 +84,9 @@ class ZCRMTag
      * @param string $moduleApiName api name of the module to which the tag belong (default can be null)
      * @return ZCRMTag instance of the ZCRMTag class
      */
-    public static function getInstance($id = null, $moduleApiName = null)
+    public static function getInstance($id = null, $name = null)
     {
-        return new ZCRMTag($id, $moduleApiName);
+        return new ZCRMTag($id, $name);
     }
     
     /**

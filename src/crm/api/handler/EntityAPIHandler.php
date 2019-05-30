@@ -7,6 +7,7 @@ use zcrmsdk\crm\crud\ZCRMInventoryLineItem;
 use zcrmsdk\crm\crud\ZCRMLayout;
 use zcrmsdk\crm\crud\ZCRMPriceBookPricing;
 use zcrmsdk\crm\crud\ZCRMRecord;
+use zcrmsdk\crm\crud\ZCRMTag;
 use zcrmsdk\crm\crud\ZCRMTax;
 use zcrmsdk\crm\exception\APIExceptionHandler;
 use zcrmsdk\crm\exception\ZCRMException;
@@ -445,7 +446,14 @@ class EntityAPIHandler extends APIHandler
                     $taxIns = ZCRMTax::getInstance($taxName);
                     $this->record->addTax($taxIns);
                 }
-            } else if ("\$line_tax" === $key && is_array($value)) {
+            }else if ("Tag" === $key && is_array($value)) {
+                $tags=array();
+                foreach ($value as $tag) {
+                    $tagIns = ZCRMTag::getInstance($tag["name"],$tag["id"]);
+                    array_push($tags,$tagIns);
+                }
+                $this->record->setTags($tags);
+            }else if ("\$line_tax" === $key && is_array($value)) {
                 
                 foreach ($value as $lineTax) {
                     $taxIns = ZCRMTax::getInstance($lineTax["name"]);

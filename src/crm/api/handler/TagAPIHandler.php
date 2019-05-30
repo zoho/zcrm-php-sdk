@@ -27,9 +27,10 @@ class TagAPIHandler extends APIHandler
     public function getTags()
     {
         try {
-            $this->urlPath = "settings/tags?module=" . $this->module->getAPIName();
+            $this->urlPath = "settings/tags";
             $this->requestMethod = APIConstants::REQUEST_METHOD_GET;
             $this->addHeader("Content-Type", "application/json");
+            $this->addParam("module", $this->module->getAPIName());
             // Fire Request
             $responseInstance = APIRequest::getInstance($this)->getBulkAPIResponse();
             $responseJSON = $responseInstance->getResponseJSON();
@@ -52,8 +53,9 @@ class TagAPIHandler extends APIHandler
     {
         try {
             $this->requestMethod = APIConstants::REQUEST_METHOD_GET;
-            $this->urlPath = "settings/tags/" . $tagId . "/actions/records_count?module=" . $this->module->getAPIName();
+            $this->urlPath = "settings/tags/" . $tagId . "/actions/records_count";
             // Fire Request
+            $this->addParam("module", $this->module->getAPIName());
             $responseInstance = APIRequest::getInstance($this)->getAPIResponse();
             $tagDetails = $responseInstance->getResponseJSON();
             $tagInstance = ZCRMTag::getInstance($tagId);
@@ -72,7 +74,8 @@ class TagAPIHandler extends APIHandler
             throw new ZCRMException(APIConstants::API_MAX_TAGS_MSG, APIConstants::RESPONSECODE_BAD_REQUEST);
         }
         try {
-            $this->urlPath = "settings/tags?module=" . $this->module->getAPIName();
+            $this->urlPath = "settings/tags";
+            $this->addParam("module", $this->module->getAPIName());
             $this->requestMethod = APIConstants::REQUEST_METHOD_POST;
             $this->addHeader("Content-Type", "application/json");
             $requestBodyObj = array();
@@ -117,7 +120,8 @@ class TagAPIHandler extends APIHandler
             throw new ZCRMException(APIConstants::API_MAX_TAGS_MSG, APIConstants::RESPONSECODE_BAD_REQUEST);
         }
         try {
-            $this->urlPath = "settings/tags?module=" . $this->module->getAPIName();
+            $this->urlPath = "settings/tags";
+            $this->addParam("module", $this->module->getAPIName());
             $this->requestMethod = APIConstants::REQUEST_METHOD_PUT;
             $this->addHeader("Content-Type", "application/json");
             $requestBodyObj = array();
@@ -199,7 +203,9 @@ class TagAPIHandler extends APIHandler
     {
         try {
             $this->requestMethod = APIConstants::REQUEST_METHOD_PUT;
-            $this->urlPath = "settings/tags/" . $tag->getId() . "?module=" . $tag->getModuleApiName();
+            $this->urlPath = "settings/tags/" . $tag->getId();
+            $this->addParam("module", $tag->getModuleApiName());
+            
             $this->addHeader("Content-Type", "application/json");
             $tagJSON = array();
             $tagJSON["name"] = "" . $tag->getName();
@@ -233,8 +239,9 @@ class TagAPIHandler extends APIHandler
             foreach ($tagNames as $tag) {
                 $tagname .= $tag . ",";
             }
-            $this->urlPath = $record->getModuleApiName() . "/" . $record->getEntityId() . "/actions/add_tags?tag_names=" . $tagname;
+            $this->urlPath = $record->getModuleApiName() . "/" . $record->getEntityId() . "/actions/add_tags";
             // Fire Request
+            $this->addParam("tag_names", $tagname);
             $responseInstance = APIRequest::getInstance($this)->getAPIResponse();
             $responseDataArray = $responseInstance->getResponseJSON()['data'];
             $responseData = $responseDataArray[0];
@@ -259,8 +266,9 @@ class TagAPIHandler extends APIHandler
             foreach ($tagNames as $tag) {
                 $tagname .= $tag . ",";
             }
-            $this->urlPath = $record->getModuleApiName() . "/" . $record->getEntityId() . "/actions/remove_tags?tag_names=" . $tagname;
+            $this->urlPath = $record->getModuleApiName() . "/" . $record->getEntityId() . "/actions/remove_tags";
             // Fire Request
+            $this->addParam("tag_names", $tagname);
             $responseInstance = APIRequest::getInstance($this)->getAPIResponse();
             $responseDataArray = $responseInstance->getResponseJSON()['data'];
             $responseData = $responseDataArray[0];
@@ -292,10 +300,13 @@ class TagAPIHandler extends APIHandler
             foreach ($tagNames as $tag) {
                 $tagname .= $tag . ",";
             }
-            $this->urlPath = $this->module->getAPIName() . "/actions/add_tags?ids=" . $recordid . "&tag_names=" . $tagname;
+            $this->urlPath = $this->module->getAPIName() . "/actions/add_tags";
+            $this->addParam("ids", $recordid);
+            $this->addParam("tag_names", $tagname);
             // Fire Request
             $bulkAPIResponse = APIRequest::getInstance($this)->getBulkAPIResponse();
             $addedTags = array();
+            
             $responses = $bulkAPIResponse->getEntityResponses();
             foreach ($responses as $entityResIns) {
                 if (APIConstants::STATUS_SUCCESS === $entityResIns->getStatus()) {
@@ -334,8 +345,10 @@ class TagAPIHandler extends APIHandler
             foreach ($tagNames as $tag) {
                 $tagname .= $tag . ",";
             }
-            $this->urlPath = $this->module->getAPIName() . "/actions/remove_tags?ids=" . $recordid . "&tag_names=" . $tagname;
+            $this->urlPath = $this->module->getAPIName() . "/actions/remove_tags";
             // Fire Request
+            $this->addParam("ids", $recordid);
+            $this->addParam("tag_names", $tagname);
             $bulkAPIResponse = APIRequest::getInstance($this)->getBulkAPIResponse();
             $removedTags = array();
             $responses = $bulkAPIResponse->getEntityResponses();
