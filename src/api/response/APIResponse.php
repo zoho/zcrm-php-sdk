@@ -68,42 +68,57 @@ class APIResponse extends CommonAPIResponse {
     public function processResponseData() {
 
         $json = $this->getResponseJSON();
-        if ($json == NULL) {
-            return;
-        }
+
         if (array_key_exists("data", $json)) {
             $json = $json['data'][0];
-        } else {
+        }
+        if (array_key_exists("tags", $json)) {
+            $json = $json['tags'][0];
+        }
+        else {
             if (array_key_exists("users", $json)) {
                 $json = $json['users'][0];
-            } else {
+            }
+            else {
                 if (array_key_exists("modules", $json)) {
                     $json = $json['modules'];
+                }
+                else {
+                    if (array_key_exists("custom_views", $json)) {
+                        $json = $json['custom_views'];
+                    }
+                    else {
+                        if (array_key_exists("taxes", $json)) {
+                            $json = $json['taxes'][0];
+                        }
+                    }
                 }
             }
         }
 
-
         /*
          * $exception not appropriate or just not working correctly for trivial responses issues
          *
-                if (isset($responseJSON['status']) && $responseJSON['status'] == APIConstants::STATUS_ERROR) {
-                  $exception = new ZCRMException($responseJSON['message'], self::getHttpStatusCode());
-                  $exception->setExceptionCode($responseJSON['code']);
-                  $exception->setExceptionDetails($responseJSON['details']);
+                if (isset($json['status']) && $json['status'] == APIConstants::STATUS_ERROR) {
+                  $exception = new ZCRMException($json['message'], self::getHttpStatusCode());
+                  $exception->setExceptionCode($json['code']);
+                  $exception->setExceptionDetails($json['details']);
                   throw $exception;
                 }
-                elseif (isset($responseJSON['status']) && $responseJSON['status'] == APIConstants::STATUS_SUCCESS) {
-                  self::setCode($responseJSON['code']);
-                  self::setStatus($responseJSON['status']);
-                  self::setMessage($responseJSON['message']);
-                  self::setDetails($responseJSON['details']);
+                elseif (isset($json['status']) && $json['status'] == APIConstants::STATUS_SUCCESS) {
+                  self::setCode($json['code']);
+                  self::setStatus($json['status']);
+                  self::setMessage($json['message']);
+                  self::setDetails($json['details']);
                 }
         */
+
 
         if (isset($json['code'])) {
             self::setCode($json['code']);
         }
+
+        self::setStatus(APIConstants::STATUS_SUCCESS);
         if (isset($json['status'])) {
             self::setStatus($json['status']);
         }
