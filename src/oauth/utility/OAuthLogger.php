@@ -3,36 +3,50 @@ namespace zcrmsdk\oauth\utility;
 
 class OAuthLogger
 {
-    
+    /** @var \zcrmsdk\oauth\utility\ZohoOAuthLoggerInterface */
+    private static $oauthLogger;
+
+    private static function initializeLogger()
+    {
+        if (!$self::oauthLogger) {
+            $loggerClassName = ZohoOAuth::getConfigValue(ZohoOAuthConstants::OAUTH_LOGGER_CLASS);
+            self::$oauthLogger = new $loggerClassName();
+        }
+    }
+
     public static function writeToFile($msg)
     {
-        $filePointer = fopen(dirname(__FILE__) . "/OAuth.log", "a");
-        fwrite($filePointer, sprintf("%s %s\n", date("Y-m-d H:i:s"), $msg));
-        fclose($filePointer);
+        self::initializeLogger();
+        return self::$oauthLogger->writeToFile($msg);
     }
-    
+
     public static function warn($msg)
     {
-        self::writeToFile("WARNING: $msg");
+        self::initializeLogger();
+        return self::$oauthLogger->warn($msg);
     }
-    
+
     public static function info($msg)
     {
-        self::writeToFile("INFO: $msg");
+        self::initializeLogger();
+        return self::$oauthLogger->info($msg);
     }
-    
+
     public static function severe($msg)
     {
-        self::writeToFile("SEVERE: $msg");
+        self::initializeLogger();
+        return self::$oauthLogger->severe($msg);
     }
-    
+
     public static function err($msg)
     {
-        self::writeToFile("ERROR: $msg");
+        self::initializeLogger();
+        return self::$oauthLogger->err($msg);
     }
-    
+
     public static function debug($msg)
     {
-        self::writeToFile("DEBUG: $msg");
+        self::initializeLogger();
+        return self::$oauthLogger->debug($msg);
     }
 }
