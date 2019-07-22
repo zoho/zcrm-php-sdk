@@ -1,6 +1,8 @@
 <?php
 namespace zcrmsdk\oauth\utility;
 
+use zcrmsdk\oauth\ZohoOAuth;
+
 class OAuthLogger
 {
     /** @var \zcrmsdk\oauth\utility\ZohoOAuthLoggerInterface */
@@ -8,7 +10,7 @@ class OAuthLogger
 
     private static function initializeLogger()
     {
-        if (!$self::oauthLogger) {
+        if (!self::$oauthLogger) {
             $loggerClassName = ZohoOAuth::getConfigValue(ZohoOAuthConstants::OAUTH_LOGGER_CLASS);
             self::$oauthLogger = new $loggerClassName();
         }
