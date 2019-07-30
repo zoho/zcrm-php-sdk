@@ -295,14 +295,16 @@ class MassEntityAPIHandler extends APIHandler
             
             $responseInstance = APIRequest::getInstance($this)->getBulkAPIResponse();
             $responseJSON = $responseInstance->getResponseJSON();
-            $records = $responseJSON["data"];
             $recordsList = array();
-            foreach ($records as $record) {
-                $recordInstance = ZCRMRecord::getInstance($this->module->getAPIName(), $record["id"]);
-                EntityAPIHandler::getInstance($recordInstance)->setRecordProperties($record);
-                array_push($recordsList, $recordInstance);
+            if (isset($responseJSON["data"])) {
+                $records = $responseJSON["data"];
+                foreach ($records as $record) {
+                    $recordInstance = ZCRMRecord::getInstance($this->module->getAPIName(), $record["id"]);
+                    EntityAPIHandler::getInstance($recordInstance)->setRecordProperties($record);
+                    array_push($recordsList, $recordInstance);
+                }
             }
-            
+
             $responseInstance->setData($recordsList);
             
             return $responseInstance;
