@@ -665,48 +665,48 @@ class OrganizationAPIHandler extends APIHandler
         if (array_key_exists("customize_info", $userDetails)) {
             $userInstance->setCustomizeInfo(self::getZCRMUserCustomizeInfo($userDetails['customize_info']));
         }
-        $userInstance->setCity($userDetails['city']);
+        $userInstance->setCity(isset($userDetails['city']) ? $userDetails['city'] : null);
         $userInstance->setSignature(isset($userDetails['signature']) ? $userDetails['signature'] : null);
         
         $userInstance->setNameFormat(isset($userDetails['name_format']) ? $userDetails['name_format'] : null);
-        $userInstance->setLanguage($userDetails['language']);
-        $userInstance->setLocale($userDetails['locale']);
+        $userInstance->setLanguage(isset($userDetails['language']) ? $userDetails['language'] : null);
+        $userInstance->setLocale(isset($userDetails['locale']) ? $userDetails['locale'] : null);
         $userInstance->setPersonalAccount(isset($userDetails['personal_account']) ? $userDetails['personal_account'] : null);
         $userInstance->setDefaultTabGroup(isset($userDetails['default_tab_group']) ? $userDetails['default_tab_group'] : null);
-        $userInstance->setAlias($userDetails['alias']);
-        $userInstance->setStreet($userDetails['street']);
+        $userInstance->setAlias(isset($userDetails['alias']) ? $userDetails['alias'] : null);
+        $userInstance->setStreet(isset($userDetails['street']) ? $userDetails['street'] : null);
         if (array_key_exists("theme", $userDetails)) {
             $userInstance->setTheme(self::getZCRMUserTheme($userDetails['theme']));
         }
-        $userInstance->setState($userDetails['state']);
-        $userInstance->setCountryLocale($userDetails['country_locale']);
-        $userInstance->setFax($userDetails['fax']);
-        $userInstance->setFirstName($userDetails['first_name']);
-        $userInstance->setEmail($userDetails['email']);
-        $userInstance->setZip($userDetails['zip']);
+        $userInstance->setState(isset($userDetails['state']) ? $userDetails['state'] : null);
+        $userInstance->setCountryLocale(isset($userDetails['country_locale']) ? $userDetails['country_locale'] : null);
+        $userInstance->setFax(isset($userDetails['fax']) ? $userDetails['fax'] : null);
+        $userInstance->setFirstName(isset($userDetails['first_name']) ? $userDetails['first_name'] : null);
+        $userInstance->setEmail(isset($userDetails['email']) ? $userDetails['email'] : null);
+        $userInstance->setZip(isset($userDetails['zip']) ? $userDetails['zip'] : null);
         $userInstance->setDecimalSeparator(isset($userDetails['decimal_separator']) ? $userDetails['decimal_separator'] : null);
-        $userInstance->setWebsite($userDetails['website']);
-        $userInstance->setTimeFormat($userDetails['time_format']);
+        $userInstance->setWebsite(isset($userDetails['website']) ? $userDetails['website'] : null);
+        $userInstance->setTimeFormat(isset($userDetails['time_format']) ? $userDetails['time_format'] : null);
         $profile = ZCRMProfile::getInstance($userDetails['profile']['id'], $userDetails['profile']['name']);
         $userInstance->setProfile($profile);
-        $userInstance->setMobile($userDetails['mobile']);
-        $userInstance->setLastName($userDetails['last_name']);
-        $userInstance->setTimeZone($userDetails['time_zone']);
-        $userInstance->setZuid($userDetails['zuid']);
-        $userInstance->setConfirm($userDetails['confirm']);
-        $userInstance->setFullName($userDetails['full_name']);
-        $userInstance->setPhone($userDetails['phone']);
-        $userInstance->setDob($userDetails['dob']);
-        $userInstance->setDateFormat($userDetails['date_format']);
-        $userInstance->setStatus($userDetails['status']);
+        $userInstance->setMobile(isset($userDetails['mobile']) ? $userDetails['mobile'] : null);
+        $userInstance->setLastName(isset($userDetails['last_name']) ? $userDetails['last_name'] : null);
+        $userInstance->setTimeZone(isset($userDetails['time_zone']) ? $userDetails['time_zone'] : null);
+        $userInstance->setZuid(isset($userDetails['zuid']) ? $userDetails['zuid'] : null);
+        $userInstance->setConfirm(isset($userDetails['confirm']) ? $userDetails['confirm'] : null);
+        $userInstance->setFullName(isset($userDetails['full_name']) ? $userDetails['full_name'] : null);
+        $userInstance->setPhone(isset($userDetails['phone']) ? $userDetails['phone'] : null);
+        $userInstance->setDob(isset($userDetails['dob']) ? $userDetails['dob'] : null);
+        $userInstance->setDateFormat(isset($userDetails['date_format']) ? $userDetails['date_format'] : null);
+        $userInstance->setStatus(isset($userDetails['status']) ? $userDetails['status'] : null);
         $userInstance->setTerritories(isset($userDetails['territories']) ? $userDetails['territories'] : null);
         $userInstance->setReportingTo(isset($userDetails['reporting_to']) ? $userDetails['reporting_to'] : null);
-        $userInstance->setCreatedBy($userDetails['created_by']);
-        $userInstance->setModifiedBy($userDetails['Modified_By']);
-        $userInstance->setIsOnline($userDetails['Isonline']);
+        $userInstance->setCreatedBy(isset($userDetails['created_by']) ? $userDetails['created_by'] : null);
+        $userInstance->setModifiedBy(isset($userDetails['Modified_By']) ? $userDetails['Modified_By'] : null);
+        $userInstance->setIsOnline(isset($userDetails['Isonline']) ? $userDetails['Isonline'] : null);
         $userInstance->setCurrency(isset($userDetails['Currency']) ? $userDetails['Currency'] : null);
-        $userInstance->setCreatedTime($userDetails['created_time']);
-        $userInstance->setModifiedTime($userDetails['Modified_Time']);
+        $userInstance->setCreatedTime(isset($userDetails['created_time']) ? $userDetails['created_time'] : null);
+        $userInstance->setModifiedTime(isset($userDetails['Modified_Time']) ? $userDetails['Modified_Time'] : null);
         foreach ($userDetails as $key => $value) {
             if (! in_array($key, ZCRMUser::$defaultKeys)) {
                 $userInstance->setFieldValue($key, $value);
