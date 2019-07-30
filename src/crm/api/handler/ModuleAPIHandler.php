@@ -473,15 +473,17 @@ class ModuleAPIHandler extends APIHandler
      */
     public function getLookupFieldInstance($lookupDetails)
     {
-        $lookupInstance = ZCRMLookupField::getInstance($lookupDetails['api_name']);
-        
-        if(isset($lookupDetails['display_label']))
-            $lookupInstance->setDisplayLabel($lookupDetails['display_label']);
-            if(isset($lookupDetails['id']))
-                $lookupInstance->setId($lookupDetails['id']);
-                if(isset($lookupDetails['module']))
-                    $lookupInstance->setModule($lookupDetails['module']);
-                    return $lookupInstance;
+        if (isset($lookupDetails['api_name'])) {
+            $lookupInstance = ZCRMLookupField::getInstance($lookupDetails['api_name']);
+
+            if(isset($lookupDetails['display_label']))
+                $lookupInstance->setDisplayLabel($lookupDetails['display_label']);
+                if(isset($lookupDetails['id']))
+                    $lookupInstance->setId($lookupDetails['id']);
+                    if(isset($lookupDetails['module']))
+                        $lookupInstance->setModule($lookupDetails['module']);
+                        return $lookupInstance;
+        }
     }
     
     /**
