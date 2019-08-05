@@ -494,10 +494,10 @@ class EntityAPIHandler extends APIHandler
     public function getZCRMParticipant($participantDetail)
     {
         $participant = ZCRMEventParticipant::getInstance($participantDetail['type'], $participantDetail['participant']);
-        $participant->setName($participantDetail["name"]);
-        $participant->setEmail($participantDetail["Email"]);
+        $participant->setName(isset($participantDetail["name"]) ? $participantDetail["name"] : null);
+        $participant->setEmail(isset($participantDetail["Email"]) ? $participantDetail["Email"] : null);
         $participant->setInvited((boolean) $participantDetail["invited"]);
-        $participant->setStatus($participantDetail["status"]);
+        $participant->setStatus(isset($participantDetail["status"]) ? $participantDetail["status"] : null);
         
         return $participant;
     }
