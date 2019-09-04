@@ -77,6 +77,8 @@ class APIConstants
     const TAXES = "taxes";
     
     const INFO = "info";
+     
+    const VARIABLES = "variables";
     
     const RESPONSECODE_OK = 200;
     
