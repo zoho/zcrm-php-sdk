@@ -105,6 +105,15 @@ class BulkAPIResponse extends CommonAPIResponse
                 }
             }
         }
+        if (array_key_exists(APIConstants::VARIABLES, $bulkResponseJSON)) {
+            
+            $variables= $bulkResponseJSON[APIConstants::VARIABLES];
+            foreach ($variables as $variable) {
+                if ($variable != null && array_key_exists(APIConstants::STATUS, $variable)) {
+                    array_push($this->bulkEntitiesResponse, new EntityResponse($variable));
+                }
+            }
+        }
     }
     
     /**

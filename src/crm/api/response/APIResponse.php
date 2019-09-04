@@ -123,6 +123,9 @@ class APIResponse extends CommonAPIResponse
         }else if (array_key_exists("taxes", $responseJSON)) {
             $responseJSON = $responseJSON['taxes'][0];
         }
+        else if (array_key_exists("variables", $responseJSON)) {
+            $responseJSON = $responseJSON['variables'][0];
+        }
         if (isset($responseJSON['status']) && $responseJSON['status'] == APIConstants::STATUS_ERROR) {
             $exception = new ZCRMException($responseJSON['message'], self::getHttpStatusCode());
             $exception->setExceptionCode($responseJSON['code']);

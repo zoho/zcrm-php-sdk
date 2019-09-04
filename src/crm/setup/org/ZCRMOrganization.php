@@ -4,6 +4,8 @@ use zcrmsdk\crm\api\handler\OrganizationAPIHandler;
 use zcrmsdk\crm\api\response\APIResponse;
 use zcrmsdk\crm\api\response\BulkAPIResponse;
 use zcrmsdk\crm\setup\users\ZCRMUser;
+use zcrmsdk\crm\api\handler\VariableGroupAPIHandler;
+use zcrmsdk\crm\api\handler\VariableAPIHandler;
 /**
  * Purpose of this method is to call the Organization level APIs like users, profiles, roles, ..etc
  *
@@ -1066,6 +1068,26 @@ class ZCRMOrganization
     public function deleteOrganizationTax($orgTaxId)
     {
         return OrganizationAPIHandler::getInstance()->deleteOrganizationTax($orgTaxId);
+    }
+    public function getVariableGroups()
+    {
+        $instance = VariableGroupAPIHandler::getInstance();
+        return $instance->getVariableGroups();
+    }
+    public function getVariables()
+    {
+        $instance = VariableAPIHandler::getInstance();
+        return $instance->getVariables();
+    }
+    public function createVariables($variable)
+    {
+        $instance = VariableAPIHandler::getInstance();
+        return $instance->createVariables($variable);
+    }
+    public function updateVariables($variable)
+    {
+        $instance = VariableAPIHandler::getInstance();
+        return $instance->updateVariables($variable);
     }
     
     
