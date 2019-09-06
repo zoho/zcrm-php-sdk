@@ -50,7 +50,7 @@ class ZCRMVariableGroup
     {
         $this->description=$description;
     }
-    public function getInstance()
+    public static function getInstance()
     {
         return  new ZCRMVariableGroup();
     }

@@ -11,7 +11,7 @@ class VariableGroupAPIHandler extends APIHandler
 {
     private $variable_groups=null;
 
-    public function getInstance()
+    public static function getInstance()
     {
         return  new VariableGroupAPIHandler();
     }

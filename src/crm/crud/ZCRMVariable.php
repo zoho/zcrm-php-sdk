@@ -68,7 +68,7 @@ class ZCRMVariable
     {
         $this->description=$description;
     }
-    public function getInstance()
+    public static function  getInstance()
     {
         return  new ZCRMVariable();
     }

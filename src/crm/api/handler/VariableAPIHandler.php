@@ -12,7 +12,7 @@ class VariableAPIHandler extends APIHandler
 {
     private $variables=null;
 
-    public function getInstance()
+    public static function getInstance()
     {
         return  new VariableAPIHandler();
     }
