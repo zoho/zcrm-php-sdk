@@ -68,7 +68,7 @@ class ZohoOAuth
     
     public static function getConfigValue($key)
     {
-        return self::$configProperties[$key];
+        return isset(self::$configProperties[$key])?self::$configProperties[$key]:"";
     }
     
     public static function getAllConfigs()
