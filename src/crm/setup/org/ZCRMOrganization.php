@@ -1089,6 +1089,14 @@ class ZCRMOrganization
         $instance = VariableAPIHandler::getInstance();
         return $instance->updateVariables($variable);
     }
-    
+    public function getNotes(){
+        return OrganizationAPIHandler::getInstance()->getNotes();
+    }
+    public function createNotes($noteInstances){
+        return OrganizationAPIHandler::getInstance()->createNotes($noteInstances);
+    }
+    public function deleteNotes($noteIds){
+        return OrganizationAPIHandler::getInstance()->deleteNotes($noteIds);
+    }
     
 }

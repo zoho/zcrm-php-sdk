@@ -590,7 +590,10 @@ class ZCRMRecord
         }
         return ZCRMModuleRelation::getInstance($this, "Notes")->addNote($zcrmNoteIns);
     }
-    
+    public function addNotes($noteInstances)
+    {
+        return ZCRMModuleRelation::getInstance($this, "Notes")->addNotes($noteInstances);
+    }
     /**
      * Method to update the note of the reecord
      *

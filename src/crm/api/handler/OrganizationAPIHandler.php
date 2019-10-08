@@ -15,6 +15,8 @@ use zcrmsdk\crm\setup\users\ZCRMUser;
 use zcrmsdk\crm\setup\users\ZCRMUserCustomizeInfo;
 use zcrmsdk\crm\setup\users\ZCRMUserTheme;
 use zcrmsdk\crm\utility\APIConstants;
+use zcrmsdk\crm\crud\ZCRMRecord;
+use zcrmsdk\crm\crud\ZCRMNote;
 
 
 /**
@@ -34,7 +36,73 @@ class OrganizationAPIHandler extends APIHandler
     {
         return new OrganizationAPIHandler();
     }
-    
+    public function getNotes(){
+        try {
+            $this->urlPath = "Notes";
+            $this->requestMethod = APIConstants::REQUEST_METHOD_GET;
+            $this->addHeader("Content-Type", "application/json");
+            $responseInstance = APIRequest::getInstance($this)->getBulkAPIResponse();
+            $responseJSON = $responseInstance->getResponseJSON();
+            $notesDetails = $responseJSON['data'];
+            $noteInstancesArray = array();
+            foreach ($notesDetails as $notesObj) {
+                $record_Ins=ZCRMRecord::getInstance($notesObj["\$se_module"], $notesObj["Parent_Id"]["id"]);
+                $noteIns=ZCRMNote::getInstance($record_Ins,$notesObj["id"]);
+                array_push($noteInstancesArray,RelatedListAPIHandler::getInstance($record_Ins, "Notes")->getZCRMNote($notesObj,$noteIns));
+            }
+            $responseInstance->setData($noteInstancesArray);
+            return $responseInstance;
+        } catch (ZCRMException $exception) {
+            APIExceptionHandler::logException($exception);
+            throw $exception;
+        }
+    }
+    public function createNotes($noteInstances){
+        if (sizeof($noteInstances) > 100) {
+            throw new ZCRMException(APIConstants::API_MAX_NOTES_MSG, APIConstants::RESPONSECODE_BAD_REQUEST);
+        }
+        try {
+            $dataArray = array();
+            foreach ($noteInstances as $noteInstance) {
+                if ($noteInstance->getId() == null) {
+                    $record_Ins=ZCRMRecord::getInstance($noteInstance->getParentModule(),$noteInstance->getParentId());
+                    array_push($dataArray, RelatedListAPIHandler::getInstance($record_Ins,"Notes")->getZCRMNoteAsJSON($noteInstance));
+                } else {
+                    throw new ZCRMException(" ID MUST be null for create operation.", APIConstants::RESPONSECODE_BAD_REQUEST);
+                }
+            }
+            
+            $requestBodyObj = array();
+            $requestBodyObj["data"] = $dataArray;
+            $this->urlPath = "Notes";
+            $this->requestMethod = APIConstants::REQUEST_METHOD_POST;
+            $this->addHeader("Content-Type", "application/json");
+            $this->requestBody = $requestBodyObj;
+            
+            $responseInstance = APIRequest::getInstance($this)->getBulkAPIResponse();
+            return $responseInstance;
+        } catch (ZCRMException $exception) {
+            APIExceptionHandler::logException($exception);
+            throw $exception;
+        }
+    }
+    public function deleteNotes($noteIds){
+        if (sizeof($noteIds) > 100) {
+            throw new ZCRMException(APIConstants::API_MAX_NOTES_MSG, APIConstants::RESPONSECODE_BAD_REQUEST);
+        }
+        try {
+            
+            $this->urlPath = "Notes";
+            $this->requestMethod = APIConstants::REQUEST_METHOD_DELETE;
+            $this->addHeader("Content-Type", "application/json");
+            $this->addParam("ids", implode(",", $noteIds)); // converts array to string with specified seperator
+            $responseInstance = APIRequest::getInstance($this)->getBulkAPIResponse();
+            return $responseInstance;
+        } catch (ZCRMException $exception) {
+            APIExceptionHandler::logException($exception);
+            throw $exception;
+        }
+    }
     public function getOrganizationDetails()
     {
         try {

@@ -280,7 +280,7 @@ class EntityAPIHandler extends APIHandler
             $recordJSON["Pricing_Details"] = self::getPriceDetailsAsJSONArray();
         }
         if (sizeof($this->record->getTaxList()) > 0) {
-            if ($this->record->getModuleApiName == "Product")
+            if ($this->record->getModuleApiName() == "Products")
                 $key = "Tax";
                 else
                     $key = "\$line_tax";

@@ -132,7 +132,10 @@ class ZCRMModuleRelation
     {
         return RelatedListAPIHandler::getInstance($this->parentRecord, $this)->addNote($zcrmNote);
     }
-    
+    public function addNotes($noteInstances)
+    {
+        return RelatedListAPIHandler::getInstance($this->parentRecord, $this)->addNotes($noteInstances);
+    }
     /**
      * method to update the note of the module relation
      *

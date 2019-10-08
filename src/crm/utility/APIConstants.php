@@ -26,6 +26,8 @@ class APIConstants
     
     const API_MAX_ORGTAX_MSG = "Cannot process more than 100 org taxes at a time.";
     
+    const API_MAX_NOTES_MSG = "Cannot process more than 100 notes at a time.";
+    
     const API_MAX_TAGS_MSG = "Cannot process more than 50 tags at a time.";
     
     const API_MAX_RECORD_TAGS_MSG = "Cannot process more than 10 tags at a time.";
@@ -77,7 +79,7 @@ class APIConstants
     const TAXES = "taxes";
     
     const INFO = "info";
-     
+    
     const VARIABLES = "variables";
     
     const RESPONSECODE_OK = 200;

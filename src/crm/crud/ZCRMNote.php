@@ -119,7 +119,11 @@ class ZCRMNote
      */
     private function __construct($parentRecord, $noteId)
     {
-        $this->parentRecord = $parentRecord;
+        if(!is_null($parentRecord)){
+            $this->parentId=$parentRecord->getEntityId();
+            $this->parentModule=$parentRecord->getModuleApiName();
+            $this->parentRecord = $parentRecord;
+        }
         $this->id = $noteId;
     }
     
@@ -130,7 +134,7 @@ class ZCRMNote
      * @param string $noteId note id
      * @return ZCRMNote instance of the ZCRMNote class
      */
-    public static function getInstance($parentRecord, $noteId = null)
+    public static function getInstance($parentRecord=null, $noteId = null)
     {
         return new ZCRMNote($parentRecord, $noteId);
     }
@@ -433,5 +437,19 @@ class ZCRMNote
     public function setParentId($parentId)
     {
         $this->parentId = $parentId;
+    }
+    public function getAttachmentsOfNote($page = 1, $perPage = 20){
+        return ZCRMModuleRelation::getInstance(ZCRMRecord::getInstance("Notes", $this->getId()), "Attachments")->getAttachments($page, $perPage);
+    }
+    public function uploadAttachment($filePath)
+    {
+        return ZCRMModuleRelation::getInstance(ZCRMRecord::getInstance("Notes", $this->getId()), "Attachments")->uploadAttachment($filePath);
+    }
+    public function downloadAttachment($attachmentId){
+        return ZCRMModuleRelation::getInstance(ZCRMRecord::getInstance("Notes", $this->getId()), "Attachments")->downloadAttachment($attachmentId);
+    }
+    public function deleteAttachment($attachmentId)
+    {
+        return ZCRMModuleRelation::getInstance(ZCRMRecord::getInstance("Notes", $this->getId()), "Attachments")->deleteAttachment($attachmentId);
     }
 }

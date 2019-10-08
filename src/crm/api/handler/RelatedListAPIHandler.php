@@ -130,7 +130,32 @@ class RelatedListAPIHandler extends APIHandler
             throw $exception;
         }
     }
-    
+    public function addNotes($noteInstances){
+        if (sizeof($noteInstances) > 100) {
+            throw new ZCRMException(APIConstants::API_MAX_NOTES_MSG, APIConstants::RESPONSECODE_BAD_REQUEST);
+        }
+        try {
+            $dataArray = array();
+            foreach ($noteInstances as $noteInstance) {
+                if ($noteInstance->getId() == null) {
+                    array_push($dataArray, $this->getZCRMNoteAsJSON($noteInstance));
+                } else {
+                    throw new ZCRMException(" ID MUST be null for create operation.", APIConstants::RESPONSECODE_BAD_REQUEST);
+                }
+            }
+            $requestBodyObj = array();
+            $requestBodyObj["data"] = $dataArray;
+            $this->urlPath = $this->parentRecord->getModuleApiName() . "/" . $this->parentRecord->getEntityId() . "/" . $this->relatedList->getApiName();
+            $this->requestMethod = APIConstants::REQUEST_METHOD_POST;
+            $this->addHeader("Content-Type", "application/json");
+            $this->requestBody = $requestBodyObj;
+            $responseInstance = APIRequest::getInstance($this)->getBulkAPIResponse();
+            return $responseInstance;
+        } catch (ZCRMException $exception) {
+            APIExceptionHandler::logException($exception);
+            throw $exception;
+        }
+    }
     public function addNote($zcrmNote)
     {
         try {
@@ -307,11 +332,20 @@ class RelatedListAPIHandler extends APIHandler
         if ($noteIns->getTitle() != null) {
             $noteJson['Note_Title'] = $noteIns->getTitle();
         }
+        if ($noteIns->getParentModule() != null) {
+            $noteJson['se_module'] = $noteIns->getParentModule();
+        }
+        if ($noteIns->getParentId() != null) {
+            $noteJson['Parent_Id'] = $noteIns->getParentId();
+        }
+        if ($noteIns->getTitle() != null) {
+            $noteJson['Note_Title'] = $noteIns->getTitle();
+        }
         $noteJson['Note_Content'] = $noteIns->getContent();
         return $noteJson;
     }
     
-    private function getZCRMNote($noteDetails, $noteIns)
+    public function getZCRMNote($noteDetails, $noteIns)
     {
         if ($noteIns == null) {
             $noteIns = ZCRMNote::getInstance($this->parentRecord, $noteDetails["id"]);
