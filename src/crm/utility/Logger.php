@@ -6,12 +6,12 @@ class Logger
     
     public static function writeToFile($msg)
     {
-        set_include_path(ZCRMConfigUtil::getConfigValue('applicationLogFilePath'));
+        set_include_path(ZCRMConfigUtil::getConfigValue(APIConstants::APPLICATION_LOGFILE_PATH));
         $path = get_include_path();
-        if (!ZCRMConfigUtil::getConfigValue('applicationLogFilePath')) {
+        if (!ZCRMConfigUtil::getConfigValue(APIConstants::APPLICATION_LOGFILE_PATH)) {
             $path=dirname(__FILE__) ."/../../..";
         }
-        $filePointer = fopen($path . "/ZCRMClientLibrary.log", "a");
+        $filePointer = fopen($path . APIConstants::APPLICATION_LOGFILE_NAME, "a");
         if (! $filePointer) {
             return;
         }

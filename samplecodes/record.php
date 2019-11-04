@@ -387,7 +387,7 @@ class Record
         echo "Code:" . $responseIns->getCode(); // To get status code
         echo "Details:" . $responseIns->getDetails()['id'];
     }
-
+   
     public function downloadAttachment()
     {
         $record = ZCRMRestClient::getInstance()->getRecordInstance("{module_api_name}", "{record_id}"); // To get record instance

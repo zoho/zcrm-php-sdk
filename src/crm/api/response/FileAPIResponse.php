@@ -115,7 +115,17 @@ class FileAPIResponse
     public function getFileName()
     {
         $contentDisp = self::getResponseHeaders()['Content-Disposition'];
+        if($contentDisp == null)
+        {
+            $contentDisp = self::getResponseHeaders()['Content-disposition'];
+        }
         $fileName = substr($contentDisp, strrpos($contentDisp, "'") + 1, strlen($contentDisp));
+        if(strpos($fileName, "=")!== false)
+        {
+            $fileName = substr($fileName, strrpos($fileName, "=") + 1, strlen($fileName));
+            $fileName = str_replace(array('\'', '"'), '', $fileName);
+            
+        }
         return $fileName;
     }
     

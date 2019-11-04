@@ -337,7 +337,7 @@ class OrganizationAPIHandler extends APIHandler
         $crmRoleInstance->setDisplayLabel($roleDetails['display_label']);
         $crmRoleInstance->setAdminRole((boolean) $roleDetails['admin_user']);
         if (isset($roleDetails['reporting_to'])) {
-            $crmRoleInstance->setReportingTo(ZCRMUser::getInstance($roleDetails['reporting_to']['id'], $roleDetails['reporting_to']['name']));
+            $crmRoleInstance->setReportingTo(ZCRMRole::getInstance($roleDetails['reporting_to']['id'], $roleDetails['reporting_to']['name']));
         }
         return $crmRoleInstance;
     }

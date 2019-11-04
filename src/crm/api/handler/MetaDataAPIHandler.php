@@ -166,6 +166,7 @@ class MetaDataAPIHandler extends APIHandler
         
         return $relatedListPropInstance;
     }
+    
     public function constructCriteria($criteria,&$index)
     {
         $criteria_instance=ZCRMCustomViewCriteria::getInstance();
@@ -192,10 +193,30 @@ class MetaDataAPIHandler extends APIHandler
             $criteria_instance->setGroup($group_criteria);
         }
         
-        if(isset($criteria['group_operator'])){
+        if(isset($criteria['group_operator']))
+        {
+            $criteriavalue = "(";
+            $pattern = "(";
             $criteria_instance->setGroup_operator($criteria['group_operator']);
-            $criteria_instance->setCriteria("(".$group_criteria[0]->getCriteria().$criteria_instance->getGroup_operator().$group_criteria[1]->getCriteria().")");
-            $criteria_instance->setPattern("(".$group_criteria[0]->getPattern().$criteria_instance->getGroup_operator().$group_criteria[1]->getPattern().")");
+            $count = sizeof($group_criteria);
+            $i = 0;
+            foreach ($group_criteria as $criteriaObj)
+            {
+                $i++;
+                $criteriavalue .= $criteriaObj->getCriteria();
+                $pattern .= $criteriaObj->getPattern();
+                if ($i < $count)
+                {
+                    $criteriavalue .= $criteria_instance->getGroup_operator();
+                    $pattern .= $criteria_instance->getGroup_operator();
+                }
+            }
+            $criteria_instance->setCriteria($criteriavalue . ")");
+            $criteria_instance->setPattern($pattern . ")");
+
+            // $criteria_instance->setGroup_operator($criteria['group_operator']);
+            // $criteria_instance->setCriteria("(".$group_criteria[0]->getCriteria().$criteria_instance->getGroup_operator().$group_criteria[1]->getCriteria().")");
+            // $criteria_instance->setPattern("(".$group_criteria[0]->getPattern().$criteria_instance->getGroup_operator().$group_criteria[1]->getPattern().")");
         }
         return $criteria_instance;
     }
@@ -218,7 +239,7 @@ class MetaDataAPIHandler extends APIHandler
         $customViewInstance->setSortOrder(isset($customViewDetails['sort_order']) ? $customViewDetails['sort_order'] : null);
         if (isset($customViewDetails['criteria']) && $customViewDetails['criteria'] != null) {
             $index=1;
-            $criteriaInstance=self::constructCriteria($customViewDetails['criteria'],$index);
+            $criteriaInstance = self::constructCriteria($customViewDetails['criteria'], $index);
             $customViewInstance->setCriteria($criteriaInstance);
             $customViewInstance->setCriteriaPattern($criteriaInstance->getPattern());
             $customViewInstance->setCriteriaCondition($criteriaInstance->getCriteria());

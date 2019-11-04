@@ -139,6 +139,30 @@ class ZCRMRecord
     private $tags = array();
     
     /**
+     * list of all the tag names
+     * @var array
+     */
+    private $tagnames = array();
+
+    /**
+     * bulk write status of the record
+     * @var String
+     */
+    private $status = null;
+    
+    /**
+     * bulk write error message of the record
+     * @var String
+     */
+    private $error = null;
+    
+    /**
+     * csv record row number
+     * @var integer
+     */
+    private $rowNumber;
+    
+    /**
      * constructor to set the module name and record id
      *
      * @param String $module
@@ -481,6 +505,80 @@ class ZCRMRecord
     {
         $this->tags = $tags;
     }
+
+    /**
+     * Method to get the tags for the record
+     *
+     * @return array array of tag name of the record
+     */
+    public function getTagNames()
+    {
+        return $this->tagnames;
+    }
+    
+    /**
+     * Method to set the tags for the record
+     *
+     * @param array $tagnames array of tag name of the record
+     */
+    public function setTagNames($tagnames)
+    {
+        $this->tagnames = $tagnames;
+    }
+    
+    /**
+     * To set create record status
+     * @param status of the record
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+    
+    /**
+     * To get create record status
+     * @return String status of the record
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+    
+    /**
+     * To set record error message
+     * @param error message of the record
+     */
+    public function setErrorMessage($error)
+    {
+        $this->error = $error;
+    }
+    
+    /**
+     * To get record error message
+     * @return String record error message
+     */
+    public function getErrorMessage()
+    {
+        return $this->error;
+    }
+    
+    /**
+     * To set record row number
+     * @param rowNumber of the record
+     */
+    public function setRecordRowNumber($rowNumber)
+    {
+        $this->rowNumber = $rowNumber;
+    }
+    
+    /**
+     * To get record row number
+     * @return integer record row number
+     */
+    public function getRecordRowNumber()
+    {
+        return $this->rowNumber;
+    }
     
     /**
      * Method creates record
@@ -746,7 +844,7 @@ class ZCRMRecord
      */
     public function addTags($tagNames)
     {
-        if ($this->entityId == null || $this->entityId == 0) {
+        if ($this->entityId == null || $this->entityId == "") {
             throw new ZCRMException("Record ID MUST NOT be null/empty for Add Tags to a Specific record operation");
         }
         if ($this->moduleApiName == null || $this->moduleApiName == "") {
@@ -767,7 +865,7 @@ class ZCRMRecord
      */
     public function removeTags($tagNames)
     {
-        if ($this->entityId == null || $this->entityId == 0) {
+        if ($this->entityId == null || $this->entityId == "") {
             throw new ZCRMException("Record ID MUST NOT be null/empty for Remove Tags from a Specific record operation");
         }
         if ($this->moduleApiName == null || $this->moduleApiName == "") {

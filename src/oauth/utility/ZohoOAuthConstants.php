@@ -70,6 +70,8 @@ class ZohoOAuthConstants
     
     const TOKEN_PERSISTENCE_PATH = "token_persistence_path";
     
+    const DATABASE_NAME = "db_name";
+    
     const DATABASE_PORT = "db_port";
     
     const DATABASE_USERNAME = "db_username";

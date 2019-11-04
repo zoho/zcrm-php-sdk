@@ -39,6 +39,8 @@ class APIConstants
     const STATUS_SUCCESS = "success";
     
     const STATUS_ERROR = "error";
+
+    const SDK_ERROR = "ZCRM_INTERNAL_ERROR";
     
     const LEADS = "Leads";
     
@@ -73,15 +75,40 @@ class APIConstants
     const STATUS = "status";
     
     const DATA = "data";
+
+    const DETAILS = "details";
+
+    const MODULES = "modules";
+
+    const CUSTOM_VIEWS = "custom_views";
     
     const TAGS = "tags";
     
     const TAXES = "taxes";
     
     const INFO = "info";
+
+    const ORG = "org";
+    
+    const READ = "read";
+    
+    const RESULT = "result";
+    
+    const UPLOAD = "upload";
+    
+    const WRITE = "write";
+    
+    const CALLBACK = "callback";
+
+    const FILETYPE = "file_type";
+    
+    const QUERY = "query";
+    
+    const USERS = "users";
+    
+    const HTTP_CODE = "http_code";
     
     const VARIABLES = "variables";
-    
     const RESPONSECODE_OK = 200;
     
     const RESPONSECODE_CREATED = 201;
@@ -136,11 +163,19 @@ class APIConstants
     
     const APPLICATION_LOGFILE_PATH = "applicationLogFilePath";
     
+    const APPLICATION_LOGFILE_NAME = "/ZCRMClientLibrary.log";
+    
     const CURRENT_USER_EMAIL = "currentUserEmail";
+
+    const FILE_UPLOAD_URL = "fileUploadUrl";
     
     const SANDBOX = "sandbox";
     
-    const API_BASEURL = "apiBaseUrl";
+    const API_BASE_URL = "apiBaseUrl";
     
     const API_VERSION = "apiVersion";
+
+    const BULK_WRITE_STATUS = "STATUS";
+    
+    const WRITE_STATUS = array("ADDED", "UPDATED");
 }

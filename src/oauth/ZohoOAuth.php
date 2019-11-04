@@ -26,6 +26,9 @@ class ZohoOAuth
             if (! array_key_exists(ZohoOAuthConstants::DATABASE_PASSWORD, self::$configProperties)) {
                 self::$configProperties[ZohoOAuthConstants::DATABASE_PASSWORD] = "";
             }
+            if (! array_key_exists(ZohoOAuthConstants::DATABASE_NAME, self::$configProperties)) {
+                self::$configProperties[ZohoOAuthConstants::DATABASE_NAME] = "zohooauth";
+            }
         }
         $oAuthParams = new ZohoOAuthParams();
         $oAuthParams->setAccessType(self::getConfigValue(ZohoOAuthConstants::ACCESS_TYPE));

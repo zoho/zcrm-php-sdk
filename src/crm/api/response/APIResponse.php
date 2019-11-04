@@ -90,9 +90,9 @@ class APIResponse extends CommonAPIResponse
                 throw $exception;
             } else {
                 $responseJSON = $this->getResponseJSON();
-                $exception = new ZCRMException($responseJSON['message'], $statusCode);
-                $exception->setExceptionCode($responseJSON['code']);
-                $exception->setExceptionDetails($responseJSON['details']);
+                $exception = new ZCRMException($responseJSON[APIConstants::MESSAGE], $statusCode);
+                $exception->setExceptionCode($responseJSON[APIConstants::CODE]);
+                $exception->setExceptionDetails($responseJSON[APIConstants::DETAILS]);
                 throw $exception;
             }
         }
@@ -109,33 +109,33 @@ class APIResponse extends CommonAPIResponse
         if ($responseJSON == null) {
             return;
         }
-        if (array_key_exists("data", $responseJSON)) {
-            $responseJSON = $responseJSON['data'][0];
+        if (array_key_exists(APIConstants::DATA, $responseJSON)) {
+            $responseJSON = $responseJSON[APIConstants::DATA][0];
         }
-        if (array_key_exists("tags", $responseJSON)) {
-            $responseJSON = $responseJSON['tags'][0];
-        } else if (array_key_exists("users", $responseJSON)) {
-            $responseJSON = $responseJSON['users'][0];
-        } else if (array_key_exists("modules", $responseJSON)) {
-            $responseJSON = $responseJSON['modules'];
-        } else if (array_key_exists("custom_views", $responseJSON)) {
-            $responseJSON = $responseJSON['custom_views'];
-        }else if (array_key_exists("taxes", $responseJSON)) {
-            $responseJSON = $responseJSON['taxes'][0];
+        if (array_key_exists(APIConstants::TAGS, $responseJSON)) {
+            $responseJSON = $responseJSON[APIConstants::TAGS][0];
+        } else if (array_key_exists(APIConstants::USERS, $responseJSON)) {
+            $responseJSON = $responseJSON[APIConstants::USERS][0];
+        } else if (array_key_exists(APIConstants::MODULES, $responseJSON)) {
+            $responseJSON = $responseJSON[APIConstants::MODULES];
+        } else if (array_key_exists(APIConstants::CUSTOM_VIEWS, $responseJSON)) {
+            $responseJSON = $responseJSON[APIConstants::CUSTOM_VIEWS];
+        }else if (array_key_exists(APIConstants::TAXES, $responseJSON)) {
+            $responseJSON = $responseJSON[APIConstants::TAXES][0];
         }
         else if (array_key_exists("variables", $responseJSON)) {
             $responseJSON = $responseJSON['variables'][0];
         }
-        if (isset($responseJSON['status']) && $responseJSON['status'] == APIConstants::STATUS_ERROR) {
-            $exception = new ZCRMException($responseJSON['message'], self::getHttpStatusCode());
-            $exception->setExceptionCode($responseJSON['code']);
-            $exception->setExceptionDetails($responseJSON['details']);
+        if (isset($responseJSON[APIConstants::STATUS]) && $responseJSON[APIConstants::STATUS] == APIConstants::STATUS_ERROR) {
+            $exception = new ZCRMException($responseJSON[APIConstants::MESSAGE], self::getHttpStatusCode());
+            $exception->setExceptionCode($responseJSON[APIConstants::CODE]);
+            $exception->setExceptionDetails($responseJSON[APIConstants::DETAILS]);
             throw $exception;
-        } elseif (isset($responseJSON['status']) && $responseJSON['status'] == APIConstants::STATUS_SUCCESS) {
-            self::setCode($responseJSON['code']);
-            self::setStatus($responseJSON['status']);
-            self::setMessage($responseJSON['message']);
-            self::setDetails($responseJSON['details']);
+        } elseif (isset($responseJSON[APIConstants::STATUS]) && $responseJSON[APIConstants::STATUS] == APIConstants::STATUS_SUCCESS) {
+            self::setCode($responseJSON[APIConstants::CODE]);
+            self::setStatus($responseJSON[APIConstants::STATUS]);
+            self::setMessage($responseJSON[APIConstants::MESSAGE]);
+            self::setDetails($responseJSON[APIConstants::DETAILS]);
         }
     }
 }

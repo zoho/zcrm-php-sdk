@@ -5,6 +5,8 @@ use zcrmsdk\crm\api\handler\MetaDataAPIHandler;
 use zcrmsdk\crm\api\handler\OrganizationAPIHandler;
 use zcrmsdk\crm\api\response\APIResponse;
 use zcrmsdk\crm\api\response\BulkAPIResponse;
+use zcrmsdk\crm\bulkcrud\ZCRMBulkRead;
+use zcrmsdk\crm\bulkcrud\ZCRMBulkWrite;
 use zcrmsdk\crm\utility\ZCRMConfigUtil;
 use zcrmsdk\crm\setup\org\ZCRMOrganization;
 use zcrmsdk\crm\crud\ZCRMModule;
@@ -130,5 +132,28 @@ class ZCRMRestClient
     public static function getOrganizationDetails()
     {
         return OrganizationAPIHandler::getInstance()->getOrganizationDetails();
+    }
+
+    /**
+     * Method to get the bulk read instance
+     * @param string $moduleName
+     * @param string $jobId
+     * @return ZCRMBulkRead - class instance
+     */
+    public function getBulkReadInstance($moduleName = null, $jobId = null)
+    {
+        return ZCRMBulkRead::getInstance($moduleName, $jobId);
+    }
+    
+    /**
+     * Method to get the bulk write instance
+     * @param string $operation - bulk write operation (insert or update)
+     * @param string $jobId - bulk write job id
+     * @param string $moduleAPIName - bulk write module api name
+     * @return ZCRMBulkWrite - class instance
+     */
+    public function getBulkWriteInstance($operation = null, $jobId = null, $moduleAPIName = null)
+    {
+        return ZCRMBulkWrite::getInstance($operation, $jobId, $moduleAPIName);
     }
 }

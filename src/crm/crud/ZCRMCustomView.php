@@ -377,14 +377,17 @@ class ZCRMCustomView
     {
         $this->criteria = $criteria;
     }
+    
     public function getCriteriaCondition()
     {
         return $this->criteriaCondition;
     }
+    
     public function setCriteriaCondition($criteriaCondition)
     {
         $this->criteriaCondition = $criteriaCondition;
     }
+    
     /**
      * Method to get the module api name of the custom view
      *

@@ -364,6 +364,7 @@ class Module
             echo $criteria->getComparator(); // to get the comparator of the criteria
             echo $criteria->getField(); // to get the field of the criteria
             echo $criteria->getValue(); // to get the value of the criteria
+            
         }
         echo $customView->getModuleAPIName(); // to get the module api name of the custom view
         $categories = $customView->getCategoriesList(); // to get the categories list as an array of ZCRMCustomViewCategory
@@ -392,16 +393,20 @@ class Module
             echo $customView->getSortOrder(); // to get the sort order
             echo $customView->getCriteriaPattern(); // to get the criteria pattern
             $criterias = $customView->getCriteria(); // to get the criteria as a ZCRMCustomViewCriteria instance
-            foreach ($criterias as $criteria) {
-                echo $criteria->getComparator(); // to get the comparator of the criteria
-                echo $criteria->getField(); // to get the field of the criteria
-                echo $criteria->getValue(); // to get the value of the criteria
+            if($criterias!=NULL){
+                foreach ($criterias as $criteria) {
+                    echo $criteria->getComparator(); // to get the comparator of the criteria
+                    echo $criteria->getField(); // to get the field of the criteria
+                    echo $criteria->getValue(); // to get the value of the criteria
+                }
             }
             echo $customView->getModuleAPIName(); // to get the module api name of the custom view
             $categories = $customView->getCategoriesList(); // to get the categories list as an array of ZCRMCustomViewCategory
-            foreach ($categories as $category) { //
-                echo $category->getDisplayValue(); // to get the display value of the category
-                echo $category->getActualValue(); // to get the actual value of the category
+            if($categories!=NULL){
+                foreach ($categories as $category) { //
+                    echo $category->getDisplayValue(); // to get the display value of the category
+                    echo $category->getActualValue(); // to get the actual value of the category
+                }
             }
             echo $customView->isOffLine(); // to check if the custom view is offline
         }
@@ -514,9 +519,12 @@ class Module
                     }
                 }
                 $layouts = $record->getLayout(); // To get record layout
-                echo $layouts->getId(); // To get layout_id
-                echo $layouts->getName(); // To get layout name
-
+                if($layouts != null)
+                {
+                    echo $layouts->getId(); // To get layout_id
+                    echo $layouts->getName(); // To get layout name
+                }
+                
                 $taxlists = $record->getTaxList(); // To get the tax list
                 foreach ($taxlists as $taxlist) {
                     echo $taxlist->getTaxName(); // To get tax name
@@ -562,6 +570,12 @@ class Module
                     echo $participant->getType(); // To get the record's participant type
                     echo $participant->isInvited(); // To check if the record's participant(s) are invited or not
                     echo $participant->getStatus(); // To get the record's participants' status
+                }
+                $tags = $record->getTags();
+                foreach($tags as $tag)
+                {
+                    echo $tag->getId();
+                    echo $tag->getName();
                 }
                 /* End Event */
             }
@@ -631,8 +645,11 @@ class Module
                 }
             }
             $layouts = $record->getLayout(); // To get record layout
-            echo $layouts->getId(); // To get layout_id
-            echo $layouts->getName(); // To get layout name
+            if($layouts != null)
+            {
+                echo $layouts->getId(); // To get layout_id
+                echo $layouts->getName(); // To get layout name
+            }
 
             $taxlists = $record->getTaxList(); // To get the tax list
             foreach ($taxlists as $taxlist) {
@@ -679,6 +696,13 @@ class Module
                 echo $participant->getType(); // To get the record's participant type
                 echo $participant->isInvited(); // To check if the record's participant(s) are invited or not
                 echo $participant->getStatus(); // To get the record's participants' status
+            }
+            
+            $tags = $record->getTags();
+            foreach($tags as $tag)
+            {
+                echo $tag->getId();
+                echo $tag->getName();
             }
             /* End Event */
         } catch (ZCRMException $ex) {
@@ -1460,5 +1484,5 @@ class Module
 }
 
 $obj = new Module();
-$obj->updateRecords()   ;
+$obj->searchRecordsByEmail();
 ?>

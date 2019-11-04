@@ -382,7 +382,7 @@ class ZCRMUser
      * @param string $name user name
      * @return ZCRMUser instance of the ZCRMUser class
      */
-    public static function getInstance($id, $name)
+    public static function getInstance($id = null, $name = null)
     {
         return new ZCRMUser($id, $name);
     }

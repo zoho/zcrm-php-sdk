@@ -34,6 +34,7 @@ class ZCRMCustomViewCriteria
     private $pattern=null;
     private $index=null;
     private $criteria=null;
+    
     private function __construct()
     {}
     

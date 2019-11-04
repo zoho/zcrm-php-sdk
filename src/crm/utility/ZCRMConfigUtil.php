@@ -45,16 +45,17 @@ class ZCRMConfigUtil
         $config_keys = array(
             APIConstants::CURRENT_USER_EMAIL,
             ZohoOAuthConstants::SANDBOX,
-            APIConstants::API_BASEURL,
+            APIConstants::API_BASE_URL,
             APIConstants::API_VERSION,
-            APIConstants::APPLICATION_LOGFILE_PATH
+            APIConstants::APPLICATION_LOGFILE_PATH,
+            APIConstants::FILE_UPLOAD_URL
         );
         
         if (! array_key_exists(ZohoOAuthConstants::SANDBOX, $configuration)) {
             self::$configProperties[ZohoOAuthConstants::SANDBOX] = "false";
         }
-        if (! array_key_exists(APIConstants::API_BASEURL, $configuration)) {
-            self::$configProperties[APIConstants::API_BASEURL] = "www.zohoapis.com";
+        if (! array_key_exists(APIConstants::API_BASE_URL, $configuration)) {
+            self::$configProperties[APIConstants::API_BASE_URL] = "www.zohoapis.com";
         }
         if (! array_key_exists(APIConstants::API_VERSION, $configuration)) {
             self::$configProperties[APIConstants::API_VERSION] = "v2";
@@ -77,22 +78,27 @@ class ZCRMConfigUtil
     
     public static function getAPIBaseUrl()
     {
-        return self::getConfigValue("apiBaseUrl");
+        return self::getConfigValue(APIConstants::API_BASE_URL);
+    }
+
+    public static function getFileUploadURL()
+    {
+        return self::getConfigValue(APIConstants::FILE_UPLOAD_URL);
     }
     
     public static function getAPIVersion()
     {
-        return self::getConfigValue("apiVersion");
+        return self::getConfigValue(APIConstants::API_VERSION);
     }
     
     public static function getAccessToken()
     {
         $currentUserEmail = ZCRMRestClient::getCurrentUserEmailID();
         
-        if ($currentUserEmail == null && self::getConfigValue("currentUserEmail") == null) {
-            throw new ZCRMException("current user should either be set in ZCRMRestClient or in configuration  map");
+        if ($currentUserEmail == null && self::getConfigValue(APIConstants::CURRENT_USER_EMAIL) == null) {
+            throw new ZCRMException("current user should either be set in ZCRMRestClient or in configuration map");
         } else if ($currentUserEmail == null) {
-            $currentUserEmail = self::getConfigValue("currentUserEmail");
+            $currentUserEmail = self::getConfigValue(APIConstants::CURRENT_USER_EMAIL);
         }
         $oAuthCliIns = ZohoOAuth::getClientInstance();
         return $oAuthCliIns->getAccessToken($currentUserEmail);

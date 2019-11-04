@@ -18,6 +18,7 @@ class APIExceptionHandler
     {
         return array(
             APIConstants::RESPONSECODE_NO_CONTENT,
+            APIConstants::RESPONSECODE_NOT_MODIFIED,
             APIConstants::RESPONSECODE_NOT_FOUND,
             APIConstants::RESPONSECODE_AUTHORIZATION_ERROR,
             APIConstants::RESPONSECODE_BAD_REQUEST,

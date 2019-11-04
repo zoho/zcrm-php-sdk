@@ -15,6 +15,8 @@ class APIHandler implements APIHandlerInterface
     protected $requestBody = null;
     
     protected $apiKey = null;
+
+    protected $isBulk = false;
     
     public function getRequestMethod()
     {
@@ -142,5 +144,14 @@ class APIHandler implements APIHandlerInterface
     public function setApiKey($apiKey)
     {
         $this->apiKey = $apiKey;
+    }
+    
+    /**
+     * Get url is bulk or not
+     * @return boolean|Boolean
+     */
+    public function isBulk() 
+    {
+        return $this->isBulk;
     }
 }

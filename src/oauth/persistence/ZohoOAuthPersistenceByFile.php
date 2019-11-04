@@ -2,9 +2,9 @@
 namespace zcrmsdk\oauth\persistence;
 
 use Exception;
+use zcrmsdk\crm\utility\Logger;
 use zcrmsdk\oauth\ZohoOAuth;
 use zcrmsdk\oauth\exception\ZohoOAuthException;
-use zcrmsdk\oauth\utility\OAuthLogger;
 use zcrmsdk\oauth\utility\ZohoOAuthTokens;
 
 class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface
@@ -32,7 +32,7 @@ class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface
             $serialized = serialize($arr);
             file_put_contents("zcrm_oauthtokens.txt", $serialized, FILE_USE_INCLUDE_PATH);
         } catch (Exception $ex) {
-            OAuthLogger::severe("Exception occured while Saving OAuthTokens to file(file::ZohoOAuthPersistenceByFile)({$ex->getMessage()})\n{$ex}");
+            Logger::severe("Exception occured while Saving OAuthTokens to file(file::ZohoOAuthPersistenceByFile)({$ex->getMessage()})\n{$ex}");
             throw $ex;
         }
     }
@@ -63,7 +63,7 @@ class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface
         } catch (ZohoOAuthException $e) {
             throw $e;
         } catch (Exception $ex) {
-            OAuthLogger::severe("Exception occured while fetching OAuthTokens from file(file::ZohoOAuthPersistenceByFile)({$ex->getMessage()})\n{$ex}");
+            Logger::severe("Exception occured while fetching OAuthTokens from file(file::ZohoOAuthPersistenceByFile)({$ex->getMessage()})\n{$ex}");
             throw $ex;
         }
     }
@@ -92,7 +92,7 @@ class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface
             $serialized = serialize($arr);
             file_put_contents("zcrm_oauthtokens.txt", $serialized, FILE_USE_INCLUDE_PATH);
         } catch (Exception $ex) {
-            OAuthLogger::severe("Exception occured while Saving OAuthTokens to file(file::ZohoOAuthPersistenceByFile)({$ex->getMessage()})\n{$ex}");
+            Logger::severe("Exception occured while Saving OAuthTokens to file(file::ZohoOAuthPersistenceByFile)({$ex->getMessage()})\n{$ex}");
             throw $ex;
         }
     }
