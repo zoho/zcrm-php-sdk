@@ -6,7 +6,7 @@ use zcrmsdk\crm\setup\users\ZCRMUser;
 use zcrmsdk\crm\utility\APIConstants;
 use zcrmsdk\crm\bulkapi\handler\BulkAPIHandler;
 use zcrmsdk\crm\api\response\APIResponse;
-use zcrmsdk\crm\bulkapi\response\CSVFileResponse;
+use zcrmsdk\crm\bulkapi\response\BulkResponse;
 use zcrmsdk\crm\api\response\FileAPIResponse;
 use zcrmsdk\crm\exception\ZCRMException;
 
@@ -314,7 +314,7 @@ class ZCRMBulkWrite
      * Method to get download the result of the bulk write job and get CSV file as ZCRMRecord instance.
      * @param string $filePath - file path to store the downloaded file.
      * @param string $downloadFileURL - the download URL from which you can download the result(CSV file) of the bulk write job.
-     * @return CSVFileResponse - CSVFileResponse instance of the CSVFileResponse class which holds the response.
+     * @return BulkResponse - BulkResponse instance of the BulkResponse class which holds the response.
      */
     public function downloadANDGetRecords($filePath, $downloadFileURL)
     {
@@ -333,7 +333,7 @@ class ZCRMBulkWrite
      * Method to get CSV file as ZCRMRecord instance.
      * @param string $filePath - file path of the downloaded file.
      * @param string $fileName - file name of the downloaded file.
-     * @return CSVFileResponse - CSVFileResponse instance of the CSVFileResponse class which holds the response.
+     * @return BulkResponse - BulkResponse instance of the BulkResponse class which holds the response.
      */
     public function getRecords($filePath, $fileName)
     {
@@ -352,7 +352,7 @@ class ZCRMBulkWrite
      * Method to get download the result of the bulk write job and get CSV file as failed ZCRMRecord instance.
      * @param string $filePath - file path to store the downloaded file.
      * @param string $downloadFileURL - the download URL from which you can download the result(CSV file) of the bulk write job.
-     * @return CSVFileResponse - CSVFileResponse instance of the CSVFileResponse class which holds the response.
+     * @return BulkResponse - BulkResponse instance of the BulkResponse class which holds the response.
      */
     public function downloadANDGetFailedRecords($filePath, $downloadFileURL)
     {
@@ -371,7 +371,7 @@ class ZCRMBulkWrite
      * Method to get CSV file as failed ZCRMRecord instance.
      * @param string $filePath - file path of the downloaded file.
      * @param string $fileName - file name of the downloaded file.
-     * @return CSVFileResponse - CSVFileResponse instance of the CSVFileResponse class which holds the response.
+     * @return BulkResponse - BulkResponse instance of the BulkResponse class which holds the response.
      */
     public function getFailedRecords($filePath, $fileName)
     {

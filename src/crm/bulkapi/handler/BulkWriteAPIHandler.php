@@ -203,7 +203,7 @@ class BulkWriteAPIHandler extends APIHandler
         {
             $resourceJSON["find_by"] = $resourceObj->getFindBy();
         }
-        if ($resourceObj->getFieldMapping() != null)
+        if ($resourceObj->getFieldMapping() != null && sizeof($resourceObj->getFieldMapping()) > 0)
         {
             $resourceJSON["field_mappings"] = self::getZCRMBulkWriteFieldMappingAsJSONArray($resourceObj->getFieldMapping());
         }
@@ -231,7 +231,7 @@ class BulkWriteAPIHandler extends APIHandler
         {
             $fieldMappingJSON["index"] = $fieldMappingObj->getIndex();
         }
-        if ($fieldMappingObj->getDefaultValue() != null)
+        if ($fieldMappingObj->getDefaultValue() != null && sizeof($fieldMappingObj->getDefaultValue()) > 0)
         {
             $fieldMappingJSON["default_value"] = $fieldMappingObj->getDefaultValue();
         }

@@ -4,7 +4,7 @@ namespace zcrmsdk\crm\bulkcrud;
 use zcrmsdk\crm\bulkapi\handler\BulkReadAPIHandler;
 use zcrmsdk\crm\bulkapi\handler\BulkAPIHandler;
 use zcrmsdk\crm\api\response\APIResponse;
-use zcrmsdk\crm\bulkapi\response\CSVFileResponse;
+use zcrmsdk\crm\bulkapi\response\BulkResponse;
 use zcrmsdk\crm\api\response\FileAPIResponse;
 use zcrmsdk\crm\setup\users\ZCRMUser;
 use zcrmsdk\crm\utility\APIConstants;
@@ -303,7 +303,7 @@ class ZCRMBulkRead
     /**
      * Method to get download the result of the bulk read job and get CSV file as ZCRMRecord instance.
      * @param string $filePath - file path to store the downloaded file.
-     * @return CSVFileResponse - CSVFileResponse instance of the CSVFileResponse class which holds the response.
+     * @return BulkResponse - BulkResponse instance of the BulkResponse class which holds the response.
      */
     public function downloadANDGetRecords($filePath)
     {
@@ -318,7 +318,7 @@ class ZCRMBulkRead
      * Method to get CSV file as ZCRMRecord instance.
      * @param string $filePath - file path of the downloaded file.
      * @param string $fileName - file name of the downloaded file.
-     * @return CSVFileResponse - CSVFileResponse instance of the CSVFileResponse class which holds the response.
+     * @return BulkResponse - BulkResponse instance of the BulkResponse class which holds the response.
      */
     public function getRecords($filePath, $fileName)
     {

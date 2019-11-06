@@ -5,7 +5,7 @@ use zcrmsdk\crm\exception;
 use zcrmsdk\crm\setup\users\ZCRMUser;
 use zcrmsdk\crm\utility\APIConstants;
 use ZipArchive;
-use zcrmsdk\crm\bulkapi\response\CSVFileResponse;
+use zcrmsdk\crm\bulkapi\response\BulkResponse;
 use zcrmsdk\crm\bulkcrud\ZCRMBulkRead;
 use zcrmsdk\crm\bulkcrud\ZCRMBulkWrite;
 use zcrmsdk\crm\crud\ZCRMRecord;
@@ -115,6 +115,7 @@ class BulkAPIHandler
                 {
                     throw new ZCRMException("The file is empty", APIConstants::RESPONSECODE_BAD_REQUEST);
                 }
+                $len = 0;
                 do
                 {
                     $value_arr=explode(":", $value[0],2);
@@ -144,16 +145,16 @@ class BulkAPIHandler
             throw $exception;
         }
         $this->fileName = null;
-        $csvFileResponse = new CSVFileResponse($moduleAPIName, $csvFilePointer, $checkFailed, $fileType);
-        $csvFileResponse->setFieldNames($fieldAPINames);
-        $csvFileResponse->setEntityAPIHandlerIns($this);
+        $bulkResponse = new BulkResponse($moduleAPIName, $csvFilePointer, $checkFailed, $fileType);
+        $bulkResponse->setFieldNames($fieldAPINames);
+        $bulkResponse->setEntityAPIHandlerIns($this);
         if($fileType == "ics")
         {
-            $eventsData["EventsData"] = $csvFileResponse;
+            $eventsData["EventsData"] = $bulkResponse;
             $eventsData["END"] = $eventsData["BEGIN"];
-            $csvFileResponse->setData($eventsData);
+            $bulkResponse->setData($eventsData);
         }
-        return $csvFileResponse;
+        return $bulkResponse;
     }
     
     private function writeStreamtoZipFile(FileAPIResponse $fileResponse, $filePath)
@@ -288,7 +289,7 @@ class BulkAPIHandler
         }
         else
         {
-            return ZCRMRecord::getInstance();
+            return ZCRMRecord::getInstance(null,null);
         }
     }
     

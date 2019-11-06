@@ -252,7 +252,7 @@ class BulkReadAPIHandler extends APIHandler
         if ($this->record->getQuery() != null)
         {
             $query = $this->record->getQuery();
-            if($query->getFields() != null)
+            if($query->getFields() != null && sizeof($query->getFields()) > 0)
             {
                 $recordJSON["fields"] = $query->getFields();
             }

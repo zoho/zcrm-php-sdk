@@ -5,7 +5,7 @@ use Exception;
 use zcrmsdk\crm\utility\APIConstants;
 use zcrmsdk\crm\exception\ZCRMException;
 
-class CSVFileResponse
+class BulkResponse
 {
     private $csvFilePointer = null;
     private $moduleAPIName = null;
@@ -94,7 +94,7 @@ class CSVFileResponse
         {
             if(($fieldValues = fgetcsv($this->csvFilePointer)) != FALSE)
             {
-                if($this->fileType == "ics")
+                if($this->fileType == "ics" && strpos($fieldValues[0],":"))
                 {
                     do
                     {
