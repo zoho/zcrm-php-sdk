@@ -52,6 +52,8 @@ class ZohoOAuthConstants
     
     const PERSISTENCE_HANDLER_CLASS = "persistence_handler_class";
     
+    const PERSISTENCE_HANDLER_CLASS_NAME = "persistence_handler_class_name";
+    
     const TOKEN = "token";
     
     const DISPATCH_TO = "dispatchTo";
