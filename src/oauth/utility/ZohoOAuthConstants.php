@@ -78,5 +78,8 @@ class ZohoOAuthConstants
     
     const DATABASE_PASSWORD = "db_password";
     
+    const HOST_ADDRESS = "host_address";
+    
     const RESPONSECODE_OK = 200;
+    
 }
