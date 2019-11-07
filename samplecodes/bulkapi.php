@@ -378,8 +378,7 @@ class RestClient
         $resourceIns->setType("data");
         $resourceIns->setIgnoreEmpty(true);
         
-        $fieldMappings = ZCRMBulkWriteFieldMapping::getInstance("Last_Name");
-        $fieldMappings->setDefaultValue("value", "test");
+        $fieldMappings = ZCRMBulkWriteFieldMapping::getInstance("Last_Name",0);
         $resourceIns->setFieldMapping($fieldMappings);
         
         
@@ -776,7 +775,7 @@ $obj = new RestClient();
 $file_path = "/Users3/Documents/PHPSDK/write";
 $download_url = "https://download-accl.zoho.com/v2/crm/675/bulk-write/3477586003/3477586003.zip";
 $job_id = "3477586003";
-$obj->createBulkReadJob("Leads");
+// $obj->createBulkReadJob("Leads");
 // $obj->getBulkReadJobDetails("34770610001");
 // $obj->downloadBulkReadResult("34770610001","/Users/Documents/PHPSDK/csvfile/");
 // $obj->DownloadandGetRecords("34770610001", "/Users/Documents/PHPSDK/csvfile/read");
@@ -784,8 +783,8 @@ $obj->createBulkReadJob("Leads");
 // $obj->DownloadandGetRecords1("34770610001", "/Users/Documents/PHPSDK/csvfile/read");
 // $obj->GetRecordsFromFile1("Events","34770610001", "/Users/Documents/PHPSDK/csvfile/read");
 
-// $obj->uploadFile("/Users/Documents/PHPSDK/csvfile/insert/Leads.zip");
-// $obj->createBulkWriteJob("34770595001","Leads");
+// $obj->uploadFile("/Users/Documents/Leads.zip");
+$obj->createBulkWriteJob("3477061000","Leads");
 // $obj->updateBulkWriteJob("34770595001","Leads");
 // $obj->upsertBulkWriteJob("34770595001","Leads");
 // $obj->getBulkWriteJobDetails($job_id);
