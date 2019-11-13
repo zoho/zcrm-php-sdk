@@ -3,3 +3,5 @@
 .buildpath
 /vendor
 /.settings
+ZCRMClientLibrary.log
+composer.lock
