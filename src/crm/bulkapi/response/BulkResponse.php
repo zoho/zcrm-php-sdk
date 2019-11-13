@@ -7,7 +7,7 @@ use zcrmsdk\crm\exception\ZCRMException;
 
 class BulkResponse
 {
-    private $csvFilePointer = null;
+    private $filePointer = null;
     private $moduleAPIName = null;
     private $fieldAPINames = array();
     private $fieldsvsValue = array();
@@ -33,10 +33,10 @@ class BulkResponse
         $this->data = $data;
     }
 
-    public function __construct($moduleAPIName, $csvFilePointer, $checkFailedRecord,$fileType)
+    public function __construct($moduleAPIName, $filePointer, $checkFailedRecord,$fileType)
     {
         $this->moduleAPIName = $moduleAPIName;
-        $this->csvFilePointer = $csvFilePointer;
+        $this->filePointer = $filePointer;
         $this->checkFailedRecord = $checkFailedRecord;
         $this->fileType = $fileType;
     }
@@ -92,23 +92,31 @@ class BulkResponse
         $this->fieldsvsValue = array();
         try
         {
-            if(($fieldValues = fgetcsv($this->csvFilePointer)) != FALSE)
+            if((!is_resource($this->filePointer)))
             {
-                if($this->fileType == "ics" && strpos($fieldValues[0],":"))
+                return false;
+            }
+            if(($fieldValues = fgetcsv($this->filePointer)) != FALSE)
+            {
+                if($this->fileType == "ics")
                 {
                     do
                     {
-                        $value=explode(":", $fieldValues[0],2);
-                        if ($value[0] == "END" && count($this->fieldsvsValue) > 0 )
+                        if(strpos($fieldValues[0],":"))
                         {
-                            $this->fieldsvsValue[$value[0]] = $value[1]; 
-                            return true;
+                            $value=explode(":", $fieldValues[0],2);
+                            if ($value[0] == "END" && count($this->fieldsvsValue) > 0 )
+                            {
+                                $this->fieldsvsValue[$value[0]] = $value[1];
+                                return true;
+                            }
+                            else
+                            {
+                                $this->fieldsvsValue[$value[0]] = $value[1];
+                            }
                         }
-                        else
-                        {
-                            $this->fieldsvsValue[$value[0]] = $value[1]; 
-                        }
-                    }while((($fieldValues = fgetcsv($this->csvFilePointer)) !== FALSE));
+                    }while((($fieldValues = fgetcsv($this->filePointer)) !== FALSE));
+                    fclose($this->filePointer);
                 }
                 else if($this->checkFailedRecord)
                 {
@@ -124,9 +132,9 @@ class BulkResponse
                                 return true;
                             }
                         }
-                    }while((($fieldValues = fgetcsv($this->csvFilePointer)) !== FALSE));
+                    }while((($fieldValues = fgetcsv($this->filePointer)) !== FALSE));
                     $this->rowNumber = 0;
-                    fclose($this->csvFilePointer);
+                    fclose($this->filePointer);
                 }
                 else
                 {
@@ -139,7 +147,7 @@ class BulkResponse
                     else
                     {
                         $this->rowNumber = 0;
-                        fclose($this->csvFilePointer);
+                        fclose($this->filePointer);
                     }
                 }
                 
@@ -155,7 +163,7 @@ class BulkResponse
     public function close()
     {
         $this->rowNumber = 0;
-        fclose($this->csvFilePointer);
+        fclose($this->filePointer);
     }
     
     public function __destruct()
