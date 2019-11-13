@@ -178,7 +178,7 @@ class MetaDataAPIHandler extends APIHandler
             $criteria_instance->setIndex($index);
             $criteria_instance->setPattern((string)$index);
             $index++;
-            $criteria_instance->setCriteria("(".$criteria['field'].":".$criteria['comparator'].":".(string)$criteria['value'].")");
+            $criteria_instance->setCriteria("(".$criteria['field'].":".$criteria['comparator'].":".(json_encode($criteria['value'])).")");
         }
         $group_criteria=array();
         if (isset($criteria['group']))

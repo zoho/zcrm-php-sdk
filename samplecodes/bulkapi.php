@@ -254,12 +254,12 @@ class RestClient
                 {
                     while($value->hasNext())
                     {
-                        $record = $fileResponse->next();
+                        $record = $value->next();
                         foreach($record->getData() as $key1=>$value1)
                         {
                             echo "\nKey1\t:".$key1."\tValue1:".$value1."\n";
                         }
-                        //$fileResponse->close();
+                        //$value->close();
                     }
                 }
                 else
@@ -324,12 +324,12 @@ class RestClient
             {
                 while($value->hasNext())
                 {
-                    $record = $fileResponse->next();
+                    $record = $value->next();
                     foreach($record->getData() as $key1=>$value1)
                     {
                         echo "\nKey1\t:".$key1."\tValue1:".$value1."\n";
                     }
-                    //$fileResponse->close();
+                    //$value->close();
                 }
             }
             else
@@ -772,7 +772,7 @@ class RestClient
 
 
 $obj = new RestClient();
-$file_path = "/Users3/Documents/PHPSDK/write";
+$file_path = "/Users/Documents/PHPSDK/write";
 $download_url = "https://download-accl.zoho.com/v2/crm/675/bulk-write/3477586003/3477586003.zip";
 $job_id = "3477586003";
 // $obj->createBulkReadJob("Leads");
