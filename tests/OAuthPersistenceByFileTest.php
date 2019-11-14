@@ -9,19 +9,17 @@ use zcrmsdk\oauth\persistence\ZohoOAuthPersistenceByFile;
 class ZohoOAuthPersistenceByFileTest extends TestCase {
 
     private $config;
-    static $tokenfile = '/var/tmp/zcrm/zcrm_oauthtokens.txt';
     private $persist;
+    static $tokenfile = __DIR__ . '/zcrm_oauthtokens.txt';
 
     public function setUp(): void
     {
-        $this->config['currentUserEmail'] = 'example@example.com';
+        $this->config['currentUserEmail'] = 'example@zoho.com';
         $this->config['token_persistence_path'] = dirname(self::$tokenfile) . '/';
-        if (!file_exists($this->config['token_persistence_path'])) {
-            mkdir($this->config['token_persistence_path'], 0777, true);
-        }
         ZohoOAuth::initialize($this->config);
 
         $this->persist = new ZohoOAuthPersistenceByFile();
+        self::$tokenfile = $this->persist->tokenfile;
     }
 
     public static function tearDownAfterClass(): void

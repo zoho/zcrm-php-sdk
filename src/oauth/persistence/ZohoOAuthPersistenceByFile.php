@@ -10,13 +10,11 @@ use zcrmsdk\oauth\utility\ZohoOAuthTokens;
 class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface
 {
 
-    private $path;
-    private $tokenfile;
+    public $tokenfile;
 
     public function __construct()
     {
-        $this->path = trim(ZohoOAuth::getConfigValue('token_persistence_path'));
-        $this->tokenfile = $this->path . '/zcrm_oauthtokens.txt';
+        $this->tokenfile = trim(ZohoOAuth::getConfigValue('token_persistence_path')) . '/zcrm_oauthtokens.txt';
     }
 
     /**
@@ -29,9 +27,9 @@ class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface
         $realfile = realpath($this->tokenfile);
         $realpath = realpath(dirname($this->tokenfile));
         if ($realpath === false) {
-            $msg = "Exception occured while Getting OAuthTokens to path(file::ZohoOAuthPersistenceByFile): Token path not found ({$this->path})";
+            $msg = "Exception occured while Getting OAuthTokens to path(file::ZohoOAuthPersistenceByFile): Token path not found ({$realpath})";
             Logger::severe($msg);
-            throw new \Exception($msg);
+            throw ZohoOAuthException($msg);
         }
 
         if ($realfile !== false && is_readable($realfile)) {
@@ -55,7 +53,7 @@ class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface
         if (($res = file_put_contents($this->tokenfile, serialize($array))) === false) {
             $msg = "Exception occured while Getting OAuthTokens to path(file::ZohoOAuthPersistenceByFile): Write failed to ({$this->tokenfile})";
             Logger::severe($msg);
-            throw Exception($msg);
+            throw ZohoOAuthException($msg);
         }
         return $res;
     }
