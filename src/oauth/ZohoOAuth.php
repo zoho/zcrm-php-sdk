@@ -136,27 +136,48 @@ class ZohoOAuth
     public static function getPersistenceHandlerInstance()
     {
         try {
-            if(ZohoOAuth::getConfigValue("token_persistence_path")!=""){
+            if(self::getConfigValue('token_persistence_path') !== ''){
                 return new ZohoOAuthPersistenceByFile() ;
             }
-            else if(self::$configProperties[ZohoOAuthConstants::PERSISTENCE_HANDLER_CLASS] == "ZohoOAuthPersistenceHandler"){
+
+            $handlerClass = self::$configProperties[ZohoOAuthConstants::PERSISTENCE_HANDLER_CLASS];
+            if($handlerClass === 'ZohoOAuthPersistenceHandler'){
                 return new ZohoOAuthPersistenceHandler();
             }
-            else{
-                require_once  realpath(self::$configProperties[ZohoOAuthConstants::PERSISTENCE_HANDLER_CLASS]);
-                $str=self::$configProperties[ZohoOAuthConstants::PERSISTENCE_HANDLER_CLASS_NAME];
-                return new $str();
+
+            if(!empty($handlerClass)) {
+                /** @noinspection RealpathInStreamContextInspection */
+                require_once  realpath($handlerClass);
             }
+
+            $classReference = self::$configProperties[ZohoOAuthConstants::PERSISTENCE_HANDLER_CLASS_NAME];
+
+            if(is_callable($classReference)) {
+                return $classReference();
+            }
+
+            if(is_object($classReference)) {
+                return $classReference;
+            }
+
+            if(is_string($classReference)) {
+                return new $classReference();
+            }
+
+            $message = sprintf('"%s" must be either a string, callable or object. "%s" was given',
+                ZohoOAuthConstants::PERSISTENCE_HANDLER_CLASS_NAME, gettype($classReference));
+
+            throw new \InvalidArgumentException($message, 1573733414);
         } catch (Exception $ex) {
             throw new ZohoOAuthException($ex);
         }
     }
-    
+
     public static function getClientInstance()
     {
         if (ZohoOAuthClient::getInstanceWithOutParam() == null) {
             throw new ZohoOAuthException("ZCRMRestClient::initialize(\$configMap) must be called before this.");
-            
+
         }
         return ZohoOAuthClient::getInstanceWithOutParam();
     }
