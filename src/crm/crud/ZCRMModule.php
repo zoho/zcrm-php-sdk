@@ -1079,11 +1079,12 @@ class ZCRMModule
      * @param number $startIndex start index of the record to be obtained (default is 1)
      * @param number $endIndex end index of the record to be obtained (default is 200)
      * @param string $headers DateTime(ISO8601 format) to display records which are modified after the given input datetime (String)
+     * @param string[] $customParams Associative array of key => value pairs to put in the URL query parameters
      * @return BulkAPIResponse instance of the BulkAPIResponse class which holds the Bulk API response.
      */
-    public function getRecords($cvId = null, $sortByField = null, $sortOrder = null, $startIndex = 1, $endIndex = 200, $headers = null)
+    public function getRecords($cvId = null, $sortByField = null, $sortOrder = null, $startIndex = 1, $endIndex = 200, $headers = null, $customParams = null)
     {
-        return MassEntityAPIHandler::getInstance($this)->getRecords($cvId, $sortByField, $sortOrder, $startIndex, $endIndex, $headers);
+        return MassEntityAPIHandler::getInstance($this)->getRecords($cvId, $sortByField, $sortOrder, $startIndex, $endIndex, $headers, $customParams);
     }
     
     /**

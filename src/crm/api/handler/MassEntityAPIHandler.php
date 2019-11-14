@@ -270,7 +270,7 @@ class MassEntityAPIHandler extends APIHandler
         $trashRecordInstance->setDeletedTime($recordProperties['deleted_time']);
     }
     
-    public function getRecords($cvId, $sortByField, $sortOrder, $page, $perPage, $customHeaders)
+    public function getRecords($cvId, $sortByField, $sortOrder, $page, $perPage, $customHeaders, $customParams)
     {
         try {
             $this->urlPath = $this->module->getAPIName();
@@ -293,6 +293,12 @@ class MassEntityAPIHandler extends APIHandler
             $this->addParam("page", $page );
             $this->addParam("per_page", $perPage );
             
+            if (is_array($customParams) and 0 < count($customParams)) {
+                foreach ($customParams as $key => $value) {
+                    $this->addParam($key, $value);
+                }
+            }
+
             $responseInstance = APIRequest::getInstance($this)->getBulkAPIResponse();
             $responseJSON = $responseInstance->getResponseJSON();
             $records = $responseJSON["data"];
