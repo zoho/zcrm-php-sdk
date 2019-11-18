@@ -116,8 +116,10 @@ class ZohoOAuthClient
     {
         $oAuthTokens = new ZohoOAuthTokens();
         $expiresIn = $responseObj[ZohoOAuthConstants::EXPIRES_IN];
+        if(!array_key_exists(ZohoOAuthConstants::EXPIRES_IN_SEC,$responseObj)){
+            $expiresIn=$expiresIn*1000;
+        }
         $oAuthTokens->setExpiryTime($oAuthTokens->getCurrentTimeInMillis() + $expiresIn);
-        
         $accessToken = $responseObj[ZohoOAuthConstants::ACCESS_TOKEN];
         $oAuthTokens->setAccessToken($accessToken);
         if (array_key_exists(ZohoOAuthConstants::REFRESH_TOKEN, $responseObj)) {
