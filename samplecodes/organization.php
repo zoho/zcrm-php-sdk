@@ -15,9 +15,7 @@ class Org
 
     public function __construct()
     {
-        $configuration = [
-            
-        ];
+        $configuration = [];
         ZCRMRestClient::initialize($configuration);
     }
 
@@ -88,8 +86,10 @@ class Org
 
     public function getAllUsers()
     {
-        $orgIns = ZCRMOrganization::getInstance("{org_name}", "{org_id}"); // to get the organization instance
-        $response = $orgIns->getAllUsers(); // to get all the user
+        $orgIns = ZCRMOrganization::getInstance(); // to get the organization instance
+        $param_map=array("page"=>"20","per_page"=>"200"); // key-value pair containing all the parameters - optional
+        $header_map = array("if-modified-since"=>"2019-11-10T15:26:49+05:30"); // key-value pair containing all the headers - optional
+        $response = $orgIns->getAllUsers($param_map,$header_map); // to get all the user
         $userInstances = $response->getData(); // to get the array of users in form of ZCRMUser instances
         foreach ($userInstances as $userInstance) {
             echo $userInstance->getId(); // to get the user id
@@ -150,7 +150,9 @@ class Org
     public function getAllActiveUsers()
     {
         $orgIns = ZCRMOrganization::getInstance("{org_name}", "{org_id}"); // to get the organization instance
-        $response = $orgIns->getAllActiveUsers(); // to get all the active users
+        $param_map=array("page"=>"20","per_page"=>"200"); // key-value pair containing all the parameters - optional
+        $header_map = array("if-modified-since"=>"2019-11-10T15:26:49+05:30"); // key-value pair containing all the headers - optional
+        $response = $orgIns->getAllActiveUsers($param_map,$header_map); // to get all the active users
         $userInstances = $response->getData(); // to get the array of users in form of ZCRMUser instances
         foreach ($userInstances as $userInstance) {
             echo $userInstance->getId(); // to get the user id
@@ -211,7 +213,9 @@ class Org
     public function getAllDeactiveUsers()
     {
         $orgIns = ZCRMOrganization::getInstance("{org_name}", "{org_id}"); // to get the organization instance
-        $response = $orgIns->getAllDeactiveUsers(); // to get all the deactivated users
+        $param_map=array("page"=>"20","per_page"=>"200"); // key-value pair containing all the parameters - optional
+        $header_map = array("if-modified-since"=>"2019-11-10T15:26:49+05:30"); // key-value pair containing all the headers - optional
+        $response = $orgIns->getAllDeactiveUsers($param_map,$header_map); // to get all the deactivated users
         $userInstances = $response->getData(); // to get the array of users in form of ZCRMUser instances
         foreach ($userInstances as $userInstance) {
             echo $userInstance->getId(); // to get the user id
@@ -272,7 +276,9 @@ class Org
     public function getAllConfirmedUsers()
     {
         $orgIns = ZCRMOrganization::getInstance("{org_name}", "{org_id}"); // to get the organization instance
-        $response = $orgIns->getAllConfirmedUsers(); // to get all the confirmer users
+        $param_map=array("page"=>"20","per_page"=>"200"); // key-value pair containing all the parameters - optional
+        $header_map = array("if-modified-since"=>"2019-11-10T15:26:49+05:30"); // key-value pair containing all the headers - optional
+        $response = $orgIns->getAllConfirmedUsers($param_map,$header_map); // to get all the confirmer users
         $userInstances = $response->getData(); // to get the array of users in form of ZCRMUser instances
         foreach ($userInstances as $userInstance) {
             echo $userInstance->getId(); // to get the user id
@@ -333,7 +339,9 @@ class Org
     public function getAllNotConfirmedUsers()
     {
         $orgIns = ZCRMOrganization::getInstance("{org_name}", "{org_id}"); // to get the organization instance
-        $response = $orgIns->getAllNotConfirmedUsers(); // to get all the unconfirmed users
+        $param_map=array("page"=>"20","per_page"=>"200"); // key-value pair containing all the parameters - optional
+        $header_map = array("if-modified-since"=>"2019-11-10T15:26:49+05:30"); // key-value pair containing all the headers - optional
+        $response = $orgIns->getAllNotConfirmedUsers($param_map,$header_map); // to get all the unconfirmed users
         $userInstances = $response->getData(); // to get the array of users in form of ZCRMUser instances
         foreach ($userInstances as $userInstance) {
             echo $userInstance->getId(); // to get the user id
@@ -394,7 +402,9 @@ class Org
     public function getAllDeletedUsers()
     {
         $orgIns = ZCRMOrganization::getInstance("{org_name}", "{org_id}"); // to get the organization instance
-        $response = $orgIns->getAllDeletedUsers(); // to get all the deleted users
+        $param_map=array("page"=>"20","per_page"=>"200"); // key-value pair containing all the parameters - optional
+        $header_map = array("if-modified-since"=>"2019-11-10T15:26:49+05:30"); // key-value pair containing all the headers - optional
+        $response = $orgIns->getAllDeletedUsers($param_map,$header_map); // to get all the deleted users
         $userInstances = $response->getData(); // to get the array of users in form of ZCRMUser instances
         foreach ($userInstances as $userInstance) {
             echo $userInstance->getId(); // to get the user id
@@ -455,7 +465,9 @@ class Org
     public function getAllActiveConfirmedUsers()
     {
         $orgIns = ZCRMOrganization::getInstance("{org_name}", "{org_id}"); // to get the organization instance
-        $response = $orgIns->getAllActiveConfirmedUsers(); // to get all the active and confirmed users
+        $param_map=array("page"=>"20","per_page"=>"200"); // key-value pair containing all the parameters - optional
+        $header_map = array("if-modified-since"=>"2019-11-10T15:26:49+05:30"); // key-value pair containing all the headers - optional
+        $response = $orgIns->getAllActiveConfirmedUsers($param_map,$header_map); // to get all the active and confirmed users
         $userInstances = $response->getData(); // to get the array of users in form of ZCRMUser instances
         foreach ($userInstances as $userInstance) {
             echo $userInstance->getId(); // to get the user id
@@ -516,7 +528,9 @@ class Org
     public function getAllAdminUsers()
     {
         $orgIns = ZCRMOrganization::getInstance("{org_name}", "{org_id}"); // to get the organization instance
-        $response = $orgIns->getAllAdminUsers(); // to get all the administrators
+        $param_map=array("page"=>"20","per_page"=>"200"); // key-value pair containing all the parameters - optional
+        $header_map = array("if-modified-since"=>"2019-11-10T15:26:49+05:30"); // key-value pair containing all the headers - optional
+        $response = $orgIns->getAllAdminUsers($param_map,$header_map); // to get all the administrators
         $userInstances = $response->getData(); // to get the array of users in form of ZCRMUser instances
         foreach ($userInstances as $userInstance) {
             echo $userInstance->getId(); // to get the user id
@@ -577,7 +591,9 @@ class Org
     public function getAllActiveConfirmedAdmins()
     {
         $orgIns = ZCRMOrganization::getInstance("{org_name}", "{org_id}"); // to get the organization instance
-        $response = $orgIns->getAllActiveConfirmedAdmins(); // to get all the confirmed administrators
+        $param_map=array("page"=>"20","per_page"=>"200"); // key-value pair containing all the parameters - optional
+        $header_map = array("if-modified-since"=>"2019-11-10T15:26:49+05:30"); // key-value pair containing all the headers - optional
+        $response = $orgIns->getAllActiveConfirmedAdmins($param_map,$header_map); // to get all the confirmed administrators
         $userInstances = $response->getData(); // to get the array of users in form of ZCRMUser instances
         foreach ($userInstances as $userInstance) {
             echo $userInstance->getId(); // to get the user id
@@ -638,6 +654,7 @@ class Org
     public function getCurrentUser()
     {
         $orgIns = ZCRMOrganization::getInstance("{org_name}", "{org_id}"); // to get the organization instance
+        
         $response = $orgIns->getCurrentUser(); // to get the current user
         $userInstance = $response->getData(); // to get the user in form of ZCRMUser instance
         echo $userInstance->getId(); // to get the user id
@@ -956,7 +973,8 @@ class Org
     public function searchUsersByCriteria()
     {
         $orgIns = ZCRMOrganization::getInstance("{org_name}", "{org_id}"); // to get the organization instance
-        $userInstances = $orgIns->searchUsersByCriteria("{criteria}", "{type}")->getData(); // to get the users of the organization based on criteria and type of the user(active,deleted,etc)
+        $param_map=array("page"=>"1","per_page"=>"200"); // key-value pair containing all the parameters - optional
+        $userInstances = $orgIns->searchUsersByCriteria("{criteria}", $param_map)->getData(); // to get the users of the organization based on criteria 
         foreach ($userInstances as $userInstance) {
             echo $userInstance->getId(); // to get the user id
             echo $userInstance->getCountry(); // to get the country of the user
@@ -1015,5 +1033,5 @@ class Org
 }
 
 $ob1 = new Org();
-$ob1->searchUserByCriteria();
+$ob1->searchUsersByCriteria();
 ?>

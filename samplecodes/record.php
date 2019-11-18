@@ -125,7 +125,9 @@ class Record
     public function getRelatedListRecords()
     {
         $record = ZCRMRestClient::getInstance()->getRecordInstance("{module_api_name}", "{record_id}"); // To get record instance
-        $relatedlistrecords = $record->getRelatedListRecords("Attachments")->getData(); // to get the related list records in form of ZCRMRecord instance
+        $param_map=array("page"=>"1","per_page"=>"200"); // key-value pair containing all the parameters - optional
+        $header_map = array("if-modified-since"=>"2019-10-10T15:26:49+05:30"); // key-value pair containing all the headers - optional
+        $relatedlistrecords = $record->getRelatedListRecords("Attachments",$param_map,$header_map)->getData(); // to get the related list records in form of ZCRMRecord instance
 
         foreach ($relatedlistrecords as $relatedlistrecord) {
             echo $relatedlistrecord->getEntityId(); // to get the entity id
@@ -243,7 +245,9 @@ class Record
     public function getNotes()
     {
         $record = ZCRMRestClient::getInstance()->getRecordInstance("{module_api_name}", "{record_id}"); // To get record instance
-        $notes = $record->getNotes()->getData(); // to get the notes in form of ZCRMNote instances array
+        $param_map=array("page"=>"1","per_page"=>"200"); // key-value pair containing all the parameters - optional
+        $header_map = array("if-modified-since"=>"2019-12-12T15:26:49+05:30"); // key-value pair containing all the headers - optional
+        $notes = $record->getNotes($param_map,$header_map)->getData(); // to get the notes in form of ZCRMNote instances array
         foreach ($notes as $note) {
 
             echo "\n";
@@ -339,8 +343,10 @@ class Record
 
     public function getAttachments()
     {
-        $records = ZCRMRestClient::getInstance()->getRecordInstance("{module_api_name}", "{record_id}"); // To get record instance
-        $responseIns = $records->getAttachments(1, 50); // to get the attachments
+        $record = ZCRMRestClient::getInstance()->getRecordInstance("{module_api_name}", "{record_id}"); // To get record instance
+        $param_map=array("page"=>"1","per_page"=>"200"); // key-value pair containing all the parameters - optional
+        $header_map = array("if-modified-since"=>"2019-12-12T15:26:49+05:30"); // key-value pair containing all the headers - optional
+        $responseIns = $record->getAttachments($param_map, $header_map); // to get the attachments
         $attachments = $responseIns->getData(); // to get the attachments in form of ZCRMAttachment instance array
         foreach ($attachments as $attchmentIns) {
             echo $attchmentIns->getId(); // To get the note's attachment id
@@ -505,5 +511,5 @@ class Record
 
 $obj = new Record();
 
-$obj->create();
+$obj->getNotes();
 ?>

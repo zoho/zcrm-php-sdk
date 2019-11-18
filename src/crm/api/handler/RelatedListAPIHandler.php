@@ -39,20 +39,19 @@ class RelatedListAPIHandler extends APIHandler
         return new RelatedListAPIHandler($parentRecord, $relatedList);
     }
     
-    public function getRecords($sortByField, $sortOrder, $page, $perPage)
+    public function getRecords($param_map, $header_map)
     {
         try {
             $this->urlPath = $this->parentRecord->getModuleApiName() . "/" . $this->parentRecord->getEntityId() . "/" . $this->relatedList->getApiName();
             $this->requestMethod = APIConstants::REQUEST_METHOD_GET;
+            foreach($param_map as $key=>$value){
+                if($value!=null)$this->addParam($key,$value);
+            }
+            foreach($header_map as $key=>$value){
+                if($value!=null)$this->addHeader($key,$value);
+            }
             $this->addHeader("Content-Type", "application/json");
-            if ($sortByField != null) {
-                $this->addParam("sort_by", $sortByField);
-            }
-            if ($sortOrder != null) {
-                $this->addParam("sort_order", $sortOrder);
-            }
-            $this->addParam("page", $page);
-            $this->addParam("per_page", $perPage);
+            
             
             $responseInstance = APIRequest::getInstance($this)->getBulkAPIResponse();
             $responseJSON = $responseInstance->getResponseJSON();
@@ -73,21 +72,18 @@ class RelatedListAPIHandler extends APIHandler
         }
     }
     
-    public function getNotes($sortByField, $sortOrder, $page, $perPage)
+    public function getNotes($param_map, $header_map)
     {
         try {
             $this->urlPath = $this->parentRecord->getModuleApiName() . "/" . $this->parentRecord->getEntityId() . "/" . $this->relatedList->getApiName();
             $this->requestMethod = APIConstants::REQUEST_METHOD_GET;
+            foreach($param_map as $key=>$value){
+                if($value!=null)$this->addParam($key,$value);
+            }
+            foreach($header_map as $key=>$value){
+                if($value!=null)$this->addHeader($key,$value);
+            }
             $this->addHeader("Content-Type", "application/json");
-            $this->addParam("page", $page);
-            $this->addParam("per_page", $perPage);
-            if ($sortByField != null) {
-                $this->addParam("sort_by", $sortByField);
-            }
-            if ($sortOrder != null) {
-                $this->addParam("sort_order", $sortOrder);
-            }
-            
             $responseInstance = APIRequest::getInstance($this)->getBulkAPIResponse();
             $responseJSON = $responseInstance->getResponseJSON();
             $notes = $responseJSON["data"];
@@ -105,15 +101,15 @@ class RelatedListAPIHandler extends APIHandler
         }
     }
     
-    public function getAttachments($page, $perPage)
+    public function getAttachments($param_map)
     {
         try {
             $this->urlPath = $this->parentRecord->getModuleApiName() . "/" . $this->parentRecord->getEntityId() . "/" . $this->relatedList->getApiName();
             $this->requestMethod = APIConstants::REQUEST_METHOD_GET;
+            foreach($param_map as $key=>$value){
+                if($value!=null)$this->addParam($key,$value);
+            }
             $this->addHeader("Content-Type", "application/json");
-            $this->addParam("page", $page);
-            $this->addParam("per_page", $perPage);
-            
             $responseInstance = APIRequest::getInstance($this)->getBulkAPIResponse();
             $responseJSON = $responseInstance->getResponseJSON();
             $attachments = $responseJSON["data"];

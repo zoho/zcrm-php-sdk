@@ -6,9 +6,7 @@ use zcrmsdk\crm\crud\ZCRMTag;
 use zcrmsdk\crm\crud\ZCRMTax;
 use zcrmsdk\crm\exception\ZCRMException;
 use zcrmsdk\crm\setup\restclient\ZCRMRestClient;
-
-
-
+require_once __DIR__ . '/../vendor/autoload.php';
 class Module
 {
 
@@ -378,7 +376,8 @@ class Module
     public function getAllCustomViews()
     {
         $moduleIns = ZCRMRestClient::getInstance()->getModuleInstance("{module_api_name}"); // To get module instance
-        $response = $moduleIns->getAllCustomViews(); // to get all the custom views
+        $param_map = array("page"=>"5","per_page"=>"10");//parameters to be passed
+        $response = $moduleIns->getAllCustomViews($param_map); // to get all the custom views /$param_map - optional
         $customViews = $response->getData(); // to get the custom view in form of ZCRMCustomView
         foreach ($customViews as $customView) {
             echo $customView->getDisplayValue(); // to get the display value of the custom view
@@ -462,7 +461,9 @@ class Module
     public function getRecords()
     {
         $moduleIns = ZCRMRestClient::getInstance()->getModuleInstance("{module_api_name}"); // To get module instance
-        $response = $moduleIns->getRecords("{custom_view_id}", "{field_api_name(to sort by)}", "{sort_order}", (start_index), (end_index), (customHeaders)); // to get the records(parameter - custom_view_id,field_api_name,sort_order,customHeaders is optional and can be given null if not required), customheader is a keyvalue pair for eg("if-modified-since"=>"2008-09-15T15:53:00")
+        $param_map=array("page"=>10,"per_page"=>10); // key-value pair containing all the parameters - optional
+        $header_map = array("if-modified-since"=>"2019-11-15T15:26:49+05:30"); // key-value pair containing all the headers - optional
+        $response = $moduleIns->getRecords($param_map,$header_map); // to get the records($param_map - parameter map,$header_map - header map
         $records = $response->getData(); // To get response data
 
         try {
@@ -577,7 +578,7 @@ class Module
                     echo $tag->getId();
                     echo $tag->getName();
                 }
-                /* End Event */
+//                 /* End Event */
             }
         } catch (ZCRMException $ex) {
             echo $ex->getMessage(); // To get ZCRMException error message
@@ -712,13 +713,12 @@ class Module
         }
     }
 
-    public function searchRecords()
+    public function searchRecordsByWord()
     {
         $moduleIns = ZCRMRestClient::getInstance()->getModuleInstance("{module_api_name}"); // To get module instance
-        $searchWord="word_to_search";//word to search for
-        $page=5;//page number
-        $perPage=200;//records per page
-        $response = $moduleIns->searchRecords($searchWord, $page , $perPage ); // To get module records// $searchWord word to be searched// $page to get the list of records from the respective pages. Default value for page is 1.// $perPage To get the list of records available per page. Default value for per page is 200.
+        $searchWord="automated";//word to search for
+        $param_map=array("page"=>1,"per_page"=>1); // key-value pair containing all the parameters
+        $response = $moduleIns->searchRecordsByWord($searchWord,$param_map) ;// To get module records// $searchWord word to be searched// $param_map-parameters key-value pair - optional
         $records = $response->getData(); // To get response data
         try {
             foreach ($records as $record) {
@@ -774,7 +774,7 @@ class Module
                     }
                 }
                 $layouts = $record->getLayout(); // To get record layout
-                echo $layouts->getId(); // To get layout_id
+//                 echo $layouts->getId(); // To get layout_id
                 echo $layouts->getName(); // To get layout name
 
                 $taxlists = $record->getTaxList(); // To get the tax list
@@ -836,9 +836,8 @@ class Module
     {
         $moduleIns = ZCRMRestClient::getInstance()->getModuleInstance("{module_api_name}"); // To get module instance
         $phone=313213;//phone number to search for
-        $page=5;//page number
-        $perPage=200;//records per page
-        $response = $moduleIns->searchRecordsByPhone($phone, $page, $perPage); // To get module records// $searchWord word to be searched// $page to get the list of records from the respective pages. Default value for page is 1.// $perPage To get the list of records available per page. Default value for per page is 200.
+        $param_map=array("page"=>1,"per_page"=>1); // key-value pair containing all the parameters
+        $response = $moduleIns->searchRecordsByPhone($phone,$param_map) ;// To get module records// $phone phone to be searched// $param_map-parameters key-value pair - optional
         $records = $response->getData(); // To get response data
         try {
             foreach ($records as $record) {
@@ -955,12 +954,11 @@ class Module
     public function searchRecordsByEmail()
     {
         $moduleIns = ZCRMRestClient::getInstance()->getModuleInstance("{module_api_name}"); // To get module instance
-        $email="emailid";//email id  to search for
-        $page=5;//page number
-        $perPage=200;//records per page
-        $response = $moduleIns->searchRecordsByEmail($email, $page, $perPage); // To get module records//$searchWord word to be searched//$page to get the list of records from the respective pages. Default value for page is 1.//$perPage To get the list of records available per page. Default value for per page is 200.
-        $records = $response->getData(); // To get response data
+        $email="email_id";//email id  to search for
+        $param_map=array("page"=>1,"per_page"=>1); // key-value pair containing all the parameters
         try {
+            $response = $moduleIns->searchRecordsByEmail($email,$param_map) ;// To get module records// $email email id  to search for// $param_map-parameters key-value pair - optional
+            $records = $response->getData(); // To get response data
             foreach ($records as $record) {
                 echo "\n\n";
                 echo $record->getEntityId(); // To get record id
@@ -1076,9 +1074,8 @@ class Module
     {
         $moduleIns = ZCRMRestClient::getInstance()->getModuleInstance("{module_api_name}"); // To get module instance
         $criteria="criteria";//criteria to search for
-        $page=5;//page number
-        $perPage=200;//records per page
-        $response = $moduleIns->searchRecordsByCriteria($criteria, $page, $perPage); // To get module records//string $searchWord word to be searched//number $page to get the list of records from the respective pages. Default value for page is 1.//number $perPage To get the list of records available per page. Default value for per page is 200.
+        $param_map=array("page"=>1,"per_page"=>1); // key-value pair containing all the parameters
+        $response = $moduleIns->searchRecordsByCriteria($criteria,$param_map) ;// To get module records// $criteria to search for  to search for// $param_map-parameters key-value pair - optional
         $records = $response->getData(); // To get response data
         try {
             foreach ($records as $record) {
@@ -1365,7 +1362,9 @@ class Module
     public function getAllDeletedRecords()
     {
         $moduleIns = ZCRMRestClient::getInstance()->getModuleInstance("{module_api_name}"); // to get the instance of the module
-        $trashRecords = $moduleIns->getAllDeletedRecords()->getData(); // to get the trashrecords inform of ZCRMTrashRecord array instances
+        $param_map=array("page"=>"20","per_page"=>"200"); // key-value pair containing all the parameters - optional
+        $header_map = array("if-modified-since"=>"2019-11-10T15:26:49+05:30"); // key-value pair containing all the headers - optional
+        $trashRecords = $moduleIns->getAllDeletedRecords($param_map,$header_map)->getData(); // to get the trashrecords inform of ZCRMTrashRecord array instances/$param_map - parameter map, $header_map - header_map
         foreach ($trashRecords as $trashrecord) {
             echo $trashrecord->getEntityId(); // to get the entity if of the trash record
             echo $trashrecord->getDisplayName(); // to get the display name if the trash record
@@ -1375,7 +1374,9 @@ class Module
     public function getRecycleBinRecords()
     {
         $moduleIns = ZCRMRestClient::getInstance()->getModuleInstance("{module_api_name}"); // to get the instance of the module
-        $trashRecords = $moduleIns->getRecycleBinRecords()->getData(); // to get the trashrecords inform of ZCRMTrashRecord array instances
+        $param_map=array("page"=>"20","per_page"=>"200"); // key-value pair containing all the parameters - optional
+        $header_map = array("if-modified-since"=>"2019-11-10T15:26:49+05:30"); // key-value pair containing all the headers - optional
+        $trashRecords = $moduleIns->getRecycleBinRecords($param_map,$header_map)->getData(); // to get the trashrecords inform of ZCRMTrashRecord array instances/$param_map - parameter map, $header_map - header_map
         foreach ($trashRecords as $trashrecord) {
             echo $trashrecord->getEntityId(); // to get the entity if of the trash record
             echo $trashrecord->getDisplayName(); // to get the display name if the trash record
@@ -1385,7 +1386,9 @@ class Module
     public function getPermanentlyDeletedRecords()
     {
         $moduleIns = ZCRMRestClient::getInstance()->getModuleInstance("{module_api_name}"); // to get the instance of the module
-        $trashRecords = $moduleIns->getPermanentlyDeletedRecords()->getData(); // to get the trashrecords inform of ZCRMTrashRecord array instances
+        $param_map=array("page"=>"20","per_page"=>"200"); // key-value pair containing all the parameters - optional
+        $header_map = array("if-modified-since"=>"2019-11-10T15:26:49+05:30"); // key-value pair containing all the headers - optional
+        $trashRecords = $moduleIns->getPermanentlyDeletedRecords($param_map,$header_map)->getData(); // to get the trashrecords inform of ZCRMTrashRecord array instances/$param_map - parameter map, $header_map - header_map
         foreach ($trashRecords as $trashrecord) {
             echo $trashrecord->getEntityId(); // to get the entity if of the trash record
             echo $trashrecord->getDisplayName(); // to get the display name if the trash record
@@ -1484,5 +1487,5 @@ class Module
 }
 
 $obj = new Module();
-$obj->searchRecordsByEmail();
+$obj->getPermanentlyDeletedRecords();
 ?>

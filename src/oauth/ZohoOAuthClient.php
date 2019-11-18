@@ -115,9 +115,13 @@ class ZohoOAuthClient
     private function getTokensFromJSON($responseObj)
     {
         $oAuthTokens = new ZohoOAuthTokens();
-        $expiresIn = $responseObj[ZohoOAuthConstants::EXPIRES_IN];
+        if(array_key_exists("expires_in_sec", $responseObj)){
+            $expiresIn = $responseObj[ZohoOAuthConstants::EXPIRES_IN];
+        }
+        else{
+            $expiresIn = $responseObj[ZohoOAuthConstants::EXPIRES_IN]*1000;
+        }
         $oAuthTokens->setExpiryTime($oAuthTokens->getCurrentTimeInMillis() + $expiresIn);
-        
         $accessToken = $responseObj[ZohoOAuthConstants::ACCESS_TOKEN];
         $oAuthTokens->setAccessToken($accessToken);
         if (array_key_exists(ZohoOAuthConstants::REFRESH_TOKEN, $responseObj)) {

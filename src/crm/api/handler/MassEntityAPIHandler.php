@@ -210,29 +210,34 @@ class MassEntityAPIHandler extends APIHandler
         }
     }
     
-    public function getAllDeletedRecords()
+    public function getAllDeletedRecords($param_map,$header_map)
     {
-        return self::getDeletedRecords("all");
+        return self::getDeletedRecords($param_map,$header_map,"all");
     }
     
-    public function getRecycleBinRecords()
+    public function getRecycleBinRecords($param_map,$header_map)
     {
-        return self::getDeletedRecords("recycle");
+        return self::getDeletedRecords($param_map,$header_map,"recycle");
     }
     
-    public function getPermanentlyDeletedRecords()
+    public function getPermanentlyDeletedRecords($param_map,$header_map)
     {
-        return self::getDeletedRecords("permanent");
+        return self::getDeletedRecords($param_map,$header_map,"permanent");
     }
     
-    private function getDeletedRecords($type)
+    private function getDeletedRecords($param_map,$header_map,$type)
     {
         try {
             $this->urlPath = $this->module->getAPIName() . "/deleted";
             $this->requestMethod = APIConstants::REQUEST_METHOD_GET;
+            foreach($param_map as $key=>$value){
+                if($value!=null)$this->addParam($key,$value);
+            }
+            foreach($header_map as $key=>$value){
+                if($value!=null)$this->addHeader($key,$value);
+            }
             $this->addHeader("Content-Type", "application/json");
             $this->addParam("type", $type);
-            
             $responseInstance = APIRequest::getInstance($this)->getBulkAPIResponse();
             $responseJSON = $responseInstance->getResponseJSON();
             $trashRecords = $responseJSON["data"];
@@ -270,29 +275,18 @@ class MassEntityAPIHandler extends APIHandler
         $trashRecordInstance->setDeletedTime($recordProperties['deleted_time']);
     }
     
-    public function getRecords($cvId, $sortByField, $sortOrder, $page, $perPage, $customHeaders)
+    public function getRecords($param_map,$header_map)
     {
         try {
             $this->urlPath = $this->module->getAPIName();
             $this->requestMethod = APIConstants::REQUEST_METHOD_GET;
+            foreach ($param_map as $key => $value) {
+                if($value!==null)$this->addParam($key, $value);
+            }
+            foreach ($header_map as $key => $value) {
+                if($value!==null)$this->addHeader($key, $value);
+            }
             $this->addHeader("Content-Type", "application/json");
-            if ($customHeaders != null) {
-                foreach ($customHeaders as $key => $value) {
-                    $this->addHeader($key, $value);
-                }
-            }
-            if ($cvId != null) {
-                $this->addParam("cvid", $cvId );
-            }
-            if ($sortByField != null) {
-                $this->addParam("sort_by", $sortByField);
-            }
-            if ($sortOrder != null) {
-                $this->addParam("sort_order", $sortOrder);
-            }
-            $this->addParam("page", $page );
-            $this->addParam("per_page", $perPage );
-            
             $responseInstance = APIRequest::getInstance($this)->getBulkAPIResponse();
             $responseJSON = $responseInstance->getResponseJSON();
             $records = $responseJSON["data"];
@@ -312,28 +306,23 @@ class MassEntityAPIHandler extends APIHandler
         }
     }
     
-    public function searchRecords($searchWord, $page, $perPage, $type)
+    public function searchRecords($param_map,$type,$search_value)
     {
         try {
             $this->urlPath = $this->module->getAPIName() . "/search";
             $this->requestMethod = APIConstants::REQUEST_METHOD_GET;
-            $this->addHeader("Content-Type", "application/json");
-            switch ($type) {
-                case "word":
-                    $this->addParam("word", $searchWord);
-                    break;
-                case "phone":
-                    $this->addParam("phone", $searchWord);
-                    break;
-                case "email":
-                    $this->addParam("email", $searchWord);
-                    break;
-                case "criteria":
-                    $this->addParam("criteria", $searchWord);
-                    break;
+            
+            $exclusion_array = ["word","phone","email","criteria"];
+            foreach($exclusion_array as $exclusion){
+                if($param_map[$exclusion]!==null){
+                    unset($param_map[$exclusion]);
+                }
             }
-            $this->addParam("page", $page + 0);
-            $this->addParam("per_page", $perPage + 0);
+            foreach ($param_map as $key => $value) {
+                if($value!==null)$this->addParam($key, $value);
+            }
+            $this->addParam($type, $search_value);
+            $this->addHeader("Content-Type", "application/json");
             $responseInstance = APIRequest::getInstance($this)->getBulkAPIResponse();
             $responseJSON = $responseInstance->getResponseJSON();
             $records = $responseJSON["data"];

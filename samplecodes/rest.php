@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
 use zcrmsdk\crm\setup\restclient\ZCRMRestClient;
+require_once __DIR__ . '/../vendor/autoload.php';
 
 class RestC
 {
@@ -8,8 +8,6 @@ class RestC
     public function __construct()
     {
         $configuration = [];
-        
-
         ZCRMRestClient::initialize($configuration);
     }
 
