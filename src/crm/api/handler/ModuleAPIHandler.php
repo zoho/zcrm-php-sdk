@@ -169,11 +169,14 @@ class ModuleAPIHandler extends APIHandler
      * Method to get all the custom views of a module
      * Returns api response with array of ZCRMCustomView instances
      */
-    public function getAllCustomViews()
+    public function getAllCustomViews($param_map)
     {
         try {
             $this->urlPath = "settings/custom_views";
             $this->requestMethod = APIConstants::REQUEST_METHOD_GET;
+            foreach($param_map as $key=>$value){
+                if($value!=null)$this->addParam($key,$value);
+            }
             $this->addHeader("Content-Type", "application/json");
             $this->addParam("module", $this->module->getAPIName());
             $responseInstance = APIRequest::getInstance($this)->getBulkAPIResponse();

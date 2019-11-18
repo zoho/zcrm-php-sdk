@@ -647,29 +647,25 @@ class ZCRMRecord
      * Method to get the RelatedList records
      *
      * @param String $relatedListAPIName Api name of the Related List
-     * @param String $sortByField sorts the related list records accoring to the field api name (no sorting by default)
-     * @param String $sortOrder sorts the related list records in ascending-"asc" or descending-"desc" order(no sorting by default)
-     * @param number $page page To get the list of records from the respective pages. Default value for page is 1.
-     * @param number $perPage To get the list of records available per page. Default value for per page is 20.
+     * @param Array $param_map key-value pairs containing parameters 
+     * @param Array $header_map key-value pairs containing headers 
      * @return BulkAPIResponse instance of the BulkAPIResponse class which holds the Bulk API Response
      */
-    public function getRelatedListRecords($relatedListAPIName, $sortByField = null, $sortOrder = null, $page = 1, $perPage = 20)
+    public function getRelatedListRecords($relatedListAPIName, $param_map=array(),$header_map=array())
     {
-        return ZCRMModuleRelation::getInstance($this, $relatedListAPIName)->getRecords($sortByField, $sortOrder, $page, $perPage);
+        return ZCRMModuleRelation::getInstance($this, $relatedListAPIName)->getRecords($param_map,$header_map);
     }
     
     /**
      * Method to get the notes
      *
-     * @param String $sortByField sorts the notes according to the field api name (no sorting by default)
-     * @param String $sortOrder sorts the notes in ascending-"asc" or descending-"desc" order(no sorting by default)
-     * @param number $page page To get the list of notes from the respective pages. Default value for page is 1.
-     * @param number $perPage To get the list of notes available per page. Default value for per page is 20.
+     * @param Array $param_map key-value pairs containing parameters 
+     * @param Array $header_map key-value pairs containing headers 
      * @return BulkAPIResponse instance of the BulkAPIResponse class which holds the Bulk API response.
      */
-    public function getNotes($sortByField = null, $sortOrder = null, $page = 1, $perPage = 20)
+    public function getNotes($param_map=array(),$header_map=array())
     {
-        return ZCRMModuleRelation::getInstance($this, "Notes")->getNotes($sortByField, $sortOrder, $page, $perPage);
+        return ZCRMModuleRelation::getInstance($this, "Notes")->getNotes($param_map,$header_map);
     }
     
     /**
@@ -728,14 +724,12 @@ class ZCRMRecord
     
     /**
      * Method to get the attachments of the record
-     *
-     * @param number $page page To get the list of attachments from the respective pages. Default value for page is 1.
-     * @param number $perPage To get the list of attachments available per page. Default value for per page is 20.
+     * @param Array $param_map key-value pairs containing parameters 
      * @return BulkAPIResponse instance of the BulkAPIResponse class which holds the BulkAPI response.
      */
-    public function getAttachments($page = 1, $perPage = 20)
+    public function getAttachments($param_map = array())
     {
-        return ZCRMModuleRelation::getInstance($this, "Attachments")->getAttachments($page, $perPage);
+        return ZCRMModuleRelation::getInstance($this, "Attachments")->getAttachments($param_map );
     }
     
     /**

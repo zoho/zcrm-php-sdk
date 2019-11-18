@@ -39,6 +39,9 @@ class ZohoHTTPConnector
     public function fireRequest()
     {
         $curl_pointer = curl_init();
+        if(count(self::getRequestParamsMap()) > 0){
+            var_dump(self::getRequestParamsMap());
+        }
         if (is_array(self::getRequestParamsMap()) && count(self::getRequestParamsMap()) > 0) {
             $url = self::getUrl() . "?" . self::getUrlParamsAsString(self::getRequestParamsMap());
             curl_setopt($curl_pointer, CURLOPT_URL, $url);

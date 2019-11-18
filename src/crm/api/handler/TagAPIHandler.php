@@ -24,7 +24,7 @@ class TagAPIHandler extends APIHandler
         return new TagAPIHandler($zcrmmodule);
     }
     
-    public function getTags()
+    public function getTags($param_map,$header_map)
     {
         try
         {

@@ -1,6 +1,8 @@
 <?php
 namespace zcrmsdk\crm\crud;
 
+use zcrmsdk\crm\api\response\BulkAPIResponse;
+
 class ZCRMCustomView
 {
     
@@ -409,15 +411,14 @@ class ZCRMCustomView
     /**
      * Method to get the custom view records
      *
-     * @param String $sortByField sorts the custom view records accoring to the field api name (no sorting by default)
-     * @param String $sortOrder sorts the custom view records in ascending-"asc" or descending-"desc" order(no sorting by default)
-     * @param int $startIndex  index value of the starting custom viewrecord
-     * @param int $endIndex inded value of the ending custom viewrecord
-     * @return ZCRMRecord instance of ZCRMRecord class
+     * @param Array  $param_map key-value pair containing parameter names and the value
+     * @param Array  $header_map key-value pair containing header names and the value
+     * @return BulkAPIResponse instance of the BulkAPIResponse class which holds the Bulk API response.
      */
-    public function getRecords(String $sortByField = null, String $sortOrder = null, $startIndex = 1, $endIndex = 200)
+    public function getRecords($param_map=array(),$header_map=array())
     {
-        return ZCRMModule::getInstance($this->moduleAPIName)->getRecords($this->id, $sortByField, $sortOrder, $startIndex, $endIndex);
+        $param_map['cvid']=$this->id;
+        return ZCRMModule::getInstance($this->moduleAPIName)->getRecords($param_map,$header_map);
     }
     
     /**
