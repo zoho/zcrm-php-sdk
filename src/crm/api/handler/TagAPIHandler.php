@@ -24,7 +24,7 @@ class TagAPIHandler extends APIHandler
         return new TagAPIHandler($zcrmmodule);
     }
     
-    public function getTags($param_map,$header_map)
+    public function getTags()
     {
         try
         {
@@ -464,7 +464,7 @@ class TagAPIHandler extends APIHandler
         }
     }
     
-    function getZCRMTagAsJSON($tag)
+    public function getZCRMTagAsJSON($tag)
     {
         $recordJSON = array();
         if ($tag->getName() != null)

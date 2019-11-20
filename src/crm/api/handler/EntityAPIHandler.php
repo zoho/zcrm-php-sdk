@@ -252,7 +252,7 @@ class EntityAPIHandler extends APIHandler
         }
     }
     
-    function getZCRMRecordAsJSON()
+    public function getZCRMRecordAsJSON()
     {
         $recordJSON = array();
         $apiNameVsValues = $this->record->getData();

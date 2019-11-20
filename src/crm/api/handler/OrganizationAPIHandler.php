@@ -63,6 +63,7 @@ class OrganizationAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     public function createNotes($noteInstances){
         if (sizeof($noteInstances) > 100) {
             throw new ZCRMException(APIConstants::API_MAX_NOTES_MSG, APIConstants::RESPONSECODE_BAD_REQUEST);
@@ -92,6 +93,7 @@ class OrganizationAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     public function deleteNotes($noteIds){
         if (sizeof($noteIds) > 100) {
             throw new ZCRMException(APIConstants::API_MAX_NOTES_MSG, APIConstants::RESPONSECODE_BAD_REQUEST);
@@ -109,6 +111,7 @@ class OrganizationAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     public function getOrganizationDetails()
     {
         try {
@@ -147,6 +150,7 @@ class OrganizationAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     public function getOrganizationTax($orgTaxId)
     {
         try {
@@ -163,6 +167,7 @@ class OrganizationAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     public function createOrganizationTaxes($orgTaxInstances)
     {
         if (sizeof($orgTaxInstances) > 100) {
@@ -192,6 +197,7 @@ class OrganizationAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     public function updateOrganizationTaxes($orgTaxInstances)
     {
         if (sizeof($orgTaxInstances) > 100) {
@@ -220,6 +226,7 @@ class OrganizationAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     public function deleteOrganizationTax($orgTaxId)
     {
         try {
@@ -233,6 +240,7 @@ class OrganizationAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     public function deleteOrganizationTaxes($orgTaxIds)
     {
         if (sizeof($orgTaxIds) > 100) {
@@ -251,6 +259,7 @@ class OrganizationAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     public function getZCRMorgTax($orgTaxDetails){
         $orgTaxInstance=ZCRMOrgTax::getInstance($orgTaxDetails['name'], $orgTaxDetails['id']);
         $orgTaxInstance->setValue($orgTaxDetails['display_label']);
@@ -401,6 +410,7 @@ class OrganizationAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     public function constructJSONForZCRMOrgTax($orgTaxInstance)
     {
         $orgTaxJson = array();
@@ -420,6 +430,7 @@ class OrganizationAPIHandler extends APIHandler
         
         return $orgTaxJson;
     }
+    
     public function constructJSONForUser($userInstanceArray)
     {
         $userArray = array();
@@ -658,6 +669,7 @@ class OrganizationAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     public function searchUsersByCriteria($criteria,$param_map)
     {
         try {
@@ -683,6 +695,7 @@ class OrganizationAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     public function getAllUsers($param_map,$header_map)
     {
         return self::getUsers($param_map,$header_map,'AllUsers');

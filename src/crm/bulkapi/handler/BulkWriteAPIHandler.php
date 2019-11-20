@@ -227,7 +227,7 @@ class BulkWriteAPIHandler extends APIHandler
         {
             $fieldMappingJSON["api_name"] = $fieldMappingObj->getFieldAPIName();
         }
-        if ($fieldMappingObj->getIndex() == 0 || $fieldMappingObj->getIndex() != null)
+        if ($fieldMappingObj->getIndex() >= 0 && $fieldMappingObj->getIndex() != null)
         {
             $fieldMappingJSON["index"] = $fieldMappingObj->getIndex();
         }

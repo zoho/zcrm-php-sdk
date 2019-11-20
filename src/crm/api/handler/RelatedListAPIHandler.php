@@ -126,6 +126,7 @@ class RelatedListAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     public function addNotes($noteInstances){
         if (sizeof($noteInstances) > 100) {
             throw new ZCRMException(APIConstants::API_MAX_NOTES_MSG, APIConstants::RESPONSECODE_BAD_REQUEST);
@@ -152,6 +153,7 @@ class RelatedListAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     public function addNote($zcrmNote)
     {
         try {

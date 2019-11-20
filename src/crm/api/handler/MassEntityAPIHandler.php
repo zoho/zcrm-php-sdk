@@ -76,6 +76,7 @@ class MassEntityAPIHandler extends APIHandler
             throw $e;
         }
     }
+    
     public function upsertRecords($records, $trigger,$lar_id,$duplicate_check_fields)
     {
         if (sizeof($records) > 100) {

@@ -155,15 +155,12 @@ class MetaDataAPIHandler extends APIHandler
         return $crmModuleInstance;
     }
     
-    
-    
     public function getRelatedListProperties($relatedListProperties)
     {
         $relatedListPropInstance = ZCRMRelatedListProperties::getInstance();
         $relatedListPropInstance->setSortBy(array_key_exists("sort_by", $relatedListProperties) ? $relatedListProperties['sort_by'] : null);
         $relatedListPropInstance->setSortOrder(array_key_exists("sort_order", $relatedListProperties) ? $relatedListProperties['sort_order'] : null);
         $relatedListPropInstance->setFields(array_key_exists("fields", $relatedListProperties) ? $relatedListProperties['fields'] : null);
-        
         return $relatedListPropInstance;
     }
     
@@ -220,6 +217,7 @@ class MetaDataAPIHandler extends APIHandler
         }
         return $criteria_instance;
     }
+    
     /**
      * Method to process the given custom view details and set them in ZCRMCustomView instance
      * Input:: custom view details as array

@@ -42,6 +42,7 @@ class VariableAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     private function getVariablesResAsObj($jsonData,$entityInstance)
     {
         foreach($jsonData as $key=>$value)
@@ -80,6 +81,7 @@ class VariableAPIHandler extends APIHandler
             }
         }
     }
+    
     public function getVariable($group)
     {
         try{
@@ -106,6 +108,7 @@ class VariableAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     private function getVariableResAsObj($jsonData,$entityInstance)
     {
         foreach($jsonData as $key=>$value)
@@ -144,6 +147,7 @@ class VariableAPIHandler extends APIHandler
             }
         }
     }
+    
     public function createVariables($variable)
     {
         try{
@@ -169,6 +173,7 @@ class VariableAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     private function convertObjectToJson($entityInstance)
     {
         $variablesJson=array();
@@ -212,6 +217,7 @@ class VariableAPIHandler extends APIHandler
         }
         return  $variablesJson;
     }
+    
     public function updateVariables($variable)
     {
         try{
@@ -237,6 +243,7 @@ class VariableAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     public function updateVariable()
     {
         try{
@@ -260,6 +267,7 @@ class VariableAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     public function deleteVariable()
     {
         try{
@@ -283,6 +291,7 @@ class VariableAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     public function setVariables($variables)
     {
         $this->variables=$variables;

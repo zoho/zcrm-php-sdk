@@ -15,6 +15,7 @@ class VariableGroupAPIHandler extends APIHandler
     {
         return  new VariableGroupAPIHandler();
     }
+    
     public function getVariableGroups()
     {
         try{
@@ -41,6 +42,7 @@ class VariableGroupAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     private function getVariableGroupsResAsObj($jsonData,$entityInstance)
     {
         foreach($jsonData as $key=>$value)
@@ -68,6 +70,7 @@ class VariableGroupAPIHandler extends APIHandler
             }
         }
     }
+    
     public function getVariableGroup()
     {
         try{
@@ -90,6 +93,7 @@ class VariableGroupAPIHandler extends APIHandler
             throw $exception;
         }
     }
+    
     private function getVariableGroupResAsObj($jsonData,$entityInstance)
     {
         foreach($jsonData as $key=>$value)
@@ -117,6 +121,7 @@ class VariableGroupAPIHandler extends APIHandler
             }
         }
     }
+    
     public function setVariableGroups($variable_groups)
     {
         $this->variable_groups=$variable_groups;

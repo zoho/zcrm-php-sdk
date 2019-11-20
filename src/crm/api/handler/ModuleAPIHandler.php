@@ -37,8 +37,7 @@ class ModuleAPIHandler extends APIHandler
     
     public function getModuleDetails()
     {
-        $this->module = MetaDataAPIHandler::getInstance()->getModule($this->module->getAPIName())
-        ->getData();
+        $this->module = MetaDataAPIHandler::getInstance()->getModule($this->module->getAPIName())->getData();
     }
     
     /**
@@ -295,9 +294,6 @@ class ModuleAPIHandler extends APIHandler
             throw $exception;
         }
     }
-    
-    
-    
     
     public function getLayouts($allLayoutDetails)
     {

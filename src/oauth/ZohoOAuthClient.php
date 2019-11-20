@@ -19,6 +19,7 @@ class ZohoOAuthClient
     {
         $this->zohoOAuthParams = $params;
     }
+
     public static function getInstance($params)
     {
         self::$zohoOAuthClient = new ZohoOAuthClient($params);
@@ -76,6 +77,7 @@ class ZohoOAuthClient
     {
         self::refreshAccessToken($refreshToken, $userEmailId);
     }
+    
     public function refreshAccessToken($refreshToken, $userEmailId)
     {
         
