@@ -274,6 +274,14 @@ class MassEntityAPIHandler extends APIHandler
     {
         try {
             $this->urlPath = $this->module->getAPIName();
+
+            // Internally, some modules MUST be in lowercase, otherwise we receive a oauth_scope_mismatch error...
+            if ($this->urlPath === 'Visits') {
+                $this->urlPath = 'visits';
+            } else if ($this->urlPath === 'Actions_Performed') {
+                $this->urlPath = 'actions_performed';
+            }
+
             $this->requestMethod = APIConstants::REQUEST_METHOD_GET;
             $this->addHeader("Content-Type", "application/json");
             if ($customHeaders != null) {
