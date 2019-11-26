@@ -10,19 +10,18 @@ use zcrmsdk\oauth\utility\ZohoOAuthTokens;
 class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface
 {
     
-    public function setIncludePath()
+    public function getTokenPersistencePath()
     {
         $path = ZohoOAuth::getConfigValue('token_persistence_path');
         $path = trim($path);
-        set_include_path($path);
+        return $path;
     }
     
     public function saveOAuthData($zohoOAuthTokens)
     {
         try {
             self::deleteOAuthTokens($zohoOAuthTokens->getUserEmailId());
-            self::setIncludePath();
-            $content = file_get_contents("zcrm_oauthtokens.txt", FILE_USE_INCLUDE_PATH);
+            $content = file_get_contents(self::getTokenPersistencePath()."/zcrm_oauthtokens.txt" );
             if ($content == "") {
                 $arr = array();
             } else {
@@ -30,7 +29,7 @@ class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface
             }
             array_push($arr, $zohoOAuthTokens);
             $serialized = serialize($arr);
-            file_put_contents("zcrm_oauthtokens.txt", $serialized, FILE_USE_INCLUDE_PATH);
+            file_put_contents(self::getTokenPersistencePath()."/zcrm_oauthtokens.txt",$serialized );
         } catch (Exception $ex) {
             Logger::severe("Exception occured while Saving OAuthTokens to file(file::ZohoOAuthPersistenceByFile)({$ex->getMessage()})\n{$ex}");
             throw $ex;
@@ -40,8 +39,7 @@ class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface
     public function getOAuthTokens($userEmailId)
     {
         try {
-            self::setIncludePath();
-            $serialized = file_get_contents("zcrm_oauthtokens.txt", FILE_USE_INCLUDE_PATH);
+            $serialized = file_get_contents(self::getTokenPersistencePath()."/zcrm_oauthtokens.txt" );
             if (! isset($serialized) || $serialized == "") {
                 throw new ZohoOAuthException("No Tokens exist for the given user-identifier,Please generate and try again.");
             }
@@ -71,8 +69,7 @@ class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface
     public function deleteOAuthTokens($userEmailId)
     {
         try {
-            self::setIncludePath();
-            $serialized = file_get_contents("zcrm_oauthtokens.txt", FILE_USE_INCLUDE_PATH);
+            $serialized = file_get_contents(self::getTokenPersistencePath()."/zcrm_oauthtokens.txt" );
             if (! isset($serialized) || $serialized == "") {
                 return;
             }
@@ -90,7 +87,7 @@ class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface
                 $arr = array_values(array_filter($arr));
             }
             $serialized = serialize($arr);
-            file_put_contents("zcrm_oauthtokens.txt", $serialized, FILE_USE_INCLUDE_PATH);
+            file_put_contents(self::getTokenPersistencePath()."/zcrm_oauthtokens.txt",$serialized );
         } catch (Exception $ex) {
             Logger::severe("Exception occured while Saving OAuthTokens to file(file::ZohoOAuthPersistenceByFile)({$ex->getMessage()})\n{$ex}");
             throw $ex;
