@@ -8,11 +8,17 @@ class Logger
     {
         $path = trim(ZCRMConfigUtil::getConfigValue(APIConstants::APPLICATION_LOGFILE_PATH));
         if (!ZCRMConfigUtil::getConfigValue(APIConstants::APPLICATION_LOGFILE_PATH)) {
-            $path=posix_getpwuid(posix_getuid())["dir"];
+            $dir_path = __DIR__;
+            if(strpos($dir_path, "vendor")!==false){
+                $path = substr($dir_path,0, strpos($dir_path, "vendor")-1);
+            }
+            else{
+                $path = substr($dir_path,0, strpos($dir_path, "src")-1);
+            }
         }
         $filePointer = fopen($path . APIConstants::APPLICATION_LOGFILE_NAME, "a");
         if (! $filePointer) {
-            return;
+            return; 
         }
         fwrite($filePointer, sprintf("%s %s\n", date("Y-m-d H:i:s"), $msg));
         fclose($filePointer);
