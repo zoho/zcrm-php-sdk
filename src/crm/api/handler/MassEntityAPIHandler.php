@@ -312,10 +312,9 @@ class MassEntityAPIHandler extends APIHandler
         try {
             $this->urlPath = $this->module->getAPIName() . "/search";
             $this->requestMethod = APIConstants::REQUEST_METHOD_GET;
-            
             $exclusion_array = ["word","phone","email","criteria"];
             foreach($exclusion_array as $exclusion){
-                if($param_map[$exclusion]!==null){
+                if(array_key_exists($exclusion, $param_map)){
                     unset($param_map[$exclusion]);
                 }
             }
