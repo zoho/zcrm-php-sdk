@@ -6,7 +6,7 @@ class Logger
 	{
 		set_include_path(ZCRMConfigUtil::getConfigValue('applicationLogFilePath'));
 		$path=get_include_path();
-		if($path{strlen($path)-1}!='\/')
+		if($path[strlen($path)-1]!='\/')
 		{
 			$path=$path."/";
 		}
