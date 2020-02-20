@@ -1,5 +1,6 @@
 .DS_Store
 .project
 .buildpath
+.idea/
 /vendor
 /.settings
