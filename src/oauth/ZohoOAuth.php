@@ -54,7 +54,9 @@ class ZohoOAuth
             ZohoOAuthConstants::DATABASE_PORT,
             ZohoOAuthConstants::DATABASE_PASSWORD,
             ZohoOAuthConstants::DATABASE_USERNAME,
-            ZohoOAuthConstants::PERSISTENCE_HANDLER_CLASS_NAME
+            ZohoOAuthConstants::PERSISTENCE_HANDLER_CLASS_NAME,
+            ZohoOAuthConstants::DATABASE_NAME,
+            ZohoOAuthConstants::HOST_ADDRESS
         );
         
         if (! array_key_exists(ZohoOAuthConstants::ACCESS_TYPE, $configuration) || $configuration[ZohoOAuthConstants::ACCESS_TYPE] == "") {
