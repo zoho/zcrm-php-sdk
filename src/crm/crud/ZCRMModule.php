@@ -1064,10 +1064,10 @@ class ZCRMModule
      * @param string $entityId record id
      * @return APIResponse instance of the APIResponse class which holds the API response.
      */
-    public function getRecord($entityId)
+    public function getRecord($entityId,$param_map=array(),$header_map=array())
     {
         $record = ZCRMRecord::getInstance($this->apiName, $entityId);
-        return EntityAPIHandler::getInstance($record)->getRecord();
+        return EntityAPIHandler::getInstance($record)->getRecord($param_map,$header_map);
     }
     
     /**

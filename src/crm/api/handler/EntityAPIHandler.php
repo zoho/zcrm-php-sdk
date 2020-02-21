@@ -29,11 +29,17 @@ class EntityAPIHandler extends APIHandler
         return new EntityAPIHandler($zcrmrecord);
     }
     
-    public function getRecord()
+    public function getRecord($param_map=array(),$header_map=array())
     {
         try {
             $this->requestMethod = APIConstants::REQUEST_METHOD_GET;
             $this->urlPath = $this->record->getModuleApiName() . "/" . $this->record->getEntityId();
+            foreach ($param_map as $key => $value) {
+                if($value!==null)$this->addParam($key, $value);
+            }
+            foreach ($header_map as $key => $value) {
+                if($value!==null)$this->addHeader($key, $value);
+            }
             $this->addHeader("Content-Type", "application/json");
             $responseInstance = APIRequest::getInstance($this)->getAPIResponse();
             $recordDetails = $responseInstance->getResponseJSON()['data'];

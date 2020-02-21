@@ -12,7 +12,7 @@ class Module
 
     public function __construct()
     {
-        $configuration = [];
+        $configuration=[];
         ZCRMRestClient::initialize($configuration);
     }
 
@@ -590,10 +590,11 @@ class Module
     public function getRecord()
     {
         $moduleIns = ZCRMRestClient::getInstance()->getModuleInstance("{module_api_name}"); // To get module instance
-        $response = $moduleIns->getRecord("{record_id}"); // To get module records
+        $param_map = array("fields"=>"Company,Last_Name"); // key-value pair containing all the params - optional
+        $header_map = array("header_name"=>"header_value"); // key-value pair containing all the headers - optional
+        $response = $moduleIns->getRecord("{record_id}",$param_map,$header_map); // To get module records
         $record = $response->getData(); // To get response data
         try {
-
             echo "\n\n";
             echo $record->getEntityId(); // To get record id
             echo $record->getModuleApiName(); // To get module api name
@@ -1487,5 +1488,5 @@ class Module
 }
 
 $obj = new Module();
-$obj->getPermanentlyDeletedRecords();
+$obj->getRecord();
 ?>
