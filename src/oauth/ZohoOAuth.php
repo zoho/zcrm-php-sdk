@@ -5,6 +5,7 @@ use Exception;
 use zcrmsdk\oauth\exception\ZohoOAuthException;
 use zcrmsdk\oauth\persistence\ZohoOAuthPersistenceByFile;
 use zcrmsdk\oauth\persistence\ZohoOAuthPersistenceHandler;
+use zcrmsdk\oauth\persistence\ZohoOAuthPersistenceInterface;
 use zcrmsdk\oauth\utility\ZohoOAuthConstants;
 use zcrmsdk\oauth\utility\ZohoOAuthParams;
 
