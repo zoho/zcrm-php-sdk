@@ -48,6 +48,7 @@ class ZohoOAuth
             ZohoOAuthConstants::CLIENT_SECRET,
             ZohoOAuthConstants::REDIRECT_URL,
             ZohoOAuthConstants::ACCESS_TYPE,
+            ZohoOAuthConstants::PERSISTENCE_HANDLER,
             ZohoOAuthConstants::PERSISTENCE_HANDLER_CLASS,
             ZohoOAuthConstants::IAM_URL,
             ZohoOAuthConstants::TOKEN_PERSISTENCE_PATH,
@@ -139,6 +140,9 @@ class ZohoOAuth
         try {
             if(ZohoOAuth::getConfigValue("token_persistence_path")!=""){
                 return new ZohoOAuthPersistenceByFile() ;
+            }
+            else if(self::$configProperties[ZohoOAuthConstants::PERSISTENCE_HANDLER] instanceof ZohoOAuthPersistenceInterface){
+                return self::$configProperties[ZohoOAuthConstants::PERSISTENCE_HANDLER];
             }
             else if(self::$configProperties[ZohoOAuthConstants::PERSISTENCE_HANDLER_CLASS] == "ZohoOAuthPersistenceHandler"){
                 return new ZohoOAuthPersistenceHandler();
