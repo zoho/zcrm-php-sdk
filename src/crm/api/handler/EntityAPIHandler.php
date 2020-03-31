@@ -416,7 +416,7 @@ class EntityAPIHandler extends APIHandler
         foreach ($recordDetails as $key => $value) {
             if ("id" == $key) {
                 $this->record->setEntityId($value);
-            } else if ("Product_Details" == $key && array_key_exists(APIConstants::INVENTORY_MODULES, $this->record->getModuleApiName())) {
+            } else if ("Product_Details" == $key && array_key_exists($this->record->getModuleApiName(), APIConstants::INVENTORY_MODULES)) {
                 $this->setInventoryLineItems($value);
             } else if ("Participants" == $key && $this->record->getModuleApiName() == "Events") {
                 $this->setParticipants($value);
