@@ -416,11 +416,11 @@ class EntityAPIHandler extends APIHandler
         foreach ($recordDetails as $key => $value) {
             if ("id" == $key) {
                 $this->record->setEntityId($value);
-            } else if ("Product_Details" == $key) {
+            } else if ("Product_Details" == $key && array_key_exists(APIConstants::INVENTORY_MODULES, $this->record->getModuleApiName())) {
                 $this->setInventoryLineItems($value);
-            } else if ("Participants" == $key) {
+            } else if ("Participants" == $key && $this->record->getModuleApiName() == "Events") {
                 $this->setParticipants($value);
-            } else if ("Pricing_Details" == $key) {
+            } else if ("Pricing_Details" == $key && $this->record->getModuleApiName() == "Price_Books") {
                 $this->setPriceDetails($value);
             } else if ("Created_By" == $key) {
                 $createdBy = ZCRMUser::getInstance($value["id"], $value["name"]);
