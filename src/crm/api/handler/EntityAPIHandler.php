@@ -40,6 +40,7 @@ class EntityAPIHandler extends APIHandler
             foreach ($header_map as $key => $value) {
                 if($value!==null)$this->addHeader($key, $value);
             }
+            
             $this->addHeader("Content-Type", "application/json");
             $responseInstance = APIRequest::getInstance($this)->getAPIResponse();
             $recordDetails = $responseInstance->getResponseJSON()['data'];
@@ -52,7 +53,7 @@ class EntityAPIHandler extends APIHandler
         }
     }
     
-    public function createRecord($trigger, $lar_id)
+    public function createRecord($trigger, $lar_id,$process)
     {
         try {
             if ($this->record->getEntityId() != NULL) {
@@ -70,6 +71,9 @@ class EntityAPIHandler extends APIHandler
             }
             if ($lar_id !== null) {
                 $requestBodyObj["lar_id"] = $lar_id;
+            }
+            if($process !== null && is_array($process) ){
+                $requestBodyObj["process"] =$process;
             }
             
             $this->requestBody = json_encode($requestBodyObj);
@@ -90,7 +94,7 @@ class EntityAPIHandler extends APIHandler
         }
     }
     
-    public function updateRecord($trigger)
+    public function updateRecord($trigger,$process)
     {
         try {
             if ($this->record->getEntityId() == NULL) {
@@ -106,7 +110,9 @@ class EntityAPIHandler extends APIHandler
             if ($trigger !== null && is_array($trigger)) {
                 $requestBodyObj["trigger"] = $trigger;
             }
-            
+            if($process !== null && is_array($process) ){
+                $requestBodyObj["process"] =$process;
+            }
             
             $this->requestBody =json_encode( $requestBodyObj);
             $responseInstance = APIRequest::getInstance($this)->getAPIResponse();

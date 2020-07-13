@@ -588,14 +588,14 @@ class ZCRMRecord
      * @return APIResponse instance of the APIResponse class which holds the API response.
      *
      */
-    public function create( $trigger = null,$lar_id = null)
+    public function create( $trigger = null,$lar_id = null,$process = null)
     {
         if (self::getEntityId() != null) {
             $exception = new ZCRMException("Entity ID MUST be null for create operation.", APIConstants::RESPONSECODE_BAD_REQUEST);
             $exception->setExceptionCode("ID EXIST");
             throw $exception;
         }
-        return EntityAPIHandler::getInstance($this)->createRecord($trigger ,$lar_id);
+        return EntityAPIHandler::getInstance($this)->createRecord($trigger ,$lar_id,$process);
     }
     
     /**
@@ -605,14 +605,14 @@ class ZCRMRecord
      * @throws ZCRMException if Entity ID of the record is NULL
      * @return APIResponse instance of the APIResponse class which holds the API response.
      */
-    public function update( $trigger = null)
+    public function update( $trigger = null,$process = null)
     {
         if (self::getEntityId() == null) {
             $exception = new ZCRMException("Entity ID MUST NOT be null for update operation.", APIConstants::RESPONSECODE_BAD_REQUEST);
             $exception->setExceptionCode("ID MISSING");
             throw $exception;
         }
-        return EntityAPIHandler::getInstance($this)->updateRecord($trigger );
+        return EntityAPIHandler::getInstance($this)->updateRecord($trigger,$process);
     }
     
     /**

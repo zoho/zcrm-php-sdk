@@ -24,7 +24,7 @@ class MassEntityAPIHandler extends APIHandler
         return new MassEntityAPIHandler($moduleInstance);
     }
     
-    public function createRecords($records, $trigger,$lar_id)
+    public function createRecords($records, $trigger,$lar_id,$process)
     {
         if (sizeof($records) > 100) {
             throw new ZCRMException(APIConstants::API_MAX_RECORDS_MSG, APIConstants::RESPONSECODE_BAD_REQUEST);
@@ -48,6 +48,9 @@ class MassEntityAPIHandler extends APIHandler
             }
             if ($lar_id !== null) {
                 $requestBodyObj["lar_id"] = $lar_id;
+            }
+            if($process !== null && is_array($process) ){
+                $requestBodyObj["process"] =$process;
             }
             
             $this->requestBody = $requestBodyObj;
@@ -77,7 +80,7 @@ class MassEntityAPIHandler extends APIHandler
         }
     }
     
-    public function upsertRecords($records, $trigger,$lar_id,$duplicate_check_fields)
+    public function upsertRecords($records, $trigger,$lar_id,$duplicate_check_fields,$process)
     {
         if (sizeof($records) > 100) {
             throw new ZCRMException(APIConstants::API_MAX_RECORDS_MSG, APIConstants::RESPONSECODE_BAD_REQUEST);
@@ -106,6 +109,9 @@ class MassEntityAPIHandler extends APIHandler
             if ($lar_id !== null) {
                 $requestBodyObj["lar_id"] = $lar_id;
             }
+            if($process !== null && is_array($process) ){
+                $requestBodyObj["process"] =$process;
+            }
             $this->requestBody = $requestBodyObj;
             
             // Fire Request
@@ -133,7 +139,7 @@ class MassEntityAPIHandler extends APIHandler
         }
     }
     
-    public function updateRecords($records, $trigger)
+    public function updateRecords($records, $trigger,$process)
     {
         if (sizeof($records) > 100) {
             throw new ZCRMException(APIConstants::API_MAX_RECORDS_MSG, APIConstants::RESPONSECODE_BAD_REQUEST);
@@ -154,6 +160,9 @@ class MassEntityAPIHandler extends APIHandler
             $requestBodyObj["data"] = $dataArray;
             if ($trigger !== null && is_array($trigger)) {
                 $requestBodyObj["trigger"] = $trigger;
+            }
+            if($process !== null && is_array($process) ){
+                $requestBodyObj["process"] =$process;
             }
             
             $this->requestBody = $requestBodyObj;
