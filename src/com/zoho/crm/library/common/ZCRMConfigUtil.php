@@ -112,13 +112,13 @@ class ZCRMConfigUtil
 	{
 		$currentUserEmail= ZCRMRestClient::getCurrentUserEmailID();
 
-		if ($currentUserEmail == null && self::getConfigValue("currentUserEmail") == null)
+		if ($currentUserEmail == null && \Illuminate\Support\Facades\Config::get('zoho.currentUserEmail') == null)
 		{
 			throw new ZCRMException("Current user should either be set in ZCRMRestClient or in configuration.properties file");
 		}
 		else if ($currentUserEmail == null)
 		{
-			$currentUserEmail = self::getConfigValue("currentUserEmail");
+			$currentUserEmail = \Illuminate\Support\Facades\Config::get('zoho.currentUserEmail');
 		}
 		$oAuthCliIns = ZohoOAuth::getClientInstance();
 		return $oAuthCliIns->getAccessToken($currentUserEmail);

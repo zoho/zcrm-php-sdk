@@ -4,7 +4,7 @@ class Logger
 {
 	public static function writeToFile($msg)
 	{
-		set_include_path(ZCRMConfigUtil::getConfigValue('applicationLogFilePath'));
+		set_include_path(set_include_path(ZCRMConfigUtil::getConfigValue('applicationLogFilePath')));
 		$path=get_include_path();
 		if($path[strlen($path)-1]!='\/')
 		{
@@ -19,7 +19,7 @@ class Logger
 		fwrite($filePointer,sprintf("%s %s\n",date("Y-m-d H:i:s"),$msg));
 		fclose($filePointer);
 	}
-	
+
 	public static function warn($msg)
 	{
 		self::writeToFile("WARNING: $msg");
