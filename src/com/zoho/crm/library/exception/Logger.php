@@ -19,7 +19,7 @@ class Logger
 		fwrite($filePointer,sprintf("%s %s\n",date("Y-m-d H:i:s"),$msg));
 		fclose($filePointer);
 	}
-	
+
 	public static function warn($msg)
 	{
 		self::writeToFile("WARNING: $msg");
