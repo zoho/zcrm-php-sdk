@@ -299,7 +299,7 @@ class MassEntityAPIHandler extends APIHandler
             $this->addHeader("Content-Type", "application/json");
             $responseInstance = APIRequest::getInstance($this)->getBulkAPIResponse();
             $responseJSON = $responseInstance->getResponseJSON();
-            $records = $responseJSON["data"];
+            $records = $responseJSON["data"]??[];
             $recordsList = array();
             foreach ($records as $record) {
                 $recordInstance = ZCRMRecord::getInstance($this->module->getAPIName(), $record["id"]);
