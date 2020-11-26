@@ -17,7 +17,6 @@ class APIExceptionHandler
     public static function getFaultyResponseCodes()
     {
         return array(
-            APIConstants::RESPONSECODE_NO_CONTENT,
             APIConstants::RESPONSECODE_NOT_MODIFIED,
             APIConstants::RESPONSECODE_NOT_FOUND,
             APIConstants::RESPONSECODE_AUTHORIZATION_ERROR,
@@ -31,6 +30,5 @@ class APIExceptionHandler
             APIConstants::RESPONSECODE_TOO_MANY_REQUEST,
             APIConstants::RESPONSECODE_UNSUPPORTED_MEDIA_TYPE
         );
-        // return array(200,201,202,204,301,302,400,401,403,404,405,413,415,429,500);
     }
 }
