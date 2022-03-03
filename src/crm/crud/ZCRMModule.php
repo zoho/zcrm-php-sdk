@@ -1152,9 +1152,9 @@ class ZCRMModule
      * @param string $lar_id lead assignment rule id
      * @return BulkAPIResponse instance of the BulkAPIResponse class which holds the Bulk API response.
      */
-    public function updateRecords($records, $trigger = null)
+    public function updateRecords($records, $trigger = null,$process = null)
     {
-        return MassEntityAPIHandler::getInstance($this)->updateRecords($records, $trigger);
+        return MassEntityAPIHandler::getInstance($this)->updateRecords($records, $trigger,$process);
     }
     
     /**
@@ -1165,9 +1165,9 @@ class ZCRMModule
      * @param string $lar_id lead assignment rule id
      * @return BulkAPIResponse instance of the BulkAPIResponse class which holds the Bulk API response.
      */
-    public function createRecords($records, $trigger = null,$lar_id = null)
+    public function createRecords($records, $trigger = null,$lar_id = null,$process = null)
     {
-        return MassEntityAPIHandler::getInstance($this)->createRecords($records, $trigger,$lar_id);
+        return MassEntityAPIHandler::getInstance($this)->createRecords($records, $trigger,$lar_id,$process);
     }
     
     /**
@@ -1178,9 +1178,9 @@ class ZCRMModule
      * @param string $lar_id lead assignment rule id
      * @return BulkAPIResponse instance of the BulkAPIResponse class which holds the Bulk API response.
      */
-    public function upsertRecords($records, $trigger = null,$lar_id = null,$duplicate_check_fields=null)
+    public function upsertRecords($records, $trigger = null,$lar_id = null,$duplicate_check_fields=null,$process = null)
     {
-        return MassEntityAPIHandler::getInstance($this)->upsertRecords($records, $trigger,$lar_id,$duplicate_check_fields);
+        return MassEntityAPIHandler::getInstance($this)->upsertRecords($records, $trigger,$lar_id,$duplicate_check_fields,$process);
     }
     
     /**

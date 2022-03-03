@@ -158,7 +158,9 @@ class ZohoOAuthClient
         $connector->addHeadder(ZohoOAuthConstants::AUTHORIZATION, ZohoOAuthConstants::OAUTH_HEADER_PREFIX . $accessToken);
         $apiResponse = $connector->get();
         $jsonResponse = self::processResponse($apiResponse);
-        
+        if(!array_key_exists("Email", $jsonResponse)){
+            throw new ZohoOAuthException("Exception while fetching UserID from access token, Make sure AAAserver.profile.Read scope is included while generating the Grant token " . $jsonResponse);
+        }
         return $jsonResponse['Email'];
     }
     

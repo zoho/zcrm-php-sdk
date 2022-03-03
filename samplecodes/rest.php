@@ -4,13 +4,13 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 class RestC
 {
-
+    
     public function __construct()
     {
         $configuration = [];
         ZCRMRestClient::initialize($configuration);
     }
-
+    
     public function getAllModules()
     {
         $rest = ZCRMRestClient::getInstance(); // to get the rest client
@@ -50,7 +50,7 @@ class RestC
             echo $module->getSequenceNumber(); // to get the sequence number of the module
         }
     }
-
+    
     public function getModule()
     {
         $rest = ZCRMRestClient::getInstance(); // to get the rest client
@@ -101,7 +101,7 @@ class RestC
             }
         }
         $RelatedListProperties = $module->getRelatedListProperties(); // to get the related list properties in form of ZCRMRelatedListProperties instance array
-
+        
         if ($RelatedListProperties != null) {
             echo $RelatedListProperties->getSortBy(); // to get the sort by field of the related list
             echo $RelatedListProperties->getSortOrder(); // to get the sort order of the related list
@@ -126,7 +126,7 @@ class RestC
         echo $module->getDefaultTerritoryName(); // to get the default territory name
         echo $module->getDefaultTerritoryId(); // to get the default territory id
         $customview = $module->getDefaultCustomView(); // to get the default custom view of the module in form of ZCRMCustomView instance
-
+        
         if ($customview != null) {
             echo $customview->getDisplayValue(); // to get the display value of the custom view
             echo $customview->isDefault(); // to check whether the custom view is default
@@ -134,7 +134,7 @@ class RestC
             echo $customview->getName(); // to get the name of the custom view
             echo $customview->getSystemName(); // to get the system name
             echo $customview->getSortBy(); // to get the sort by field of the custom view
-
+            
             $fields = $customview->getFields(); // to get the field names of the custom view
             foreach ($fields as $field) {
                 echo $field;
@@ -160,28 +160,28 @@ class RestC
         echo $module->getSequenceNumber(); // to get the sequence number of the module
         echo $module->getDefaultCustomViewId(); // to get the default custom view id
     }
-
+    
     public static function getRecordInstance()
     {
         $rest = ZCRMRestClient::getInstance(); // to get the rest client
         $record_Instance = $rest->getRecordInstance("{module_API_Name}", "record_id"); // to get dummy record object
         return $record_Instance;
     }
-
+    
     public static function getModuleInstance()
     {
         $rest = ZCRMRestClient::getInstance(); // to get the rest client
         $module_Instance = $rest->getModuleInstance("{module_API_Name}"); // to get dummy module object
         return $module_Instance;
     }
-
+    
     public static function getOrganizationInstance()
     {
         $rest = ZCRMRestClient::getInstance(); // to get the rest client
         $organization_Instance = $rest->getOrganizationInstance(); // to get dummy organization object
         return $organization_Instance;
     }
-
+    
     public function getCurrentUser()
     {
         $rest = ZCRMRestClient::getInstance(); // to get the rest client
@@ -241,7 +241,7 @@ class RestC
             echo $userInstance->getStatus(); // to get the status of the user
         }
     }
-
+    
     public static function getOrganizationDetails(){
         $rest=ZCRMRestClient::getInstance();//to get the rest client
         $orgIns=$rest->getOrganizationDetails()->getData();//to get the organization in form of ZCRMOrganization instance
@@ -279,4 +279,3 @@ class RestC
 $obj = new RestC();//object of the class
 
 $obj->getOrganizationDetails();//function call
-?>
