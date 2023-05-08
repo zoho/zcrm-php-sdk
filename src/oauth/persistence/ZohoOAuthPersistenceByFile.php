@@ -22,6 +22,11 @@ class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface
         try {
             self::deleteOAuthTokens($zohoOAuthTokens->getUserEmailId());
             $content = file_get_contents(self::getTokenPersistencePath()."/zcrm_oauthtokens.txt" );
+            
+            if ($content === false) {
+                throw new ZohoOAuthException("Can not read tokens file, please check permissions: " . self::getTokenPersistencePath()."/zcrm_oauthtokens.txt");
+            }
+            
             if ($content == "") {
                 $arr = array();
             } else {
@@ -29,7 +34,11 @@ class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface
             }
             array_push($arr, $zohoOAuthTokens);
             $serialized = serialize($arr);
-            file_put_contents(self::getTokenPersistencePath()."/zcrm_oauthtokens.txt",$serialized );
+            $result = file_put_contents(self::getTokenPersistencePath()."/zcrm_oauthtokens.txt",$serialized );
+            
+            if ($result === false) {
+                throw new ZohoOAuthException("Can not write to tokens file, please check permissions: " . self::getTokenPersistencePath()."/zcrm_oauthtokens.txt");
+            }
         } catch (Exception $ex) {
             Logger::severe("Exception occured while Saving OAuthTokens to file(file::ZohoOAuthPersistenceByFile)({$ex->getMessage()})\n{$ex}");
             throw $ex;
@@ -40,6 +49,11 @@ class ZohoOAuthPersistenceByFile implements ZohoOAuthPersistenceInterface
     {
         try {
             $serialized = file_get_contents(self::getTokenPersistencePath()."/zcrm_oauthtokens.txt" );
+            
+            if ($serialized === false) {
+                throw new ZohoOAuthException("Can not read tokens file, please check permissions: " . self::getTokenPersistencePath()."/zcrm_oauthtokens.txt");
+            }
+            
             if (! isset($serialized) || $serialized == "") {
                 throw new ZohoOAuthException("No Tokens exist for the given user-identifier,Please generate and try again.");
             }
