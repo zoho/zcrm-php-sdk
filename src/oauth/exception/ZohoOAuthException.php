@@ -13,10 +13,10 @@ class ZohoOAuthException extends \Exception
     protected $code = 0;
     
     // User-defined exception code
-    protected $file;
+    protected string $file;
     
     // Source filename of exception
-    protected $line;
+    protected int $line;
     
     // Source line of exception
     private $trace;
