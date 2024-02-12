@@ -269,11 +269,11 @@ class ZCRMRecord
     }
 
     /**
-     * Unset field value
+     * Unset field value.
      *
      * @param String $apiName api name of the field.
      */
-    public function unsetFieldValue($apiName,)
+    public function unsetFieldValue($apiName)
     {
         unset($this->fieldNameVsValue[$apiName]);
     }
