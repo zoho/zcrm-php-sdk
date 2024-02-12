@@ -267,7 +267,17 @@ class ZCRMRecord
     {
         $this->fieldNameVsValue[$apiName] = $value;
     }
-    
+
+    /**
+     * Unset field value.
+     *
+     * @param String $apiName api name of the field.
+     */
+    public function unsetFieldValue($apiName)
+    {
+        unset($this->fieldNameVsValue[$apiName]);
+    }
+
     /**
      * Method to get an array(key-value pair) containing field name as key and field data as value for the record
      *
