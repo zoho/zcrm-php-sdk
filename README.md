@@ -2,12 +2,7 @@
 
 This SDK is archived. You can continue to use it, but no new features or support requests will be accepted. For the new version, refer to
 
-v2 API SDK:
-- [GitHub Repository](https://github.com/zoho/zohocrm-php-sdk-2.0)
-- [Help Doc](https://www.zoho.com/crm/developer/docs/php-sdk/v2/php.html)
-
-v2.1 API SDK:
-- [GitHub Repository](https://github.com/zoho/zohocrm-php-sdk-2.1)
+- [https://www.zoho.com/crm/developer/docs/sdk/server-side/php-sdk.html](https://www.zoho.com/crm/developer/docs/sdk/server-side/php-sdk.html)
 
 # PHP SDK for Zoho CRM
 
