@@ -1,8 +1,6 @@
 # Archival Notice:
 
-This SDK is archived. You can continue to use it, but no new features or support requests will be accepted. For the new version, refer to
-
-- [https://www.zoho.com/crm/developer/docs/sdk/server-side/php-sdk.html](https://www.zoho.com/crm/developer/docs/sdk/server-side/php-sdk.html)
+This SDK is archived. You can continue to use it, but no new features or support requests will be accepted. For the new version, refer to https://www.zoho.com/crm/developer/docs/sdk/server-side/php-sdk.html
 
 # PHP SDK for Zoho CRM
 
