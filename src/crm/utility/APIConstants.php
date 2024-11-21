@@ -52,11 +52,11 @@ class APIConstants
     
     const QUOTES = "Quotes";
     
-    const SALESORDERS = "SalesOrders";
+    const SALESORDERS = "Sales_Orders";
     
     const INVOICES = "Invoices";
     
-    const PURCHASEORDERS = "PurchaseOrders";
+    const PURCHASEORDERS = "Purchase_Orders";
     
     const PER_PAGE = "per_page";
     
