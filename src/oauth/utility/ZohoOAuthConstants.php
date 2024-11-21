@@ -52,6 +52,8 @@ class ZohoOAuthConstants
     
     const EXPIRIY_TIME = "expiry_time";
     
+    const PERSISTENCE_HANDLER = "persistence_handler";
+    
     const PERSISTENCE_HANDLER_CLASS = "persistence_handler_class";
     
     const PERSISTENCE_HANDLER_CLASS_NAME = "persistence_handler_class_name";

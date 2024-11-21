@@ -84,6 +84,7 @@ apiBaseUrl
 apiVersion
 access_type
 accounts_url
+persistence_handler
 persistence_handler_class
 token_persistence_path
 db_port
@@ -115,7 +116,9 @@ applicationLogFilePath - The SDK stores the log information in a file.
     The file path of the folder must be specified in the key and the SDK automatically creates the file. The default file name is the ZCRMClientLibrary.log.
     In case the path isn't specified, the log file will be created inside the project.
 
-persistence_handler_class is the implementation of the ZohoOAuthPersistenceInterface.
+persistence_handler_class is the implementation of the ZohoOAuthPersistenceInterface. This will instantiate a class based on the file location. eg \home\php\CustomPersistence.php
+
+persistence_handler - You can inject an instantiated persistence hander into the configuration during run time to pass yourcustom persistence handler to the XohoOAuth class.
 
 >If the Optional keys are not specified, their default values will be assigned automatically.
 >The 'apiBaseUrl' and 'accounts_url' are mandatory in case the user is not in the "com" domain. 
