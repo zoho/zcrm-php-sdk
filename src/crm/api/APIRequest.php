@@ -46,7 +46,7 @@ class APIRequest
         {
             self::constructAPIUrl($apiHandler);
             self::setUrl($this->url . $apiHandler->getUrlPath());
-            if (substr($apiHandler->getUrlPath(), 0, 4) !== "http")
+            if (substr($this->url, 0, 4) !== "http")
             {
                 self::setUrl("https://" . $this->url);
             }
