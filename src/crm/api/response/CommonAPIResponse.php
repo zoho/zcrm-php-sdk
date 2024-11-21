@@ -112,10 +112,15 @@ class CommonAPIResponse
                 $headerMap[$firstHalf] = trim($secondHalf);
             }
         }
-        $jsonResponse = json_decode($content, true);
-        if ($jsonResponse == null && $this->httpStatusCode != APIConstants::RESPONSECODE_NO_CONTENT) {
-            list ($headers, $content) = explode("\r\n\r\n", $content, 2);
+        
+        $jsonResponse = [];
+        if($content)
+        {
             $jsonResponse = json_decode($content, true);
+            if ($jsonResponse == null && $this->httpStatusCode != APIConstants::RESPONSECODE_NO_CONTENT) {
+                list ($headers, $content) = explode("\r\n\r\n", $content, 2);
+                $jsonResponse = json_decode($content, true);
+            }
         }
         $this->responseJSON = $jsonResponse;
         $this->responseHeaders = $headerMap;
